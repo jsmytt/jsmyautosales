@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vehicle Detail</title>
+</head>
+<body>
+
+{% for Car in posts %}
+    <div class="post">
+        <h2>{{ Car.title }}</h2>
+        {% if Car.created %}
+            <div class="date">
+                {{ Car.created }}
+            </div>
+        {% endif %}
+        <p>{{ Car.body|linebreaksbr }}</p>
+    </div>
+{% endfor %}
+
+</body>
+</html>

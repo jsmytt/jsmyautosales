@@ -15,6 +15,7 @@ class Car(models.Model):
     created = models.DateField(auto_now_add=True)
     modified = models.DateField(auto_now=True)
 
+
     object = EntryQuerySet.as_manager()
 
     def __str__(self):

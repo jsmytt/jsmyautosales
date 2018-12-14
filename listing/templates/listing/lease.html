@@ -1,18 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
+
+
+
+{% extends 'index.html' %}
+
 <head>
     <meta charset="UTF-8">
     <title>New Car Listing</title>
+
 </head>
+
+{% block summary %}
 <body>
 
 {% for Car in posts %}
     <div>
-        <h2><a href="{% url 'listing:car_detail' pk=Car.pk %}">{{ Car.title }}</a></h2>
+        <h2><a href="{% url 'listing:detailListing' %}">{{ Car.title }}</a></h2>
         <p>published: {{ Car.created }}</p>
         <p>{{ Car.body|linebreaksbr }}</p>
     </div>
 {% endfor %}
 
 </body>
+{% endblock %}
 </html>

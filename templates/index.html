@@ -1,6 +1,8 @@
+
 <!DOCTYPE html>
 <html lang="en">
 {% load static %}
+
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,7 +10,7 @@
 	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
 	<title>Callie HTML Template</title>
-
+{% block head %}
 	<!-- Google font -->
 	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700%7CMuli:400,700" rel="stylesheet">
 
@@ -27,11 +29,12 @@
 		  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
-
+{% endblock %}
 </head>
 
 <body>
 	<!-- HEADER -->
+    {% block header %}
 	<header id="header">
 		<!-- NAV -->
 		<div id="nav">
@@ -46,8 +49,8 @@
 					</div>
 					<!-- /logo -->
                                                  <div class="nav-btns">
-                                             <h1 class="aside-btn"><h1 class "fa fa-bars"> </h></button>
-                                             <h1 class="search-btn"><h1 class="fa fa-search"></h></button> </div>
+                                                     <h1 class="aside-btn"></h1><h1 class "fa fa-bars"> </h1></button>
+                                                     <h1 class="search-btn"></h1><h1 class="fa fa-search"></h1></button> </div>
                                 </div>
 			</div>
 
@@ -77,7 +80,7 @@
 							</div>
 						</li>
 						<li class="has-dropdown megamenu">
-							<a href="#">New Vehicles</a>
+							<a href="{% url 'listing:newListing' %}">New Vehicles</a>
 							<div class="dropdown tab-dropdown">
 								<div class="row">
 									<div class="col-md-2">
@@ -219,7 +222,7 @@
 							</div>
 						</li>
 						<li class="has-dropdown megamenu">
-							<a href="#">Used Vehicles</a>
+							<a href="{% url 'listing:usedListing' %}">Used Vehicles</a>
 							<div class="dropdown">
 								<div class="dropdown-body">
 									<div class="row">
@@ -272,7 +275,7 @@
 								</div>
 							</div>
 						</li>
-						<li><a href="#">Lease</a></li>
+						<li><a href="{% url 'listing:leaseListing' %}">Lease</a></li>
 						<li><a href="#">Vehicle Info.</a></li>
 						<li><a href="#">Contact Us</a></li>
 					</ul>
@@ -286,7 +289,8 @@
 		<!-- /NAV -->
 	</header>
 	<!-- /HEADER -->
-
+    {% endblock %}
+{% block summary %}
 	<!-- SECTION -->
 	<div class="section">
 		<!-- container -->
@@ -505,7 +509,8 @@
 	</div>
 	<!-- /SECTION -->
 
-
+{% endblock %}
+{% block footer %}
 	<!-- FOOTER -->
 	<footer id="footer">
 		<!-- container -->
@@ -605,7 +610,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 	<script src='{% static "bootstrap.min.js" %}'></script>
 	<script src='{% static "jquery.stellar.min.js" %}'></script>
 	<script src='{% static "main.js" %}'></script>
-
+{% endblock %}
 </body>
 
 </html>

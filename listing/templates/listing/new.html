@@ -7,21 +7,19 @@
 
 <head>
     <meta charset="UTF-8">
-
-    <title>{{ car.title }}</title>
+    <title>New Car Listing</title>
 
 </head>
 
 {% block summary %}
 <body>
-<h1>{{ car.title }} - {{ car.type }} </h1>
-<p> {{ car.body }}</p>
-<p> {{ car.created }}</p>
-<p> {{ car.price }}</p>
+
+{% for Car in posts %}
     <div>
+        <h2><a href="{% url 'listing:detailListing' Car.slug%}">{{ Car.title }}</a></h2>
 
     </div>
-
+{% endfor %}
 
 </body>
 {% endblock %}

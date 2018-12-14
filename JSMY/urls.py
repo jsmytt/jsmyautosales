@@ -24,6 +24,6 @@ admin.site.site_title = "JSMY Admin"
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', TemplateView.as_view(template_name="home.html")),
+    path('', TemplateView.as_view(template_name="index copy.html")),
     path('', include('listing.urls')),
 ]

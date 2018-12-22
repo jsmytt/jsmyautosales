@@ -15,10 +15,13 @@
 {% block summary %}
 <body>
 <h1>{{ car.title }} - {{ car.type }} </h1>
-<p> {{ car.body }}</p>
+<p> {{ car.body|safe }}</p>
 <p> {{ car.created }}</p>
 <p> {{ car.price }}</p>
-    <div>
+<img src="{{ car.LImage.url }}" width="50" height="70" >
+
+
+<div>
 
     </div>
 

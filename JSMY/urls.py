@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include, reverse
 from django.views.generic import TemplateView
-
+from . import views
 admin.site.site_header = "JSMY Administration Portal"
 admin.site.site_title = "JSMY Admin"
 #admin.site.index_title = ""
@@ -24,6 +24,6 @@ admin.site.site_title = "JSMY Admin"
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', TemplateView.as_view(template_name="index.html")),
+    path('', views.banner.as_view(), name='index'),
     path('', include('listing.urls')),
 ]

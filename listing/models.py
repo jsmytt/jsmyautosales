@@ -14,6 +14,7 @@ class Car(models.Model):
     publish = models.BooleanField(default=True)
     created = models.DateField(auto_now_add=True)
     modified = models.DateField(auto_now=True)
+    LImage = models.ImageField(null=True, blank=True, upload_to="listing")
 
 
     object = EntryQuerySet.as_manager()
@@ -28,18 +29,4 @@ class Car(models.Model):
 
 
 
-# ***** model for creating comment field ******
-# class Comment(models.Model):
-#     post = models.ForeignKey('listing.post', on_delete=models.CASCADE, related_name='comments')
-#     author = models.CharField(max_length=200)
-#     text = models.TextField()
-#     created_date = models.DateTimeField(auto_now_add=True)
-#     approved_comment = models.BooleanField(default=False)
-#
-#     def approve(self):
-#         self.approved_comment = True
-#         self.save()
-#
-#     def __str__(self):
-#         return self.text
 

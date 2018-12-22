@@ -1,15 +1,14 @@
-
 <!DOCTYPE html>
 <html lang="en">
 {% load static %}
-
+{% load humanize %}
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-	<title>Callie HTML Template</title>
+	<title>JSMY Auto Sales</title>
 {% block head %}
 	<!-- Google font -->
 	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700%7CMuli:400,700" rel="stylesheet">
@@ -48,14 +47,43 @@
 						<p><a href="index.html" class="logo"><img src="{% static 'logo.png' %}" alt=""></a></p><br>
 					</div>
 					<!-- /logo -->
-                                                 <div class="nav-btns">
-                                                     <h1 class="aside-btn"></h1><h1 class "fa fa-bars"> </h1></button>
-                                                     <h1 class="search-btn"></h1><h1 class="fa fa-search"></h1></button> </div>
-                                </div>
+
+
+					<!-- search & aside toggle -->
+					<div class="nav-btns">
+						<button class="aside-btn"><i class="fa fa-bars"></i></button>
+						<button class="search-btn"><i class="fa fa-search"></i></button>
+						<div id="nav-search">
+							<form>
+								<input class="input" name="search" placeholder="Enter your search...">
+							</form>
+							<button class="nav-close search-close">
+								<span></span>
+							</button>
+						</div>
+					</div>
+					<!-- /search & aside toggle -->
 			</div>
 
-                        
-                        
+  			<!-- Aside Nav -->
+			<div id="nav-aside">
+				<ul class="nav-aside-menu">
+					<li><a href="index.html">Home</a></li>
+					<li class="has-dropdown"><a>Categories</a>
+						<ul class="dropdown">
+							<li><a href="#">New Vehicles</a></li>
+                            <li><a href="#">Used Vehicles</a></li>
+                            <li><a href="#">Lease Vehicles</a></li>
+                            <li><a href="#">Vehicle Info.</a></li>
+						</ul>
+					</li>
+					<li><a href="about.html">About Us</a></li>
+					<li><a href="contact.html">Contacts</a></li>
+					<li><a href="#">Advertise</a></li>
+				</ul>
+				<button class="nav-close nav-aside-close"><span></span></button>
+			</div>
+			<!-- /Aside Nav -->
 
 			<!-- /Top Nav -->
 
@@ -65,213 +93,28 @@
 					<!-- nav -->
 					<ul class="nav-menu">
 						<li class="has-dropdown">
-							<a href="index.html">Home</a>
+							<a href="{% url 'listing:newListing' %}">New Vehicles</a>
 							<div class="dropdown">
 								<div class="dropdown-body">
-									<ul class="dropdown-list">
-										<li><a href="category.html">Category page</a></li>
-										<li><a href="blog-post.html">Post page</a></li>
-										<li><a href="author.html">Author page</a></li>
-										<li><a href="about.html">About Us</a></li>
-										<li><a href="contact.html">Contacts</a></li>
-										<li><a href="blank.html">Regular</a></li>
-									</ul>
+                                    <ul class="dropdown-list">
+                                        <li><h4><a href="#">All Categories</a></h4></li>
+                                        <li><a href="#">Japanese</a></li>
+                                        <li><a href="#">American</a></li>
+                                        <li><a href="#">European</a></li>
+                                    </ul>
 								</div>
 							</div>
 						</li>
-						<li class="has-dropdown megamenu">
-							<a href="{% url 'listing:newListing' %}">New Vehicles</a>
-							<div class="dropdown tab-dropdown">
-								<div class="row">
-									<div class="col-md-2">
-										<ul class="tab-nav">
-											<li class="active"><a data-toggle="tab" href="#tab1">New Vehicles</a></li>
-											<li><a data-toggle="tab" href="#tab2">Fashion</a></li>
-											<li><a data-toggle="tab" href="#tab1">Health</a></li>
-											<li><a data-toggle="tab" href="#tab2">Travel</a></li>
-										</ul>
-									</div>
-									<div class="col-md-10">
-										<div class="dropdown-body tab-content">
-											<!-- tab1 -->
-											<div id="tab1" class="tab-pane fade in active">
-												<div class="row">
-													<!-- post -->
-													<div class="col-md-4">
-														<div class="post post-sm">
-															<a class="post-img" href="blog-post.html"><img src='{% static "post-10.jpg" %}' alt=""></a>
-															<div class="post-body">
-																<div class="post-category">
-																	<a href="category.html">Travel</a>
-																</div>
-																<h3 class="post-title title-sm"><a href="blog-post.html">Sed ut perspiciatis, unde omnis iste natus error sit</a></h3>
-																<ul class="post-meta">
-																	<li><a href="author.html">John Doe</a></li>
-																	<li>20 April 2018</li>
-																</ul>
-															</div>
-														</div>
-													</div>
-													<!-- /post -->
-
-													<!-- post -->
-													<div class="col-md-4">
-														<div class="post post-sm">
-															<a class="post-img" href="blog-post.html"><img src='{% static "post-13.jpg" %}' alt=""></a>
-															<div class="post-body">
-																<div class="post-category">
-																	<a href="category.html">Travel</a>
-																	<a href="category.html">Lifestyle</a>
-																</div>
-																<h3 class="post-title title-sm"><a href="blog-post.html">Mel ut impetus suscipit tincidunt. Cum id ullum laboramus persequeris.</a></h3>
-																<ul class="post-meta">
-																	<li><a href="author.html">John Doe</a></li>
-																	<li>20 April 2018</li>
-																</ul>
-															</div>
-														</div>
-													</div>
-													<!-- /post -->
-
-													<!-- post -->
-													<div class="col-md-4">
-														<div class="post post-sm">
-															<a class="post-img" href="blog-post.html"><img src='{% static "post-12.jpg" %}' alt=""></a>
-															<div class="post-body">
-																<div class="post-category">
-																	<a href="category.html">Lifestyle</a>
-																</div>
-																<h3 class="post-title title-sm"><a href="blog-post.html">Mel ut impetus suscipit tincidunt. Cum id ullum laboramus persequeris.</a></h3>
-																<ul class="post-meta">
-																	<li><a href="author.html">John Doe</a></li>
-																	<li>20 April 2018</li>
-																</ul>
-															</div>
-														</div>
-													</div>
-													<!-- /post -->
-												</div>
-											</div>
-											<!-- /tab1 -->
-
-											<!-- tab2 -->
-											<div id="tab2" class="tab-pane fade in">
-												<div class="row">
-													<!-- post -->
-													<div class="col-md-4">
-														<div class="post post-sm">
-															<a class="post-img" href="blog-post.html"><img src='{% static "post-5.jpg" %}' alt=""></a>
-															<div class="post-body">
-																<div class="post-category">
-																	<a href="category.html">Lifestyle</a>
-																</div>
-																<h3 class="post-title title-sm"><a href="blog-post.html">Postea senserit id eos, vivendo periculis ei qui</a></h3>
-																<ul class="post-meta">
-																	<li><a href="author.html">John Doe</a></li>
-																	<li>20 April 2018</li>
-																</ul>
-															</div>
-														</div>
-													</div>
-													<!-- /post -->
-
-													<!-- post -->
-													<div class="col-md-4">
-														<div class="post post-sm">
-															<a class="post-img" href="blog-post.html"><img src='{% static "post-8.jpg" %}' alt=""></a>
-															<div class="post-body">
-																<div class="post-category">
-																	<a href="category.html">Fashion</a>
-																	<a href="category.html">Lifestyle</a>
-																</div>
-																<h3 class="post-title title-sm"><a href="blog-post.html">Sed ut perspiciatis, unde omnis iste natus error sit</a></h3>
-																<ul class="post-meta">
-																	<li><a href="author.html">John Doe</a></li>
-																	<li>20 April 2018</li>
-																</ul>
-															</div>
-														</div>
-													</div>
-													<!-- /post -->
-
-													<!-- post -->
-													<div class="col-md-4">
-														<div class="post post-sm">
-															<a class="post-img" href="blog-post.html"><img src='{% static "post-9.jpg" %}' alt=""></a>
-															<div class="post-body">
-																<div class="post-category">
-																	<a href="category.html">Lifestyle</a>
-																</div>
-																<h3 class="post-title title-sm"><a href="blog-post.html">Mel ut impetus suscipit tincidunt. Cum id ullum laboramus persequeris.</a></h3>
-																<ul class="post-meta">
-																	<li><a href="author.html">John Doe</a></li>
-																	<li>20 April 2018</li>
-																</ul>
-															</div>
-														</div>
-													</div>
-													<!-- /post -->
-												</div>
-											</div>
-											<!-- /tab2 -->
-
-											<!-- /tab3 tab4 .. -->
-										</div>
-									</div>
-								</div>
-							</div>
-						</li>
-						<li class="has-dropdown megamenu">
+						<li class="has-dropdown">
 							<a href="{% url 'listing:usedListing' %}">Used Vehicles</a>
 							<div class="dropdown">
 								<div class="dropdown-body">
-									<div class="row">
-										<div class="col-md-3">
-											<h4 class="dropdown-heading">Categories</h4>
-											<ul class="dropdown-list">
-												<li><a href="#">Lifestyle</a></li>
-												<li><a href="#">Fashion</a></li>
-												<li><a href="#">Technology</a></li>
-												<li><a href="#">Health</a></li>
-												<li><a href="#">Travel</a></li>
-											</ul>
-										</div>
-										<div class="col-md-3">
-											<h4 class="dropdown-heading">Lifestyle</h4>
-											<ul class="dropdown-list">
-												<li><a href="#">Lifestyle</a></li>
-												<li><a href="#">Fashion</a></li>
-												<li><a href="#">Health</a></li>
-											</ul>
-											<h4 class="dropdown-heading">Technology</h4>
-											<ul class="dropdown-list">
-												<li><a href="#">Lifestyle</a></li>
-												<li><a href="#">Travel</a></li>
-											</ul>
-										</div>
-										<div class="col-md-3">
-											<h4 class="dropdown-heading">Fashion</h4>
-											<ul class="dropdown-list">
-												<li><a href="#">Fashion</a></li>
-												<li><a href="#">Technology</a></li>
-											</ul>
-											<h4 class="dropdown-heading">Travel</h4>
-											<ul class="dropdown-list">
-												<li><a href="#">Lifestyle</a></li>
-												<li><a href="#">Healtth</a></li>
-												<li><a href="#">Fashion</a></li>
-											</ul>
-										</div>
-										<div class="col-md-3">
-											<h4 class="dropdown-heading">Health</h4>
-											<ul class="dropdown-list">
-												<li><a href="#">Technology</a></li>
-												<li><a href="#">Fashion</a></li>
-												<li><a href="#">Health</a></li>
-												<li><a href="#">Travel</a></li>
-											</ul>
-										</div>
-									</div>
+                                    <ul class="dropdown-list">
+                                        <li><h4><a href="#">All Categories</a></h4></li>
+                                        <li><a href="#">Japanese</a></li>
+                                        <li><a href="#">American</a></li>
+                                        <li><a href="#">European</a></li>
+                                    </ul>
 								</div>
 							</div>
 						</li>
@@ -291,208 +134,235 @@
 	<!-- /HEADER -->
     {% endblock %}
 {% block summary %}
-	<!-- SECTION -->
+<!-- SECTION -->
 	<div class="section">
 		<!-- container -->
-		<div class="container">
-			<!-- row -->
-			<div id="hot-post" class="row hot-post">
-				<div class="col-md-8 hot-post-left">
-					<!-- post -->
-					<div class="post post-thumb">
-						<a class="post-img" href="blog-post.html"><img src='{% static "hot-post-1.jpg" %}' alt=""></a>
-						<div class="post-body">
-							<div class="post-category">
-								<a href="category.html">Lifestyle</a>
-							</div>
-							<h3 class="post-title title-lg"><a href="blog-post.html">Postea senserit id eos, vivendo periculis ei qui</a></h3>
-							<ul class="post-meta">
-								<li><a href="author.html">John Doe</a></li>
-								<li>20 April 2018</li>
-							</ul>
-						</div>
-					</div>
-					<!-- /post -->
-				</div>
-				<div class="col-md-4 hot-post-right">
-					<!-- post -->
-					<div class="post post-thumb">
-						<a class="post-img" href="blog-post.html"><img src='{% static "hot-post-2.jpg" %}' alt=""></a>
-						<div class="post-body">
-							<div class="post-category">
-								<a href="category.html">Lifestyle</a>
-							</div>
-							<h3 class="post-title"><a href="blog-post.html">Sed ut perspiciatis, unde omnis iste natus error sit</a></h3>
-							<ul class="post-meta">
-								<li><a href="author.html">John Doe</a></li>
-								<li>20 April 2018</li>
-							</ul>
-						</div>
-					</div>
-					<!-- /post -->
-
-					<!-- post -->
-					<div class="post post-thumb">
-						<a class="post-img" href="blog-post.html"><img src='{% static "hot-post-3.jpg" %}' alt=""></a>
-						<div class="post-body">
-							<div class="post-category">
-								<a href="category.html">Fashion</a>
-								<a href="category.html">Lifestyle</a>
-							</div>
-							<h3 class="post-title"><a href="blog-post.html">Mel ut impetus suscipit tincidunt. Cum id ullum laboramus persequeris.</a></h3>
-							<ul class="post-meta">
-								<li><a href="author.html">John Doe</a></li>
-								<li>20 April 2018</li>
-							</ul>
-						</div>
-					</div>
-					<!-- /post -->
-				</div>
-			</div>
-			<!-- /row -->
-		</div>
-		<!-- /container -->
-	</div>
-	<!-- /SECTION -->
-
-	<!-- SECTION -->
-	<div class="section">
-		<!-- container -->
-		<div class="container">
+		<div class="container" >
 			<!-- row -->
 			<div class="row">
-				<div class="col-md-8">
+				<div class="col-md-9">
 					<!-- row -->
 					<div class="row">
-						<div class="col-md-12">
+                        <div class="col-md-12">
+
+
+
+                            						<div class="col-md-10">
+							<div class="post">
+
+								<a class="post-img" href=""><img src="{% static 'logo.png' %}" > </a>
+								<div class="post-thumb">
+									<div>
+										<a style="color:#0600ff;" href=""></a>
+									</div>
+
+								</div>
+							</div>
+						</div>
+
+                        <div class="clearfix visible-md visible-lg"></div>
+
+
+
 							<div class="section-title">
-								<h2 class="title">Recent posts</h2>
+								<h2 class="title">New Vehicles</h2>
 							</div>
 						</div>
-						<!-- post -->
-						<div class="col-md-6">
+                        <div class="clearfix visible-md visible-lg"></div>
+
+
+
+
+                        {% if lennew > 4 %}
+                        {% for news in new|slice:":4" %}
+						<!-- new1 post -->
+						<div class="col-md-3">
 							<div class="post">
-								<a class="post-img" href="blog-post.html"><img src='{% static "post-1.jpg" %}' alt=""></a>
-								<div class="post-body">
-									<div class="post-category">
-										<a href="category.html">Travel</a>
+
+								<a class="post-img" href="{% url 'listing:detailListing' news.slug %}"><img src="{{ news.LImage.url }}" > </a>
+								<div class="post-thumb">
+									<div>
+										<a style="color:#0600ff;" href="{% url 'listing:detailListing' news.slug %}">${{ news.price|floatformat:0|intcomma }}</a>
 									</div>
-									<h3 class="post-title"><a href="blog-post.html">Sed ut perspiciatis, unde omnis iste natus error sit</a></h3>
-									<ul class="post-meta">
-										<li><a href="author.html">John Doe</a></li>
-										<li>20 April 2018</li>
-									</ul>
+									<p><a href="{% url 'listing:detailListing' news.slug %}">{{ news.title }}</a></p>
 								</div>
 							</div>
 						</div>
-						<!-- /post -->
-
-						<!-- post -->
-						<div class="col-md-6">
+                                    {% endfor %}
+                            {% else %}
+                                                    {% for news in new|slice:":{{ lennew }}" %}
+						<!-- new1 post -->
+						<div class="col-md-3">
 							<div class="post">
-								<a class="post-img" href="blog-post.html"><img src='{% static "post-2.jpg" %}' alt=""></a>
-								<div class="post-body">
-									<div class="post-category">
-										<a href="category.html">Technology</a>
-										<a href="category.html">Lifestyle</a>
+
+								<a class="post-img" href="{% url 'listing:detailListing' news.slug %}"><img src="{{ news.LImage.url }}" > </a>
+								<div class="post-thumb">
+									<div>
+										<a style="color:#0600ff;" href="{% url 'listing:detailListing' news.slug %}">${{ news.price|floatformat:0|intcomma }}</a>
 									</div>
-									<h3 class="post-title"><a href="blog-post.html">Ne bonorum praesent cum, labitur persequeris definitionem quo cu?</a></h3>
-									<ul class="post-meta">
-										<li><a href="author.html">John Doe</a></li>
-										<li>20 April 2018</li>
-									</ul>
+									<p><a href="{% url 'listing:detailListing' news.slug %}">{{ news.title }}</a></p>
 								</div>
 							</div>
 						</div>
+                                    {% endfor %}
+                    {% endif %}
 						<!-- /post -->
 
-						<div class="clearfix visible-md visible-lg"></div>
 
-						<!-- post -->
-						<div class="col-md-6">
+
+
+
+
+
+
+                        <div class="clearfix visible-md visible-lg"></div>
+                        <div class="col-md-12">
+							<div class="section-title">
+								<h2 class="title">Used Vehicles</h2>
+							</div>
+						</div>
+
+<div class="clearfix visible-md visible-lg"></div>
+
+
+                        				<!-- used -->
+                    {% if lenused > 4 %}
+                        {% for useds in used|slice:":4" %}
+						<!-- new1 post -->
+						<div class="col-md-3">
 							<div class="post">
-								<a class="post-img" href="blog-post.html"><img src='{% static "post-4.jpg" %}' alt=""></a>
-								<div class="post-body">
-									<div class="post-category">
-										<a href="category.html">Health</a>
+
+								<a class="post-img" href="{% url 'listing:detailListing' useds.slug %}"><img src="{{ useds.LImage.url }}" > </a>
+								<div class="post-thumb">
+									<div>
+										<a style="color:#0600ff;" href="{% url 'listing:detailListing' useds.slug %}">${{ useds.price|floatformat:0|intcomma }}</a>
 									</div>
-									<h3 class="post-title"><a href="blog-post.html">Postea senserit id eos, vivendo periculis ei qui</a></h3>
-									<ul class="post-meta">
-										<li><a href="author.html">John Doe</a></li>
-										<li>20 April 2018</li>
-									</ul>
+									<p><a href="{% url 'listing:detailListing' useds.slug %}">{{ useds.title }}</a></p>
 								</div>
 							</div>
 						</div>
-						<!-- /post -->
-
-						<!-- post -->
-						<div class="col-md-6">
+                                    {% endfor %}
+                            {% else %}
+                                                    {% for useds in used|slice:":{{ lennew }}" %}
+						<!-- new1 post -->
+						<div class="col-md-3">
 							<div class="post">
-								<a class="post-img" href="blog-post.html"><img src='{% static "post-7.jpg" %}' alt=""></a>
-								<div class="post-body">
-									<div class="post-category">
-										<a href="category.html">Health</a>
-										<a href="category.html">Lifestyle</a>
+
+								<a class="post-img" href="{% url 'listing:detailListing' useds.slug %}"><img src="{{ useds.LImage.url }}" > </a>
+								<div class="post-thumb">
+									<div>
+										<a style="color:#0600ff;" href="{% url 'listing:detailListing' useds.slug %}">${{ useds.price|floatformat:0|intcomma }}</a>
 									</div>
-									<h3 class="post-title"><a href="blog-post.html">Sed ut perspiciatis, unde omnis iste natus error sit</a></h3>
-									<ul class="post-meta">
-										<li><a href="author.html">John Doe</a></li>
-										<li>20 April 2018</li>
-									</ul>
+									<p><a href="{% url 'listing:detailListing' useds.slug %}">{{ useds.title }}</a></p>
 								</div>
 							</div>
 						</div>
+                                    {% endfor %}
+                    {% endif %}
 						<!-- /post -->
+
+
+
+
+
+
+<div class="clearfix visible-md visible-lg"></div>
+
+                        <div class="clearfix visible-md visible-lg"></div>
+                        <div class="col-md-12">
+							<div class="section-title">
+								<h2 class="title">Lease Vehicles</h2>
+							</div>
+						</div>
+
+<div class="clearfix visible-md visible-lg"></div>
+                                                						                        						<!-- lease post -->
+
+                    {% if lenlease > 4 %}
+                        {% for leases in lease|slice:":4" %}
+						<!-- new1 post -->
+						<div class="col-md-3">
+							<div class="post">
+
+								<a class="post-img" href="{% url 'listing:detailListing' leases.slug %}"><img src="{{ leases.LImage.url }}" > </a>
+								<div class="post-thumb">
+									<div>
+										<a style="color:#0600ff;" href="{% url 'listing:detailListing' leases.slug %}">${{ leases.price|floatformat:0|intcomma }}</a>
+									</div>
+									<p><a href="{% url 'listing:detailListing' leases.slug %}">{{ leases.title }}</a></p>
+								</div>
+							</div>
+						</div>
+                                    {% endfor %}
+                            {% else %}
+                                                    {% for leases in lease|slice:":{{ lennew }}" %}
+						<!-- new1 post -->
+						<div class="col-md-3">
+							<div class="post">
+
+								<a class="post-img" href="{% url 'listing:detailListing' leases.slug %}"><img src="{{ leases.LImage.url }}" > </a>
+								<div class="post-thumb">
+									<div>
+										<a style="color:#0600ff;" href="{% url 'listing:detailListing' leases.slug %}">${{ leases.price|floatformat:0|intcomma }}</a>
+									</div>
+									<p><a href="{% url 'listing:detailListing' leases.slug %}">{{ leases.title }}</a></p>
+								</div>
+							</div>
+						</div>
+                                    {% endfor %}
+                    {% endif %}
+
+
+						<!-- /post -->
+
+
+<div class="clearfix visible-md visible-lg"></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 					</div>
 					<!-- /row -->
 
 
 
-
 				</div>
-				<div class="col-md-4">
-					<!-- ad widget-->
-					<div class="aside-widget text-center">
-						<a href="#" style="display: inline-block;margin: auto;">
-							<img class="img-responsive" src='{% static "ad-3.jpg" %}' alt="">
-						</a>
-					</div>
-					<!-- /ad widget -->
+
+                						<div class="col-md-3">
+							<div class="post">
+								<a href="blog-post.html"><img src='{% static "post-7.jpg" %}' width="300" alt=""></a>
+
+							</div>
+                                            							<div class="post">
+								<a href="blog-post.html"><img src='{% static "post-7.jpg" %}' width="300" alt=""></a>
+
+							</div>
+                                            							<div class="post">
+								<a href="blog-post.html"><img src='{% static "post-7.jpg" %}' width="300" height="500" alt=""></a>
+
+							</div>
+                                            							<div class="post">
+								<a href="blog-post.html"><img src='{% static "post-7.jpg" %}' width="300" alt=""></a>
+
+							</div>
+						</div>
 
 
 
-					<!-- category widget -->
-					<div class="aside-widget">
-						<div class="section-title">
-							<h2 class="title">Categories</h2>
-						</div>
-						<div class="category-widget">
-							<ul>
-								<li><a href="#">Lifestyle <span>451</span></a></li>
-								<li><a href="#">Fashion <span>230</span></a></li>
-								<li><a href="#">Technology <span>40</span></a></li>
-								<li><a href="#">Travel <span>38</span></a></li>
-								<li><a href="#">Health <span>24</span></a></li>
-							</ul>
-						</div>
-					</div>
-					<!-- /category widget -->
 
-					<!-- newsletter widget -->
-					<div class="aside-widget">
-						<div class="section-title">
-							<h2 class="title">Newsletter</h2>
-						</div>
-						<div class="newsletter-widget">
-							<form>
-								<p>Nec feugiat nisl pretium fusce id velit ut tortor pretium.</p>
-								<input class="input" name="newsletter" placeholder="Enter Your Email">
-								<button class="primary-button">Subscribe</button>
-							</form>
-						</div>
-					</div>
-					<!-- /newsletter widget -->
 
 
 
@@ -504,10 +374,17 @@
 				</div>
 			</div>
 			<!-- /row -->
+
+
+
+
 		</div>
 		<!-- /container -->
 	</div>
 	<!-- /SECTION -->
+
+
+
 
 {% endblock %}
 {% block footer %}
@@ -515,80 +392,12 @@
 	<footer id="footer">
 		<!-- container -->
 		<div class="container">
-			<!-- row -->
-			<div class="row">
-				<div class="col-md-3">
-					<div class="footer-widget">
-						<div class="footer-logo">
-							<a href="index.html" class="logo"><img src='{% static "logo-alt.png" %}' alt=""></a>
-						</div>
-						<p>Nec feugiat nisl pretium fusce id velit ut tortor pretium. Nisl purus in mollis nunc sed. Nunc non blandit massa enim nec.</p>
-						<ul class="contact-social">
-							<li><a href="#" class="social-facebook"><i class="fa fa-facebook"></i></a></li>
-							<li><a href="#" class="social-twitter"><i class="fa fa-twitter"></i></a></li>
-							<li><a href="#" class="social-google-plus"><i class="fa fa-google-plus"></i></a></li>
-							<li><a href="#" class="social-instagram"><i class="fa fa-instagram"></i></a></li>
-						</ul>
-					</div>
-				</div>
-				<div class="col-md-3">
-					<div class="footer-widget">
-						<h3 class="footer-title">Categories</h3>
-						<div class="category-widget">
-							<ul>
-								<li><a href="#">Lifestyle <span>451</span></a></li>
-								<li><a href="#">Fashion <span>230</span></a></li>
-								<li><a href="#">Technology <span>40</span></a></li>
-								<li><a href="#">Travel <span>38</span></a></li>
-								<li><a href="#">Health <span>24</span></a></li>
-							</ul>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-3">
-					<div class="footer-widget">
-						<h3 class="footer-title">Tags</h3>
-						<div class="tags-widget">
-							<ul>
-								<li><a href="#">Social</a></li>
-								<li><a href="#">Lifestyle</a></li>
-								<li><a href="#">Blog</a></li>
-								<li><a href="#">Travel</a></li>
-								<li><a href="#">Technology</a></li>
-								<li><a href="#">Fashion</a></li>
-								<li><a href="#">Life</a></li>
-								<li><a href="#">News</a></li>
-								<li><a href="#">Magazine</a></li>
-								<li><a href="#">Food</a></li>
-								<li><a href="#">Health</a></li>
-							</ul>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-3">
-					<div class="footer-widget">
-						<h3 class="footer-title">Newsletter</h3>
-						<div class="newsletter-widget">
-							<form>
-								<p>Nec feugiat nisl pretium fusce id velit ut tortor pretium.</p>
-								<input class="input" name="newsletter" placeholder="Enter Your Email">
-								<button class="primary-button">Subscribe</button>
-							</form>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!— /row —>
-
-			<!— row —>
 			<div class="footer-bottom row">
 				<div class="col-md-6 col-md-push-6">
 					<ul class="footer-nav">
 						<li><a href="index.html">Home</a></li>
 						<li><a href="about.html">About Us</a></li>
 						<li><a href="contact.html">Contacts</a></li>
-						<li><a href="#">Advertise</a></li>
-						<li><a href="#">Privacy</a></li>
 					</ul>
 				</div>
 				<div class="col-md-6 col-md-pull-6">

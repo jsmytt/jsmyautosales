@@ -32,3 +32,15 @@ class banner(TemplateView):
                    "Blink1":Blink1, "Blink2":Blink2, "Blink3":Blink3, "Blink4":Blink4, "Blink5":Blink5
                    }
         return render(request, self.template_name, context)
+
+from django.core.mail import send_mail
+from django.conf import settings
+from django.shortcuts import redirect
+
+def email(request):
+    subject = 'Thank you for registering to our site'
+    message = ' it  means a world to us '
+    email_from = settings.EMAIL_HOST_USER
+    recipient_list = ['jsmyautosales@gmail.com',]
+    send_mail( subject, message, email_from, recipient_list )
+    return redirect('index')

@@ -13,23 +13,30 @@ from django.utils import timezone
 class new(TemplateView):
     template_name = 'listing/new.html'
     def get(self, request,):
-        posts = Car.object.filter(type="New",created__lte=timezone.now()).order_by('created')
+        posts = Car.object.filter(type="New", publish=True, created__lte=timezone.now()).order_by('-pk')
         return render(request, self.template_name, {'posts': posts})
 
 
 class used(TemplateView):
     template_name = 'listing/used.html'
     def get(self, request,):
-        posts = Car.object.filter(type="Used",created__lte=timezone.now()).order_by('created')
+        posts = Car.object.filter(type="Used", publish=True, created__lte=timezone.now()).order_by('-pk')
         return render(request, self.template_name, {'posts': posts})
 
 
 class lease(TemplateView):
-    template_name = 'listing/lease.html'
+    template_name = 'listing/rental.html'
     def get(self, request,):
-        posts = Car.object.filter(type="Lease",created__lte=timezone.now()).order_by('created')
+        posts = Car.object.filter(type="Lease", publish=True, created__lte=timezone.now()).order_by('-pk')
         return render(request, self.template_name, {'posts': posts})
 
+def usedsold(request):
+    posts = Car.object.filter(type="Used", sold="Sold", publish=True, created__lte=timezone.now()).order_by('-pk')
+    return render(request, 'listing/used_sold.html', {'posts':posts})
+
+def usedsale(request):
+    posts = Car.object.filter(type="Used", sold="Sale", publish=True, created__lte=timezone.now()).order_by('-pk')
+    return render(request, 'listing/used_for_sale.html', {'posts':posts})
 
 
 def car_detail(request,car_slug):

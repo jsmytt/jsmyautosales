@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+{% extends 'index.html' %}
+
+<head>
+    <meta charset="UTF-8">
+    <title>New Car Listing</title>
+
+</head>
+
+{% block summary %}
+<body>
+
+{% for Car in posts %}
+    <div>
+        <a href="{% url 'listing:detailListing' Car.slug%}"><h2><img src="{{ Car.LImage.url }}" width="50" height="50" > {{ Car.title }}</h2></a>
+
+
+    </div>
+{% endfor %}
+
+</body>
+{% endblock %}
+</html>

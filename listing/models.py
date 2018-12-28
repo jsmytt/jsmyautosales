@@ -7,14 +7,15 @@ class EntryQuerySet(models.QuerySet):
 
 class Car(models.Model):
     type = models.CharField(max_length=25, choices=[('New', 'New Vehicle'), ('Used', 'Used Vehicle'), ('Lease', 'Lease Vehicle')], default='New', verbose_name='Listing Type')
-    title = models.CharField(max_length=200, verbose_name='Title of Vehicle Listing')
+    title = models.CharField(max_length=500, verbose_name='Title of Vehicle Listing')
     price = models.DecimalField(max_digits=8, decimal_places=2, verbose_name='Price of Vehicle in Dollar Amount')
     body = RichTextField(verbose_name='Description of Vehicle')
     slug = models.SlugField(max_length=200, unique=True, verbose_name='SLUG: Your URL will have this in the address')
     publish = models.BooleanField(default=True)
+    sold = models.CharField(max_length=10,verbose_name='Sold Y/N',choices=[('Sale', 'For Sale'), ('Sold', 'Sold')],default='Sale')
     created = models.DateField(auto_now_add=True)
     modified = models.DateField(auto_now=True)
-    LImage = models.ImageField(null=True, blank=True, upload_to="listing")
+    LImage = models.ImageField(null=True, blank=False, upload_to="listing")
 
 
     object = EntryQuerySet.as_manager()

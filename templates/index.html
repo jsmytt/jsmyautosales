@@ -44,7 +44,7 @@
 
 					<!-- logo -->
 					<div class="nav-logo">
-						<p><a href="index.html" class="logo"><img src="{% static 'logo.png' %}" alt=""></a></p><br>
+						<p><a href="{% url 'index' %}" class="logo"><img src="{% static 'logo.png' %}" alt=""></a></p><br>
 					</div>
 					<!-- /logo -->
 
@@ -71,15 +71,14 @@
 					<li><a href="index.html">Home</a></li>
 					<li class="has-dropdown"><a>Categories</a>
 						<ul class="dropdown">
-							<li><a href="#">New Vehicles</a></li>
-                            <li><a href="#">Used Vehicles</a></li>
-                            <li><a href="#">Lease Vehicles</a></li>
-                            <li><a href="#">Vehicle Info.</a></li>
+							<li><a href="{% url 'listing:newListing' %}">New Vehicles</a></li>
+                            <li><a href="{% url 'listing:usedListing' %}">Used Vehicles</a></li>
+                            <li><a href="{% url 'listing:rentalListing' %}">Rental Vehicles</a></li>
+                            <li><a href="#">New Driver FAQ</a></li>
 						</ul>
 					</li>
 					<li><a href="about.html">About Us</a></li>
-					<li><a href="contact.html">Contacts</a></li>
-					<li><a href="#">Advertise</a></li>
+					<li><a href="contact.html">Contact Us</a></li>
 				</ul>
 				<button class="nav-close nav-aside-close"><span></span></button>
 			</div>
@@ -92,34 +91,20 @@
 				<div class="container">
 					<!-- nav -->
 					<ul class="nav-menu">
-						<li class="has-dropdown">
-							<a href="{% url 'listing:newListing' %}">New Vehicles</a>
-							<div class="dropdown">
-								<div class="dropdown-body">
-                                    <ul class="dropdown-list">
-                                        <li><h4><a href="#">All Categories</a></h4></li>
-                                        <li><a href="#">Japanese</a></li>
-                                        <li><a href="#">American</a></li>
-                                        <li><a href="#">European</a></li>
-                                    </ul>
-								</div>
-							</div>
-						</li>
+						<li><a href="{% url 'listing:newListing' %}">New Vehicles - Buy/Lease</a></li>
 						<li class="has-dropdown">
 							<a href="{% url 'listing:usedListing' %}">Used Vehicles</a>
 							<div class="dropdown">
 								<div class="dropdown-body">
                                     <ul class="dropdown-list">
-                                        <li><h4><a href="#">All Categories</a></h4></li>
-                                        <li><a href="#">Japanese</a></li>
-                                        <li><a href="#">American</a></li>
-                                        <li><a href="#">European</a></li>
+                                        <li><a href="{% url 'listing:sale' %}">For Sale</a></li>
+                                        <li><a href="{% url 'listing:sold' %}">Sold</a></li>
                                     </ul>
 								</div>
 							</div>
 						</li>
-						<li><a href="{% url 'listing:leaseListing' %}">Lease</a></li>
-						<li><a href="#">Vehicle Info.</a></li>
+						<li><a href="{% url 'listing:rentalListing' %}">Rental</a></li>
+						<li><a href="#">New Driver FAQ</a></li>
 						<li><a href="#">Contact Us</a></li>
 					</ul>
 					<!-- /nav -->
@@ -145,12 +130,10 @@
 					<div class="row">
                         <div class="col-md-12">
 
-
-
-                            						<div class="col-md-10">
+                            <div class="col-md-10">
 							<div class="post">
 
-								<a class="post-img" href=""><img src="{% static 'logo.png' %}" width = 900> </a>
+								<a href="{{ Blink1 }}"><img src="media/{{ BImage1 }}" width="815" height="250"> </a>
 								<div class="post-thumb">
 									<div>
 										<a style="color:#0600ff;" href=""></a>
@@ -170,42 +153,25 @@
 						</div>
                         <div class="clearfix visible-md visible-lg"></div>
 
-
-
-
-                        {% if lennew > 4 %}
+                    {% if lennew > 4 %}
                         {% for news in new|slice:":4" %}
 						<!-- new1 post -->
-						<div class="col-md-3">
-							<div class="post">
-
-								<a class="post-img" href="{% url 'listing:detailListing' news.slug %}"><img src="{{ news.LImage.url }}" > </a>
-								<div class="post-thumb">
-									<div>
-										<a style="color:#0600ff;" href="{% url 'listing:detailListing' news.slug %}">${{ news.price|floatformat:0|intcomma }}</a>
-									</div>
-									<p><a href="{% url 'listing:detailListing' news.slug %}">{{ news.title }}</a></p>
-								</div>
+							<div class="post-title">
+                                <a href="{% url 'listing:detailListing' news.slug %}">{{ news.title }}</a><br>
+                                <a style="color:#0600ff;" href="{% url 'listing:detailListing' news.slug %}">${{ news.price|floatformat:0|intcomma }}</a>
 							</div>
-						</div>
-                                    {% endfor %}
+                        {% endfor %}
                             {% else %}
-                                                    {% for news in new|slice:":{{ lennew }}" %}
-						<!-- new1 post -->
-						<div class="col-md-3">
-							<div class="post">
 
-								<a class="post-img" href="{% url 'listing:detailListing' news.slug %}"><img src="{{ news.LImage.url }}" > </a>
-								<div class="post-thumb">
-									<div>
+                            {% for news in new|slice:":{{ lennew }}" %}
+						<!-- new1 post -->
+							<div class="post-body">
+                                <a href="{% url 'listing:detailListing' news.slug %}">{{ news.title }}</a><br>
 										<a style="color:#0600ff;" href="{% url 'listing:detailListing' news.slug %}">${{ news.price|floatformat:0|intcomma }}</a>
-									</div>
-									<p><a href="{% url 'listing:detailListing' news.slug %}">{{ news.title }}</a></p>
-								</div>
 							</div>
-						</div>
-                                    {% endfor %}
+                            {% endfor %}
                     {% endif %}
+                    <br>
 						<!-- /post -->
 
 
@@ -232,7 +198,7 @@
 						<div class="col-md-3">
 							<div class="post">
 
-								<a class="post-img" href="{% url 'listing:detailListing' useds.slug %}"><img src="{{ useds.LImage.url }}" > </a>
+								<a class="post-img" href="{% url 'listing:detailListing' useds.slug %}"><img src="{{ useds.LImage.url }}" height="135"> </a>
 								<div class="post-thumb">
 									<div>
 										<a style="color:#0600ff;" href="{% url 'listing:detailListing' useds.slug %}">${{ useds.price|floatformat:0|intcomma }}</a>
@@ -248,7 +214,7 @@
 						<div class="col-md-3">
 							<div class="post">
 
-								<a class="post-img" href="{% url 'listing:detailListing' useds.slug %}"><img src="{{ useds.LImage.url }}" > </a>
+								<a class="post-img" href="{% url 'listing:detailListing' useds.slug %}"><img src="{{ useds.LImage.url }}" height="135"> </a>
 								<div class="post-thumb">
 									<div>
 										<a style="color:#0600ff;" href="{% url 'listing:detailListing' useds.slug %}">${{ useds.price|floatformat:0|intcomma }}</a>
@@ -284,7 +250,7 @@
 						<div class="col-md-3">
 							<div class="post">
 
-								<a class="post-img" href="{% url 'listing:detailListing' leases.slug %}"><img src="{{ leases.LImage.url }}" > </a>
+								<a class="post-img" href="{% url 'listing:detailListing' leases.slug %}"><img src="{{ leases.LImage.url }}" height="135"> </a>
 								<div class="post-thumb">
 									<div>
 										<a style="color:#0600ff;" href="{% url 'listing:detailListing' leases.slug %}">${{ leases.price|floatformat:0|intcomma }}</a>
@@ -300,7 +266,7 @@
 						<div class="col-md-3">
 							<div class="post">
 
-								<a class="post-img" href="{% url 'listing:detailListing' leases.slug %}"><img src="{{ leases.LImage.url }}" > </a>
+								<a class="post-img" href="{% url 'listing:detailListing' leases.slug %}"><img src="{{ leases.LImage.url }}" height="135"> </a>
 								<div class="post-thumb">
 									<div>
 										<a style="color:#0600ff;" href="{% url 'listing:detailListing' leases.slug %}">${{ leases.price|floatformat:0|intcomma }}</a>
@@ -343,19 +309,19 @@
 
                 						<div class="col-md-3">
 							<div class="post">
-								<a href="blog-post.html"><img src='{% static "post-7.jpg" %}' width="300" alt=""></a>
+								<a href="{{ Blink2 }}"><img src="media/{{BImage2}}" width="300" height="250" alt=""></a>
 
 							</div>
                                             							<div class="post">
-								<a href="blog-post.html"><img src='{% static "post-7.jpg" %}' width="300" alt=""></a>
+								<a href="{{ Blink3 }}"><img src="media/{{BImage3}}" width="300" height="250" alt=""></a>
 
 							</div>
                                             							<div class="post">
-								<a href="blog-post.html"><img src='{% static "post-7.jpg" %}' width="300" height="500" alt=""></a>
+								<a href="{{ Blink4 }}"><img src="media/{{BImage4}}" width="300" height="250" alt=""></a>
 
 							</div>
                                             							<div class="post">
-								<a href="blog-post.html"><img src='{% static "post-7.jpg" %}' width="300" alt=""></a>
+								<a href="{{ Blink5 }}"><img src="media/{{BImage5}}" width="300" height="250" alt=""></a>
 
 							</div>
 						</div>

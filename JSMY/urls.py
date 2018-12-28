@@ -26,4 +26,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.banner.as_view(), name='index'),
     path('', include('listing.urls')),
+    path('email/',views.email,name='email'),
+    path('calculator/',views.calculator,name='calculator'),
 ]

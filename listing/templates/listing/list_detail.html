@@ -1,46 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
 
-
-
 {% extends 'index.html' %}
-
+{% load static %}
+{% load humanize %}
 <head>
+
     <meta charset="UTF-8">
-
     <title>{{ car.title }}</title>
-
 </head>
 
+
 {% block summary %}
-<body>
-<h1>{{ car.title }} - {{ car.type }} </h1>
-<p> {{ car.body|safe }}</p>
-<p> {{ car.created }}</p>
-<p> {{ car.price }}</p>
-<img src="{{ car.LImage.url }}" width="50" height="70" >
 
+    <div style="padding-left:250px; padding-right:250px;">
 
+        <body>
+            <br>
+            <h1><img src="{{ car.LImage.url }}" width="70" height="70" > {{ car.title }} - {{ car.type }} **${{ car.price|floatformat:0|intcomma }}**</h1>
+                <br>
+                <h3>Description of Vehicle:</h3>
+                <p> {{ car.body|safe }}</p>
+                <p>Posted: {{ car.created }}</p>
+        </body>
 
-<form action="{% url 'email' %}" method="post">{% csrf_token %}
+        <hr>
 
+        <body>
+            <form action="{% url 'email' %}" method="post">{% csrf_token %}
+                <p>Your Email:<br><textarea name="custemail" rows="1" cols="30"></textarea></p>
+                <p>Your Phone Number:<br><textarea name="phone" rows="1" cols="30"></textarea></p>
+                <p>Email Title:<br><textarea name="topic" rows="1" cols="100">{{ car.title }}</textarea></p>
+                <p>Message:<br><textarea name="body" rows="10" cols="100"></textarea></p>
+                <button type="submit" value="Send" onclick="display()"> SEND </button>
+            </form>
 
-      <p><textarea name="username" rows="10" cols="100" value = "{{ car.price }}">The cat was playing in the garden.</textarea>
-    <p>password:<input type="text" name="password" value="" /></p>
-<button type="submit"> submit </button>
+<script>
+    function display()
+    {
+        alert("Message Has Been Sent!");
+    }
+</script>
 
-</form>
-
-
-
-
-
-
-<div>
+        </body>
 
     </div>
-
-
-</body>
 {% endblock %}
 </html>

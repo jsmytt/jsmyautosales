@@ -1,10 +1,12 @@
 from django.shortcuts import render, get_object_or_404
-from django.views import generic
 from django.views.generic import TemplateView
-# from .forms import CommentForm
 from listing.models import Car
 from django.utils import timezone
 from banner.models import banner as bn
+from django.core.mail import send_mail
+from django.conf import settings
+from django.shortcuts import redirect
+from .forms import LoginForm
 
 class banner(TemplateView):
     template_name = 'index.html'
@@ -32,28 +34,19 @@ class banner(TemplateView):
                    "Blink1":Blink1, "Blink2":Blink2, "Blink3":Blink3, "Blink4":Blink4, "Blink5":Blink5
                    }
         return render(request, self.template_name, context)
-from django.core.mail import send_mail
-from django.conf import settings
-from django.shortcuts import redirect
-from .forms import LoginForm
 
 
-import requests
+
 def email(request):
     form = LoginForm(request.POST)
     if form.is_valid():
-        email1 = form.cleaned_data.get('username')
-        phone_number = form.cleaned_data.get('password')
-        subject = email1
-        message = email1 + phone_number
-
-
-
+        custemail = form.cleaned_data.get('custemail')
+        phone_number = form.cleaned_data.get('phone')
+        subject = form.cleaned_data.get('topic')
+        message = "Customer Email:" +"  "+ custemail +"\n"+"\n"+ "Customer Phone Number:" +"  "+ phone_number +"\n"+"\n"+ form.cleaned_data.get('body')
         email_from = settings.EMAIL_HOST_USER
         recipient_list = ['jsmyautosales@gmail.com',]
         send_mail( subject, message, email_from, recipient_list )
-
-
     return redirect('index')
 
 

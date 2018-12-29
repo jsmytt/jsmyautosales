@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>JSMY - Sold Used Listing</title>
+    <title>JSMY - New Car Listing</title>
 
 <style>
 a {
@@ -29,11 +29,11 @@ a span {
 
 {% block summary %}
 
-    <body>
+<body>
         <br>
         <br>
         {% for Car in pag %}
-            <div style="padding-left:250px; padding-right:250px;">
+            <div class="container">
                 <a href="{% url 'listing:detailListing' Car.slug%}">
                     <img src="{{ Car.LImage.url }}" width="70" height="70" align="middle" hspace="20">
                     <span class="a">{{ Car.title }}<br>${{ Car.price|floatformat:0|intcomma }}</span>
@@ -42,7 +42,7 @@ a span {
             </div>
         {% endfor %}
 
-        <div style="padding-left:250px; padding-right:250px;">
+        <div class="container">
             {% if pag.has_other_pages %}
                 <ul class="pagination">
                     {% if pag.has_previous %}

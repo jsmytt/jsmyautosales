@@ -17,6 +17,7 @@
 
 {% for Car in posts %}
     <div>
+
         <a href="{% url 'listing:detailListing' Car.slug%}"><h2><img src="{{ Car.LImage.url }}" width="50" height="50" > {{ Car.title }}</h2></a>
 
 

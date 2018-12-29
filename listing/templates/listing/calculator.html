@@ -1,0 +1,1219 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE> JSMY Auto Calculator </TITLE>
+
+
+<link rel="stylesheet" href="style1.css" type="text/css"/>
+
+
+<script type="text/javascript">
+
+document.oncontextmenu = function(){ // ���ؽ�Ʈ �޴�����
+
+return false;
+
+};
+
+var initBody;
+function beforePrint()
+{
+   initBody = document.body.innerHTML;
+   document.body.innerHTML = print_page.innerHTML;
+}
+
+function afterPrint()
+{
+  document.body.innerHTML = initBody;
+}
+
+function pageprint()
+{
+     window.onbeforeprint = beforePrint;
+     window.onafterprint = afterPrint;
+     window.print();
+}
+
+
+function handleEnter (field, event) {
+ var keyCode = event.keyCode ? event.keyCode : event.which ? event.which : event.charCode;
+ if (keyCode == 13) {
+ var i;
+ for (i = 0; i < field.form.elements.length; i++)
+ if (field == field.form.elements[i])
+ break;
+ i = (i + 1) % field.form.elements.length;
+ field.form.elements[i].focus();
+ return false;
+ }
+ else
+ return true;
+ }
+
+
+
+function clearFields() {
+    var frm = document.getElementById('form');
+    var em = frm.elements;
+    frm.reset();
+    for(var i=0; i<em.length; i++) {
+        if(em[i].type == 'text') em[i].value = '';
+        if(em[i].type == 'textarea') em[i].value = '';
+    }
+    return;
+}
+
+
+function calculate(frm){
+    var reg, reg1, lease, lease1, drive_lease, sell_cost, cost, acc, acc_sub, acc_sub1, mos_mf, mos_mf1, mos_mf2, tax_adj,tax_adj1,lease_up,lease_down,l_sales_tax, lease_residual;
+    var sales_tax_amt, lease_tax, apr, lease_residual1, num;
+
+	if (parseFloat(frm.elements[2].value) < 5000) {
+		reg = parseFloat(frm.elements[2].value) * 0.006496 + 110 + 25;
+	} else if (parseFloat(frm.elements[2].value) < 25000) {
+		reg = parseFloat(frm.elements[2].value) * 0.006496 + 110 + 50;
+	} else if (parseFloat(frm.elements[2].value) < 35000) {
+		reg = parseFloat(frm.elements[2].value) * 0.006496 + 110 + 100;
+	} else if (parseFloat(frm.elements[2].value) < 60000) {
+		reg = parseFloat(frm.elements[2].value) * 0.006496 + 110 + 150;
+	} else {
+		reg = parseFloat(frm.elements[2].value) * 0.006496 + 110 + 175;
+	}
+
+
+	l_sales_tax = 1 + (parseFloat(frm.elements[9].value) / 100);
+	tax_adj = 1 - (parseFloat(frm.elements[9].value) / 100);
+	tax_adj1 = 1 - (parseFloat(frm.elements[9].value) / 100 * parseFloat(frm.elements[9].value) / 100);
+	cost = parseFloat(frm.elements[8].value) + reg + 217.75;
+	acc_sub1 = cost - parseFloat(frm.elements[6].value) - parseFloat(frm.elements[7].value);
+	sell_cost = parseFloat(frm.elements[2].value) + acc_sub1;
+	acc_sub = tax_adj * acc_sub1;
+	acc = parseFloat(frm.elements[2].value) + acc_sub;
+	mos_mf = parseFloat(frm.elements[5].value) * parseFloat(frm.elements[3].value);
+	mos_mf1 = mos_mf + 1;
+	mos_mf2 = mos_mf - 1;
+
+
+	if (parseFloat(frm.elements[4].value) < 100) {
+		lease_residual = (parseFloat(frm.elements[1].value)) * (parseFloat(frm.elements[4].value)/100);
+		lease_residual1 = parseFloat(frm.elements[4].value)/100 ;
+
+		document.getElementById("result2").innerHTML = "$ " + lease_residual.toFixed(2);
+
+		} else {
+
+		lease_residual = parseFloat(frm.elements[4].value);
+		lease_residual1 = (parseFloat(frm.elements[4].value) / parseFloat(frm.elements[1].value)) * 100;
+
+		document.getElementById("result2").innerHTML = lease_residual1.toFixed(2) + "%";
+	}
+
+
+	drive_lease = parseFloat(frm.elements[6].value) + parseFloat(frm.elements[7].value);
+	apr = parseFloat(frm.elements[3].value) * 2400;
+
+
+	if (drive_lease <= cost) {
+
+		lease_up = (sell_cost * mos_mf1) + (lease_residual * mos_mf2);
+		lease_down = parseFloat(frm.elements[5].value) - (l_sales_tax * mos_mf1);
+		lease = lease_up / lease_down;
+		lease_tax = lease * (l_sales_tax - 1);
+		lease1 = lease * l_sales_tax;
+
+
+		} else {
+
+		lease_up = (acc * mos_mf1) + (lease_residual * mos_mf2);
+		lease_down = parseFloat(frm.elements[5].value) - (tax_adj1 * mos_mf1);
+		lease = lease_up / lease_down;
+		lease_tax = lease * (l_sales_tax - 1);
+		lease1 = lease * l_sales_tax;
+
+	}
+
+	document.getElementById("result").innerHTML = "$ " + lease.toFixed(2) + " + TAX ($"+ lease_tax.toFixed(2) +")" + "= $ " + lease1.toFixed(2);
+    document.getElementById("result0").innerHTML = "$ " + reg.toFixed(2);
+   	document.getElementById("result9").innerHTML = apr.toFixed(2) + "%";
+
+
+
+}
+
+function Lcalculate(frm){
+    var reg, reg1, lease, lease1, drive_lease, sell_cost, cost, acc, acc_sub, acc_sub1, mos_mf, mos_mf1, mos_mf2, tax_adj,tax_adj1,lease_up,lease_down,l_sales_tax, lease_residual;
+    var sales_tax_amt, lease_tax, apr, lease_residual1, num;
+
+	if (parseFloat(frm.elements[2].value) < 5000) {
+		reg = parseFloat(frm.elements[2].value) * 0.006496 + 110 + 25;
+	} else if (parseFloat(frm.elements[2].value) < 25000) {
+		reg = parseFloat(frm.elements[2].value) * 0.006496 + 110 + 50;
+	} else if (parseFloat(frm.elements[2].value) < 35000) {
+		reg = parseFloat(frm.elements[2].value) * 0.006496 + 110 + 100;
+	} else if (parseFloat(frm.elements[2].value) < 60000) {
+		reg = parseFloat(frm.elements[2].value) * 0.006496 + 110 + 150;
+	} else {
+		reg = parseFloat(frm.elements[2].value) * 0.006496 + 110 + 175;
+	}
+
+
+	l_sales_tax = 1 + (parseFloat(frm.elements[9].value) / 100);
+	tax_adj = 1 - (parseFloat(frm.elements[9].value) / 100);
+	tax_adj1 = 1 - (parseFloat(frm.elements[9].value) / 100 * parseFloat(frm.elements[9].value) / 100);
+	cost = parseFloat(frm.elements[8].value) + reg + 217.75;
+	acc_sub1 = cost - parseFloat(frm.elements[6].value) - parseFloat(frm.elements[7].value);
+	sell_cost = parseFloat(frm.elements[2].value) + acc_sub1;
+	acc_sub = tax_adj * acc_sub1;
+	acc = parseFloat(frm.elements[2].value) + acc_sub;
+	mos_mf = parseFloat(frm.elements[5].value) * parseFloat(frm.elements[3].value);
+	mos_mf1 = mos_mf + 1;
+	mos_mf2 = mos_mf - 1;
+
+
+	if (parseFloat(frm.elements[4].value) < 100) {
+		lease_residual = (parseFloat(frm.elements[1].value)) * (parseFloat(frm.elements[4].value)/100);
+		lease_residual1 = parseFloat(frm.elements[4].value)/100 ;
+
+		document.getElementById("resultC").innerHTML = "$ " + lease_residual.toFixed(2);
+
+		} else {
+
+		lease_residual = parseFloat(frm.elements[4].value);
+		lease_residual1 = (parseFloat(frm.elements[4].value) / parseFloat(frm.elements[1].value)) * 100;
+
+		document.getElementById("resultC").innerHTML = lease_residual1.toFixed(2) + "%";
+	}
+
+
+	drive_lease = parseFloat(frm.elements[6].value) + parseFloat(frm.elements[7].value);
+	apr = parseFloat(frm.elements[3].value) * 2400;
+
+
+	if (drive_lease <= cost) {
+
+		lease_up = (sell_cost * mos_mf1) + (lease_residual * mos_mf2);
+		lease_down = parseFloat(frm.elements[5].value) - (l_sales_tax * mos_mf1);
+		lease = lease_up / lease_down;
+		lease_tax = lease * (l_sales_tax - 1);
+		lease1 = lease * l_sales_tax;
+
+
+		} else {
+
+		lease_up = (acc * mos_mf1) + (lease_residual * mos_mf2);
+		lease_down = parseFloat(frm.elements[5].value) - (tax_adj1 * mos_mf1);
+		lease = lease_up / lease_down;
+		lease_tax = lease * (l_sales_tax - 1);
+		lease1 = lease * l_sales_tax;
+
+	}
+
+	document.getElementById("resultA").innerHTML = "$ " + lease.toFixed(2) + " + TAX ($"+ lease_tax.toFixed(2) +")" + "= $ " + lease1.toFixed(2);
+    document.getElementById("resultB").innerHTML = "$ " + reg.toFixed(2);
+   	document.getElementById("resultD").innerHTML = apr.toFixed(2) + "%";
+
+
+
+}
+
+
+function upcalculate(frm){
+    var reg, reg1;
+    var purchase_up, purchase_up1, purchase_down, purchase_down1, purchase_down2, purchase_interest, otd1, otd, otd_rebate, otd_rebate1, sales_tax, interest_sum, ltv, sales_tax_amt, lease_tax;
+
+	sales_tax = 1 + (parseFloat(frm.elements[5].value) / 100);
+	sales_tax_amt = (parseFloat(frm.elements[1].value) + 80) * (sales_tax - 1);
+
+	if (parseFloat(frm.elements[1].value) < 5000) {
+				reg1 = parseFloat(frm.elements[1].value) * 0.006496 + 110 + 25;
+			} else if (parseFloat(frm.elements[1].value) < 25000) {
+				reg1 = parseFloat(frm.elements[1].value) * 0.006496 + 110 + 50;
+			} else if (parseFloat(frm.elements[1].value) < 35000) {
+				reg1 = parseFloat(frm.elements[1].value) * 0.006496 + 110 + 100;
+			} else if (parseFloat(frm.elements[1].value) < 60000) {
+				reg1 = parseFloat(frm.elements[1].value) * 0.006496 + 110 + 150;
+			} else {
+				reg1 = parseFloat(frm.elements[1].value) * 0.006496 + 110 + 175;
+		}
+
+
+	if (parseFloat(frm.elements[4].value) != 0 ) {
+	sales_tax = 1 + (parseFloat(frm.elements[5].value) / 100);
+
+	otd1 = (parseFloat(frm.elements[1].value) + 80) * sales_tax;
+	otd2 = otd1 + reg1 + 37.75;
+	otd = otd1 + reg1 - parseFloat(frm.elements[2].value)- parseFloat(frm.elements[6].value) + 37.75;
+	otd_rebate = otd1 + reg1 - parseFloat(frm.elements[6].value) + 37.75;
+	otd_rebate1 = otd1 + reg1 - parseFloat(frm.elements[6].value) + 37.75 - parseFloat(frm.elements[2].value);
+	purchase_interest = parseFloat(frm.elements[4].value)/100;
+	purchase_up1 = purchase_interest / 12;
+	purchase_up = otd * purchase_up1;
+
+
+	purchase_down1 = 1 + purchase_up1;
+	purchase_down2 = Math.pow (purchase_down1, - parseFloat(frm.elements[3].value));
+	purchase_down = 1-purchase_down2;
+    purchase = purchase_up / purchase_down;
+	interest_sum = purchase * parseFloat(frm.elements[3].value) - otd;
+	}
+	else {
+	otd1 = (parseFloat(frm.elements[1].value)+ 80) * sales_tax;
+	otd2 = otd1 + reg1 + 37.75;
+	otd = otd1 + reg1 - parseFloat(frm.elements[2].value)- parseFloat(frm.elements[6].value) + 37.75;
+	otd_rebate = otd1 + reg1 - parseFloat(frm.elements[6].value) + 37.75;
+	otd_rebate1 = otd1 + reg1 - parseFloat(frm.elements[6].value) + 37.75 - parseFloat(frm.elements[2].value);
+	purchase = otd / parseFloat(frm.elements[3].value);
+	interest_sum = 0;
+	}
+
+	ltv = otd / parseFloat(frm.elements[7].value);
+
+
+    document.getElementById("result1").innerHTML = "$ " + purchase.toFixed(2);
+	document.getElementById("result3").innerHTML = "$ " + otd_rebate.toFixed(2);
+	document.getElementById("result5").innerHTML = "$ "  + otd_rebate1.toFixed(2);
+	document.getElementById("result4").innerHTML = "LTV :" + ltv.toFixed(2) + "% ";
+	document.getElementById("result6").innerHTML = "$ " + reg1.toFixed(2);
+	document.getElementById("result7").innerHTML = "$ " + interest_sum.toFixed(2);
+	document.getElementById("result8").innerHTML = "$ " + sales_tax_amt.toFixed(2);
+
+
+
+}
+
+
+function Pupcalculate(frm){
+    var reg, reg1;
+    var purchase_up, purchase_up1, purchase_down, purchase_down1, purchase_down2, purchase_interest, otd1, otd, otd_rebate, otd_rebate1, sales_tax, interest_sum, ltv, sales_tax_amt, lease_tax;
+
+	sales_tax = 1 + (parseFloat(frm.elements[5].value) / 100);
+	sales_tax_amt = (parseFloat(frm.elements[1].value) + 80) * (sales_tax - 1);
+
+	if (parseFloat(frm.elements[1].value) < 5000) {
+				reg1 = parseFloat(frm.elements[1].value) * 0.006496 + 110 + 25;
+			} else if (parseFloat(frm.elements[1].value) < 25000) {
+				reg1 = parseFloat(frm.elements[1].value) * 0.006496 + 110 + 50;
+			} else if (parseFloat(frm.elements[1].value) < 35000) {
+				reg1 = parseFloat(frm.elements[1].value) * 0.006496 + 110 + 100;
+			} else if (parseFloat(frm.elements[1].value) < 60000) {
+				reg1 = parseFloat(frm.elements[1].value) * 0.006496 + 110 + 150;
+			} else {
+				reg1 = parseFloat(frm.elements[1].value) * 0.006496 + 110 + 175;
+		}
+
+
+	if (parseFloat(frm.elements[4].value) != 0 ) {
+	sales_tax = 1 + (parseFloat(frm.elements[5].value) / 100);
+
+	otd1 = (parseFloat(frm.elements[1].value) + 80) * sales_tax;
+	otd2 = otd1 + reg1 + 37.75;
+	otd = otd1 + reg1 - parseFloat(frm.elements[2].value)- parseFloat(frm.elements[6].value) + 37.75;
+	otd_rebate = otd1 + reg1 - parseFloat(frm.elements[6].value) + 37.75;
+	otd_rebate1 = otd1 + reg1 - parseFloat(frm.elements[6].value) + 37.75 - parseFloat(frm.elements[2].value);
+	purchase_interest = parseFloat(frm.elements[4].value)/100;
+	purchase_up1 = purchase_interest / 12;
+	purchase_up = otd * purchase_up1;
+
+
+	purchase_down1 = 1 + purchase_up1;
+	purchase_down2 = Math.pow (purchase_down1, - parseFloat(frm.elements[3].value));
+	purchase_down = 1-purchase_down2;
+    purchase = purchase_up / purchase_down;
+	interest_sum = purchase * parseFloat(frm.elements[3].value) - otd;
+	}
+	else {
+	otd1 = (parseFloat(frm.elements[1].value)+ 80) * sales_tax;
+	otd2 = otd1 + reg1 + 37.75;
+	otd = otd1 + reg1 - parseFloat(frm.elements[2].value)- parseFloat(frm.elements[6].value) + 37.75;
+	otd_rebate = otd1 + reg1 - parseFloat(frm.elements[6].value) + 37.75;
+	otd_rebate1 = otd1 + reg1 - parseFloat(frm.elements[6].value) + 37.75 - parseFloat(frm.elements[2].value);
+	purchase = otd / parseFloat(frm.elements[3].value);
+	interest_sum = 0;
+	}
+
+	ltv = otd / parseFloat(frm.elements[7].value);
+
+
+    document.getElementById("result1P").innerHTML = "$ " + purchase.toFixed(2);
+	document.getElementById("result3P").innerHTML = "$ " + otd_rebate.toFixed(2);
+	document.getElementById("result5P").innerHTML = "$ "  + otd_rebate1.toFixed(2);
+	document.getElementById("result4P").innerHTML = "LTV :" + ltv.toFixed(2) + "% ";
+	document.getElementById("result6P").innerHTML = "$ " + reg1.toFixed(2);
+	document.getElementById("result7P").innerHTML = "$ " + interest_sum.toFixed(2);
+	document.getElementById("result8P").innerHTML = "$ " + sales_tax_amt.toFixed(2);
+
+
+
+}
+
+
+
+function pcalculate(frm){
+    var reg, reg1;
+    var purchase_up, purchase_up1, purchase_down, purchase_down1, purchase_down2, purchase_interest, otd1, otd, otd_rebate, otd_rebate1, sales_tax, interest_sum, ltv, sales_tax_amt, lease_tax;
+
+	sales_tax = 1 + (parseFloat(frm.elements[5].value) / 100);
+	sales_tax_amt = (parseFloat(frm.elements[1].value)+ parseFloat(frm.elements[7].value) + 80) * (sales_tax - 1);
+
+	if (parseFloat(frm.elements[1].value) < 5000) {
+			reg1 = parseFloat(frm.elements[1].value) * 0.006496 + 110 + 25;
+		} else if (parseFloat(frm.elements[1].value) < 25000) {
+			reg1 = parseFloat(frm.elements[1].value) * 0.006496 + 110 + 50;
+		} else if (parseFloat(frm.elements[1].value) < 35000) {
+			reg1 = parseFloat(frm.elements[1].value) * 0.006496 + 110 + 100;
+		} else if (parseFloat(frm.elements[1].value) < 60000) {
+			reg1 = parseFloat(frm.elements[1].value) * 0.006496 + 110 + 150;
+		} else {
+			reg1 = parseFloat(frm.elements[1].value) * 0.006496 + 110 + 175;
+	}
+
+	if (parseFloat(frm.elements[4].value) != 0 ) {
+	sales_tax = 1 + (parseFloat(frm.elements[5].value) / 100);
+
+	otd1 = (parseFloat(frm.elements[1].value) + parseFloat(frm.elements[7].value) + 80) * sales_tax;
+	otd2 = otd1 + 8.25;
+	otd = otd1 + parseFloat(frm.elements[6].value) - parseFloat(frm.elements[2].value)+ 8.25;
+	otd_rebate = otd1 + parseFloat(frm.elements[6].value) + 8.25;
+	otd_rebate1 = otd1 + parseFloat(frm.elements[6].value) + 8.25 - parseFloat(frm.elements[2].value);
+	purchase_interest = parseFloat(frm.elements[4].value)/100;
+	purchase_up1 = purchase_interest / 12;
+	purchase_up = otd * purchase_up1;
+
+
+	purchase_down1 = 1 + purchase_up1;
+	purchase_down2 = Math.pow (purchase_down1, - parseFloat(frm.elements[3].value));
+	purchase_down = 1-purchase_down2;
+    purchase = purchase_up / purchase_down;
+	interest_sum = purchase * parseFloat(frm.elements[3].value) - otd;
+	}
+	else {
+	otd1 = (parseFloat(frm.elements[1].value) + parseFloat(frm.elements[7].value) + 80) * sales_tax;
+	otd2 = otd1 + parseFloat(frm.elements[6].value) + 8.25;
+	otd = otd1 + parseFloat(frm.elements[6].value) - parseFloat(frm.elements[2].value) + 8.25;
+	otd_rebate = otd1 + parseFloat(frm.elements[6].value) + 8.25;
+	otd_rebate1 = otd1 + parseFloat(frm.elements[6].value) + 8.25 - parseFloat(frm.elements[2].value);
+	purchase = otd / parseFloat(frm.elements[3].value);
+
+	interest_sum = 0;
+	}
+
+	ltv = otd / parseFloat(frm.elements[8].value);
+
+
+    document.getElementById("result11").innerHTML = "$ " + purchase.toFixed(2);
+	document.getElementById("result13").innerHTML = "$ " + otd_rebate.toFixed(2);
+	document.getElementById("result15").innerHTML = "$ "  + otd_rebate1.toFixed(2);
+	document.getElementById("result14").innerHTML = "LTV :" + ltv.toFixed(2) + "% ";
+	document.getElementById("result16").innerHTML = "$ " + reg1.toFixed(2);
+	document.getElementById("result17").innerHTML = "$ " + interest_sum.toFixed(2);
+	document.getElementById("result18").innerHTML = "$ " + sales_tax_amt.toFixed(2);
+}
+
+function Upcalculate(frm){
+    var reg, reg1;
+    var purchase_up, purchase_up1, purchase_down, purchase_down1, purchase_down2, purchase_interest, otd1, otd, otd_rebate, otd_rebate1, sales_tax, interest_sum, ltv, sales_tax_amt, lease_tax;
+
+	sales_tax = 1 + (parseFloat(frm.elements[5].value) / 100);
+	sales_tax_amt = (parseFloat(frm.elements[1].value) + parseFloat(frm.elements[7].value) + 80) * (sales_tax - 1);
+
+	if (parseFloat(frm.elements[1].value) < 5000) {
+			reg1 = parseFloat(frm.elements[1].value) * 0.006496 + 110 + 25;
+		} else if (parseFloat(frm.elements[1].value) < 25000) {
+			reg1 = parseFloat(frm.elements[1].value) * 0.006496 + 110 + 50;
+		} else if (parseFloat(frm.elements[1].value) < 35000) {
+			reg1 = parseFloat(frm.elements[1].value) * 0.006496 + 110 + 100;
+		} else if (parseFloat(frm.elements[1].value) < 60000) {
+			reg1 = parseFloat(frm.elements[1].value) * 0.006496 + 110 + 150;
+		} else {
+			reg1 = parseFloat(frm.elements[1].value) * 0.006496 + 110 + 175;
+	}
+
+	if (parseFloat(frm.elements[4].value) != 0 ) {
+	sales_tax = 1 + (parseFloat(frm.elements[5].value) / 100);
+
+	otd1 = (parseFloat(frm.elements[1].value) + parseFloat(frm.elements[7].value) + 80) * sales_tax;
+	otd2 = otd1 + 8.25;
+	otd = otd1 + parseFloat(frm.elements[6].value) - parseFloat(frm.elements[2].value)+ 8.25;
+	otd_rebate = otd1 + parseFloat(frm.elements[6].value) + 8.25;
+	otd_rebate1 = otd1 + parseFloat(frm.elements[6].value) + 8.25 - parseFloat(frm.elements[2].value);
+	purchase_interest = parseFloat(frm.elements[4].value)/100;
+	purchase_up1 = purchase_interest / 12;
+	purchase_up = otd * purchase_up1;
+
+
+	purchase_down1 = 1 + purchase_up1;
+	purchase_down2 = Math.pow (purchase_down1, - parseFloat(frm.elements[3].value));
+	purchase_down = 1-purchase_down2;
+    purchase = purchase_up / purchase_down;
+	interest_sum = purchase * parseFloat(frm.elements[3].value) - otd;
+	}
+	else {
+	otd1 = (parseFloat(frm.elements[1].value) + parseFloat(frm.elements[7].value) + 80) * sales_tax;
+	otd2 = otd1 + parseFloat(frm.elements[6].value) + 8.25;
+	otd = otd1 + parseFloat(frm.elements[6].value) - parseFloat(frm.elements[2].value) + 8.25;
+	otd_rebate = otd1 + parseFloat(frm.elements[6].value) + 8.25;
+	otd_rebate1 = otd1 + parseFloat(frm.elements[6].value) + 8.25 - parseFloat(frm.elements[2].value);
+	purchase = otd / parseFloat(frm.elements[3].value);
+
+	interest_sum = 0;
+	}
+
+	ltv = otd / parseFloat(frm.elements[8].value);
+
+
+    document.getElementById("result11U").innerHTML = "$ " + purchase.toFixed(2);
+	document.getElementById("result13U").innerHTML = "$ " + otd_rebate.toFixed(2);
+	document.getElementById("result15U").innerHTML = "$ "  + otd_rebate1.toFixed(2);
+	document.getElementById("result14U").innerHTML = "LTV :" + ltv.toFixed(2) + "% ";
+	document.getElementById("result16U").innerHTML = "$ " + reg1.toFixed(2);
+	document.getElementById("result17U").innerHTML = "$ " + interest_sum.toFixed(2);
+	document.getElementById("result18U").innerHTML = "$ " + sales_tax_amt.toFixed(2);
+
+
+
+}
+
+
+function fncChecked(num)
+{
+ if(num == 1)
+ {
+  div1.style.display = '';
+  div2.style.display = 'none';
+  div3.style.display = 'none';
+  div4.style.display = '';
+  div5.style.display = 'none';
+  div6.style.display = 'none';
+  div7.style.display = 'none';
+  div8.style.display = 'none';
+  div9.style.display = 'none';
+
+ }
+ else if(num == 2)
+ {
+  div1.style.display = 'none';
+  div2.style.display = '';
+  div3.style.display = 'none';
+  div4.style.display = 'none';
+  div5.style.display = '';
+  div6.style.display = 'none';
+  div7.style.display = 'none';
+  div8.style.display = 'none';
+  div9.style.display = 'none';
+ }
+ else if(num == 3)
+ {
+  div1.style.display = 'none';
+  div2.style.display = 'none';
+  div3.style.display = '';
+  div4.style.display = 'none';
+  div5.style.display = 'none';
+  div6.style.display = '';
+  div7.style.display = 'none';
+  div8.style.display = 'none';
+  div9.style.display = 'none';
+ }
+
+}
+
+
+
+</Script>
+</HEAD>
+<BODY>
+<table border='0' cellpadding='0' cellspacing='1' bgcolor='#000000'>
+ <tr height='30' align="center">
+  <td width='233' bgcolor='#FFFFFF'><label for="chk1"><input type='radio' name='cardnum' id="chk1" value='1' onclick='javascript:fncChecked(1);'>LEASING </label></td>
+  <td width='233' bgcolor='#FFFFFF'><label for="chk2"><input type='radio' name='cardnum' id="chk2" value='2' onclick='javascript:fncChecked(2);'>PURCHASING </label></td>
+  <td width='234' bgcolor='#FFFFFF'><label for="chk3"><input type='radio' name='cardnum' id="chk3" value='3' onclick='javascript:fncChecked(3);'>USED VEHICLE </label></td>
+  </tr>
+
+</table>
+
+<div id='div1' style='display:none;'>
+
+<table border='0' cellpadding='0' cellspacing='1' bgcolor='#000000'>
+
+	<TABLE width='700' border='0' bordercolor='#dbd7a2'>
+		<tr>
+ 			<td align="left"><a href = "http://www.jsmyautosales.com" target="_blank"><img src="http://www.carincaauto.club/mw_logo.gif"></a></img> </td>
+ 	                        <td align="left"><a href = "https://www.cdtfa.ca.gov/taxes-and-fees/rates.aspx" target="_blank">TAX RATE</a></td>
+	                        <td align="left"><a href="http://www.carincaauto.club/haninfcu.jpg" target="_blank">HANIN</a> </td>
+									<td align="left" ><a href="http://www.karpower.com/Marketing/index.aspx" target="_blank">KARPOWER</a> </td>
+									<td align="left" ><a href="https://www.autocheck.com/members/login.do" target="_blank">AUTOCHECK</a> </td>
+									<td align="left" ><a href="http://www.carincaauto.club/jsmy.php" target="_blank">NEW TAB</a> </td>
+
+ 		</tr>
+
+ 	</table>
+
+
+
+    <p align="left"><img src="http://www.carincaauto.club/leasebar.gif"></img>
+
+    <FORM NAME="form">
+
+   <TABLE width='700' border='1' bordercolor='#a2c8db' cellpadding='4' cellspacing='0' style='border-collapse:collapse;'>
+    <col width="25%" style="font:bold;" bgcolor="#CCEEFF" align="center">
+    <col width="25%">
+    <col width="25%" style="font:bold;" bgcolor="#CCEEFF" align="center">
+    <col width="25%">
+
+ 		<tr>
+ 		   	<td style="font:bold;">YEAR/MAKE/MODEL</td>
+ 		   	<td colspan=3>
+ 	   		<input type="text" name='MSRP' size='70'  onkeypress="return handleEnter(this, event)">
+ 	   		</td>
+    	</tr>
+
+    	<tr>
+    		<td style="font:bold;">MSRP</td>
+    		<td colspan=3>
+    		$ <input type="text" name='MSRP' size='15'  onkeypress="return handleEnter(this, event)">
+    		</td>
+    	</tr>
+
+    	<tr>
+    		<td>CAP COST</td>
+    		<td colspan=3>
+    		$ <input type="text" name='CAP COST ' size='15' onkeypress="return handleEnter(this, event)">
+    		</td>
+    	</tr>
+
+    	<tr>
+    		<td>MONEY FACTOR</td>
+    		<td>
+    		<input type="text" name='MONEY FACTOR ' size='7' maxlength='7'onkeypress="return handleEnter(this, event)"> (0.00XXX)
+    		</td>
+
+    		<td>RESIDUAL</td>
+    		<td>
+    		<input type="text" name='RESIDUAL' size='5' onkeypress="return handleEnter(this, event)"> [( )% OR $]
+    		</td>
+    	</tr>
+
+
+    	<tr>
+    		<td>TERM</td>
+    		<td>
+    		<input type="text" name='TERM ' size='7' onkeypress="return handleEnter(this, event)"> MONTHS
+    		</td>
+
+    		<td>TOTAL DRIVE OFF</td>
+    		<td>
+    		$ <input type="text" name='TOTAL DRIVE OFF' size='15' onkeypress="return handleEnter(this, event)">
+    		</td>
+    	</tr>
+
+    	<tr>
+    		<td>REBATE</td>
+    		<td>
+    		$ <input type="text" name='REBATE ' size='15'  onkeypress="return handleEnter(this, event)">
+    		</td>
+
+    		<td>REGISTRATION FEE</td>
+    		<td id="result0">&nbsp;</td>
+    	</tr>
+    	<tr>
+    		<td>ACQUISITION FEE</td>
+    		<td>
+    		$ <input type="text" name='ACQUISITION FEE' size='15' onkeypress="return handleEnter(this, event)">
+    		</td>
+        	<td>SALES TAX</td>
+ 	 		<td>
+ 	 		<input type="text" name='SALES TAX' size='7' onkeypress="return handleEnter(this, event)"> %
+    		</td>
+    	</tr>
+	    <tr>
+    		<td style="font:bold; color:red;">MONTHLY PAYMENT</td>
+    		<td colspan=3 id="result" style="font-size: 14pt; font:bold;">&nbsp;</td>
+    	</tr>
+
+    	<tr>
+    		<td style="font:bold; color:black;">END OF THE LEASE</td>
+    		<td id="result2" >&nbsp;</td>
+ 			<td style="font:bold; color:black;">APR</td>
+    		<td id="result9" >&nbsp;</td>
+
+    	</tr>
+        <tr>
+    	 	<td style="font:bold;">ACQUISITION FEE</td>
+    	   	<td colspan=4 style="color:blue; font-size: 8pt; font:bold;"> BMW, MINI: $925 | Audi: $895 | M-Benz, Lexus: $795 | Genesis: $750
+    	</tr>
+        <tr>
+    	 	<td style="font:bold;"></td>
+    	   	<td colspan=4 style="color:blue; font-size: 8pt; font:bold;"> Infiniti : $700 | Toyota, Hyundai, Kia: $650 | V.W: $675 | Honda, Acura, Nissan: $595
+ 		</tr>
+
+   </table>
+
+   <p align="left"><img src="http://www.carincaauto.club/blank.gif"></img>
+
+        <input type="button" value="CALCULATE" onclick="calculate(this.form)">
+        <input type="button" value="  PRINT  " onclick="window.print()">
+
+    </form>
+</table>
+</div>
+
+<div id='div4' style='display:none;'>
+
+<table border='0' cellpadding='0' cellspacing='1' bgcolor='#000000'>
+
+	<FORM NAME="form">
+
+   <TABLE width='700' border='1' bordercolor='#a2c8db' cellpadding='4' cellspacing='0' style='border-collapse:collapse;'>
+    <col width="25%" style="font:bold;" bgcolor="#CCEEFF" align="center">
+    <col width="25%">
+    <col width="25%" style="font:bold;" bgcolor="#CCEEFF" align="center">
+    <col width="25%">
+
+ 		<tr>
+ 		   	<td style="font:bold;">YEAR/MAKE/MODEL</td>
+ 		   	<td colspan=3>
+ 	   		<input type="text" name='MSRP' size='70'  onkeypress="return handleEnter(this, event)">
+ 	   		</td>
+    	</tr>
+
+    	<tr>
+    		<td style="font:bold;">MSRP</td>
+    		<td colspan=3>
+    		$ <input type="text" name='MSRP' size='15'  onkeypress="return handleEnter(this, event)">
+    		</td>
+    	</tr>
+
+    	<tr>
+    		<td>CAP COST</td>
+    		<td colspan=3>
+    		$ <input type="text" name='CAP COST ' size='15' onkeypress="return handleEnter(this, event)">
+    		</td>
+    	</tr>
+
+    	<tr>
+    		<td>MONEY FACTOR</td>
+    		<td>
+    		<input type="text" name='MONEY FACTOR ' size='7' maxlength='7'onkeypress="return handleEnter(this, event)"> (0.00XXX)
+    		</td>
+
+    		<td>RESIDUAL</td>
+    		<td>
+    		<input type="text" name='RESIDUAL' size='5' onkeypress="return handleEnter(this, event)"> [( )% OR $]
+    		</td>
+    	</tr>
+
+
+    	<tr>
+    		<td>TERM</td>
+    		<td>
+    		<input type="text" name='TERM ' size='7' onkeypress="return handleEnter(this, event)"> MONTHS
+    		</td>
+
+    		<td>TOTAL DRIVE OFF</td>
+    		<td>
+    		$ <input type="text" name='TOTAL DRIVE OFF' size='15' onkeypress="return handleEnter(this, event)">
+    		</td>
+    	</tr>
+
+    	<tr>
+    		<td>REBATE</td>
+    		<td>
+    		$ <input type="text" name='REBATE ' size='15'  onkeypress="return handleEnter(this, event)">
+    		</td>
+
+    		<td>REGISTRATION FEE</td>
+    		<td id="resultB">&nbsp;</td>
+    	</tr>
+    	<tr>
+    		<td>ACQUISITION FEE</td>
+    		<td>
+    		$ <input type="text" name='ACQUISITION FEE' size='15' onkeypress="return handleEnter(this, event)">
+    		</td>
+        	<td>SALES TAX</td>
+ 	 		<td>
+ 	 		<input type="text" name='SALES TAX' size='7' onkeypress="return handleEnter(this, event)"> %
+    		</td>
+    	</tr>
+	    <tr>
+    		<td style="font:bold; color:red;">MONTHLY PAYMENT</td>
+    		<td colspan=3 id="resultA" style="font-size: 14pt; font:bold;">&nbsp;</td>
+    	</tr>
+
+    	<tr>
+    		<td style="font:bold; color:black;">END OF THE LEASE</td>
+    		<td id="resultC" >&nbsp;</td>
+ 			<td style="font:bold; color:black;">APR</td>
+    		<td id="resultD" >&nbsp;</td>
+
+    	</tr>
+        <tr>
+    	 	<td style="font:bold;">ACQUISITION FEE</td>
+    	   	<td colspan=4 style="color:blue; font-size: 8pt; font:bold;"> BMW, MINI: $925 | Audi: $895 | M-Benz, Lexus: $795 | Genesis: $750
+    	</tr>
+        <tr>
+    	 	<td style="font:bold;"></td>
+    	   	<td colspan=4 style="color:blue; font-size: 8pt; font:bold;"> Infiniti : $700 | Toyota, Hyundai, Kia: $650 | V.W: $675 | Honda, Acura, Nissan: $595
+ 		</tr>
+
+   </table>
+
+   <p align="left"><img src="http://www.carincaauto.club/blank.gif"></img>
+
+        <input type="button" value="CALCULATE" onclick="Lcalculate(this.form)">
+        <input type="button" value="  PRINT  " onclick="window.print()">
+
+    </form>
+</table>
+</div>
+
+<div id='div2' style='display:none;'>
+
+<table border='0' cellpadding='0' cellspacing='1' bgcolor='#000000'>
+
+	<TABLE width='700' border='0' bordercolor='#dbd7a2'>
+		<tr>
+ 			<td align="left"><a href = "http://www.jsmyautosales.com" target="_blank"><img src="http://www.carincaauto.club/mw_logo.gif"></a></img> </td>
+ 	                        <td align="left"><a href = "https://www.cdtfa.ca.gov/taxes-and-fees/rates.aspx" target="_blank">TAX RATE</a></td>
+	                        <td align="left"><a href="http://www.carincaauto.club/haninfcu.jpg" target="_blank">HANIN</a> </td>
+									<td align="left" ><a href="http://www.karpower.com/Marketing/index.aspx" target="_blank">KARPOWER</a> </td>
+									<td align="left" ><a href="https://www.autocheck.com/members/login.do" target="_blank">AUTOCHECK</a> </td>
+									<td align="left" ><a href="http://www.carincaauto.club/jsmy.php" target="_blank">NEW TAB</a> </td>
+
+		</tr>
+ 	</table>
+
+
+ <p align="left"><img src="http://www.carincaauto.club/newbar.gif"></img>
+
+ <FORM NAME="form">
+
+    <TABLE width='700' border='1' bordercolor='#a2c8db' cellpadding='4' cellspacing='0' style='border-collapse:collapse;'>
+    <col width="25%" style="font:bold;" bgcolor="#CCEEFF" align="center">
+    <col width="25%">
+    <col width="25%" style="font:bold;" bgcolor="#CCEEFF" align="center">
+    <col width="25%">
+
+
+     <tr>
+ 		   	<td style="font:bold;">YEAR/MAKE/MODEL</td>
+ 		   	<td colspan=3>
+ 		   		<input type="text" name='MSRP' size='70'  onkeypress="return handleEnter(this, event)">
+ 		   	</td>
+     </tr>
+
+     <tr>
+ 		<td>SELLING PRICE</td>
+ 		<td colspan=3>
+ 		$ <input type="text" name='INVOICE OR PRICE ' size='15' onkeypress="return handleEnter(this, event)">
+ 		</td>
+    </tr>
+    <tr>
+    	<td>DOWNPAYMENT</td>
+    	<td>
+    		$ <input type="text" name='DOWNPAYMENT ' size='15' onkeypress="return handleEnter(this, event)">
+    	</td>
+
+    	<td>TERM</td>
+    	<td>
+    		<input type="text" name='TERM' size='7' onkeypress="return handleEnter(this, event)"> MONTHS
+    	</td>
+    </tr>
+    <tr>
+    	<td>APR</td>
+ 		<td>
+ 		<input type="text" name='APR ' size='7' onkeypress="return handleEnter(this, event)"> %
+    	</td>
+   		<td>SALES TAX</td>
+    	<td>
+    	<input type="text" name='SALES TAX' size='7' onkeypress="return handleEnter(this, event)"> %
+    	</td>
+    </tr>
+    <tr>
+    	<td>REBATE</td>
+    	<td>
+    		$ <input type="text" name='REBATE' size='15' onkeypress="return handleEnter(this, event)">
+    	</td>
+
+    	<td>REGISTRATION FEE</td>
+    	<td id="result6">&nbsp;</td>
+    </tr>
+    <tr>
+       	<td>INVOICE OR KBB</td>
+    	<td colspan=3 >
+       		$ <input type="text" name='KBB' size='15' onkeypress="return handleEnter(this, event)">
+       	</td>
+    </tr>
+    <tr>
+    	<td style="font:bold; color:red;">MONTHLY PAYMENT</td>
+    	<td colspan=3 id="result1" style="font-size: 14pt; font:bold;">&nbsp;</td>
+    </tr>
+ 	<tr>
+    	<td style="font:bold; color:black;">OTD WITH REBATE</td>
+    	<td style="font:bold;" id="result3">&nbsp;</td>
+    	<td style="font:bold; color:black;">SALES TAX</td>
+ 		<td style="font:bold;" id="result8">&nbsp;</td>
+    </tr>
+ 	<tr>
+ 	<td style="font:bold; color:black;">FINANCE AMOUNT</td>
+ 	<td style="font:bold;" id="result5">&nbsp;</td>
+ 	<td style="font:bold; color:black;">FINANCE CHARGE</td>
+ 	<td style="font:bold;" id="result7">&nbsp;</td>
+ 	</tr>
+    <tr>
+ 		<td style="font:bold; color:black;">LOAN TO VALUE</td>
+       	<td colspan=3  id="result4">&nbsp;</td>
+    </tr>
+
+
+  </table>
+
+  <p align="left"><img src="http://www.carincaauto.club/blank.gif"></img>
+
+    <input type="button" value="CALCULATE" onclick="upcalculate(this.form)">
+ 	<input type="button" value="  PRINT  " onclick="window.print()">
+ </form>
+
+</table>
+</div>
+
+
+<div id='div5' style='display:none;'>
+
+<table border='0' cellpadding='0' cellspacing='1' bgcolor='#000000'>
+
+
+
+ <FORM NAME="form">
+
+    <TABLE width='700' border='1' bordercolor='#a2c8db' cellpadding='4' cellspacing='0' style='border-collapse:collapse;'>
+    <col width="25%" style="font:bold;" bgcolor="#CCEEFF" align="center">
+    <col width="25%">
+    <col width="25%" style="font:bold;" bgcolor="#CCEEFF" align="center">
+    <col width="25%">
+
+
+     <tr>
+ 		   	<td style="font:bold;">YEAR/MAKE/MODEL</td>
+ 		   	<td colspan=3>
+ 		   		<input type="text" name='MSRP' size='70'  onkeypress="return handleEnter(this, event)">
+ 		   	</td>
+     </tr>
+
+     <tr>
+ 		<td>SELLING PRICE</td>
+ 		<td colspan=3>
+ 		$ <input type="text" name='INVOICE OR PRICE ' size='15' onkeypress="return handleEnter(this, event)">
+ 		</td>
+    </tr>
+    <tr>
+    	<td>DOWNPAYMENT</td>
+    	<td>
+    		$ <input type="text" name='DOWNPAYMENT ' size='15' onkeypress="return handleEnter(this, event)">
+    	</td>
+
+    	<td>TERM</td>
+    	<td>
+    		<input type="text" name='TERM' size='7' onkeypress="return handleEnter(this, event)"> MONTHS
+    	</td>
+    </tr>
+    <tr>
+    	<td>APR</td>
+ 		<td>
+ 		<input type="text" name='APR ' size='7' onkeypress="return handleEnter(this, event)"> %
+    	</td>
+   		<td>SALES TAX</td>
+    	<td>
+    	<input type="text" name='SALES TAX' size='7' onkeypress="return handleEnter(this, event)"> %
+    	</td>
+    </tr>
+    <tr>
+    	<td>REBATE</td>
+    	<td>
+    		$ <input type="text" name='REBATE' size='15' onkeypress="return handleEnter(this, event)">
+    	</td>
+
+    	<td>REGISTRATION FEE</td>
+    	<td id="result6P">&nbsp;</td>
+    </tr>
+    <tr>
+       	<td>INVOICE OR KBB</td>
+    	<td colspan=3 >
+       		$ <input type="text" name='KBB' size='15' onkeypress="return handleEnter(this, event)">
+       	</td>
+    </tr>
+    <tr>
+    	<td style="font:bold; color:red;">MONTHLY PAYMENT</td>
+    	<td colspan=3 id="result1P" style="font-size: 14pt; font:bold;">&nbsp;</td>
+    </tr>
+ 	<tr>
+    	<td style="font:bold; color:black;">OTD WITH REBATE</td>
+    	<td style="font:bold;" id="result3P">&nbsp;</td>
+    	<td style="font:bold; color:black;">SALES TAX</td>
+ 		<td style="font:bold;" id="result8P">&nbsp;</td>
+    </tr>
+ 	<tr>
+ 	<td style="font:bold; color:black;">FINANCE AMOUNT</td>
+ 	<td style="font:bold;" id="result5P">&nbsp;</td>
+ 	<td style="font:bold; color:black;">FINANCE CHARGE</td>
+ 	<td style="font:bold;" id="result7P">&nbsp;</td>
+ 	</tr>
+    <tr>
+ 		<td style="font:bold; color:black;">LOAN TO VALUE</td>
+       	<td colspan=3  id="result4P">&nbsp;</td>
+    </tr>
+
+
+  </table>
+
+  <p align="left"><img src="http://www.carincaauto.club/blank.gif"></img>
+
+    <input type="button" value="CALCULATE" onclick="Pupcalculate(this.form)">
+ 	<input type="button" value="  PRINT  " onclick="window.print()">
+ </form>
+
+</table>
+</div>
+
+<div id='div3' style='display:none;'>
+
+<table border='0' cellpadding='0' cellspacing='1' bgcolor='#000000'>
+
+ <TABLE width='700' border='0' bordercolor='#dbd7a2'>
+
+
+ <tr>
+ 	<td align="left"><a href = "http://www.jsmyautosales.com" target="_blank"><img src="http://www.carincaauto.club/mw_logo.gif"></a></img> </td>
+    <td align="left"><a href = "https://www.cdtfa.ca.gov/taxes-and-fees/rates.aspx" target="_blank">TAX RATE</a></td>
+    <td align="left"><a href="http://www.carincaauto.club/haninfcu.jpg" target="_blank">HANIN</a> </td>
+		<td align="left" ><a href="http://www.karpower.com/Marketing/index.aspx" target="_blank">KARPOWER</a> </td>
+		<td align="left" ><a href="https://www.autocheck.com/members/login.do" target="_blank">AUTOCHECK</a> </td>
+		<td align="left" ><a href="http://www.carincaauto.club/jsmy.php" target="_blank">NEW TAB</a> </td>
+ </tr>
+
+ </table>
+
+
+
+ <p align="left"><img src="http://www.carincaauto.club/usedbar.gif"></img>
+
+ <FORM NAME="form">
+
+    <TABLE width='700' border='1' bordercolor='#a2c8db' cellpadding='4' cellspacing='0' style='border-collapse:collapse;'>
+    <col width="25%" style="font:bold;" bgcolor="#CCEEFF" align="center">
+    <col width="25%">
+    <col width="25%" style="font:bold;" bgcolor="#CCEEFF" align="center">
+    <col width="25%">
+
+
+     <tr>
+ 		   	<td style="font:bold;">YEAR/MAKE/MODEL</td>
+ 		   	<td colspan=3>
+ 		   		<input type="text" name='MSRP' size='70'  onkeypress="return handleEnter(this, event)">
+ 		   	</td>
+    </tr>
+
+     <tr>
+ 	<td>SELLING PRICE</td>
+ 	<td colspan=3>
+ 		$ <input type="text" name='INVOICE OR PRICE ' size='15' onkeypress="return handleEnter(this, event)">
+ 	</td>
+    </tr>
+    <tr>
+    <td>DOWNPAYMENT</td>
+    	<td>
+    		$ <input type="text" name='DOWNPAYMENT ' size='15' onkeypress="return handleEnter(this, event)">
+    	</td>
+
+    	<td>TERM</td>
+    	<td>
+    		<input type="text" name='TERM' size='7' onkeypress="return handleEnter(this, event)"> MONTHS
+    	</td>
+    </tr>
+
+
+    <tr>
+    	<td>APR</td>
+ 	<td>
+ 		<input type="text" name='APR ' size='7' onkeypress="return handleEnter(this, event)"> %
+    	</td>
+
+    	<td>SALES TAX</td>
+    	<td>
+    		<input type="text" name='SALES TAX' size='7' onkeypress="return handleEnter(this, event)"> %
+    	</td>
+    </tr>
+
+    <tr>
+
+    	<td>REGISTRATION FEE</td>
+			<td>
+		   		$ <input type="text" name='REGISTRATION FEE ' size='15' onkeypress="return handleEnter(this, event)"> &nbsp;&nbsp;
+   	    </td>
+
+   	    	<td>SMOG FEE</td>
+		       	<td>
+		       		$ <input type="text" name='SMOGFEE' size='15' onkeypress="return handleEnter(this, event)">
+       	</td>
+    </tr>
+
+    <tr>
+
+
+       	<td>INVOICE OR KBB</td>
+    	<td>
+       		$ <input type="text" name='KBB' size='15' onkeypress="return handleEnter(this, event)">
+       	</td>
+    </tr>
+
+    <tr>
+    	<td style="font:bold; color:red;">MONTHLY PAYMENT</td>
+    	<td colspan=3 id="result11" style="font-size: 14pt; font:bold;">&nbsp;</td>
+    </tr>
+
+ 	<tr>
+    	<td style="font:bold; color:black;">OTD WITH REBATE</td>
+    	<td style="font:bold;" id="result13">&nbsp;</td>
+    	<td style="font:bold; color:black;">SALES TAX</td>
+ 	<td style="font:bold;" id="result18">&nbsp;</td>
+
+     </tr>
+
+ 	<tr>
+ 	<td style="font:bold; color:black;">FINANCE AMOUNT</td>
+ 	<td style="font:bold;" id="result15">&nbsp;</td>
+ 	<td style="font:bold; color:black;">FINANCE CHARGE</td>
+ 	<td style="font:bold;" id="result17">&nbsp;</td>
+ 	</tr>
+    <tr>
+ 		<td style="font:bold; color:black;">LOAN TO VALUE</td>
+       	<td id="result14">&nbsp;</td>
+       	<td style="font:bold; color:black;">REGISTRATION FEE</td>
+   		<td id="result16"> &nbsp;</td>
+    </tr>
+
+
+    </table>
+
+  <p align="left"><img src="http://www.carincaauto.club/blank.gif"></img>
+
+        <input type="button" value="CALCULATE" onclick="pcalculate(this.form)">
+ 		<input type="button" value="  PRINT  " onclick="window.print()">
+ </form>
+
+</table>
+</div>
+
+<div id='div6' style='display:none;'>
+
+<table border='0' cellpadding='0' cellspacing='1' bgcolor='#000000'>
+
+
+ <FORM NAME="form">
+
+    <TABLE width='700' border='1' bordercolor='#a2c8db' cellpadding='4' cellspacing='0' style='border-collapse:collapse;'>
+    <col width="25%" style="font:bold;" bgcolor="#CCEEFF" align="center">
+    <col width="25%">
+    <col width="25%" style="font:bold;" bgcolor="#CCEEFF" align="center">
+    <col width="25%">
+
+
+     <tr>
+ 		   	<td style="font:bold;">YEAR/MAKE/MODEL</td>
+ 		   	<td colspan=3>
+ 		   		<input type="text" name='MSRP' size='70'  onkeypress="return handleEnter(this, event)">
+ 		   	</td>
+    </tr>
+
+     <tr>
+ 	<td>SELLING PRICE</td>
+ 	<td colspan=3>
+ 		$ <input type="text" name='INVOICE OR PRICE ' size='15' onkeypress="return handleEnter(this, event)">
+ 	</td>
+    </tr>
+    <tr>
+    <td>DOWNPAYMENT</td>
+    	<td>
+    		$ <input type="text" name='DOWNPAYMENT ' size='15' onkeypress="return handleEnter(this, event)">
+    	</td>
+
+    	<td>TERM</td>
+    	<td>
+    		<input type="text" name='TERM' size='7' onkeypress="return handleEnter(this, event)"> MONTHS
+    	</td>
+    </tr>
+
+
+    <tr>
+    	<td>APR</td>
+ 	<td>
+ 		<input type="text" name='APR ' size='7' onkeypress="return handleEnter(this, event)"> %
+    	</td>
+
+    	<td>SALES TAX</td>
+    	<td>
+    		<input type="text" name='SALES TAX' size='7' onkeypress="return handleEnter(this, event)"> %
+    	</td>
+    </tr>
+
+    <tr>
+
+    	<td>REGISTRATION FEE</td>
+			<td>
+		   		$ <input type="text" name='REGISTRATION FEE ' size='15' onkeypress="return handleEnter(this, event)"> &nbsp;&nbsp;
+   	    </td>
+
+   	    	<td>SMOG FEE</td>
+		       	<td>
+		       		$ <input type="text" name='SMOGFEE' size='15' onkeypress="return handleEnter(this, event)">
+       	</td>
+    </tr>
+
+    <tr>
+
+
+       	<td>INVOICE OR KBB</td>
+    	<td>
+       		$ <input type="text" name='KBB' size='15' onkeypress="return handleEnter(this, event)">
+       	</td>
+    </tr>
+
+    <tr>
+    	<td style="font:bold; color:red;">MONTHLY PAYMENT</td>
+    	<td colspan=3 id="result11U" style="font-size: 14pt; font:bold;">&nbsp;</td>
+    </tr>
+
+ 	<tr>
+    	<td style="font:bold; color:black;">OTD WITH REBATE</td>
+    	<td style="font:bold;" id="result13U">&nbsp;</td>
+    	<td style="font:bold; color:black;">SALES TAX</td>
+ 	<td style="font:bold;" id="result18U">&nbsp;</td>
+
+     </tr>
+
+ 	<tr>
+ 	<td style="font:bold; color:black;">FINANCE AMOUNT</td>
+ 	<td style="font:bold;" id="result15U">&nbsp;</td>
+ 	<td style="font:bold; color:black;">FINANCE CHARGE</td>
+ 	<td style="font:bold;" id="result17U">&nbsp;</td>
+ 	</tr>
+    <tr>
+ 		<td style="font:bold; color:black;">LOAN TO VALUE</td>
+       	<td id="result14U">&nbsp;</td>
+       	<td style="font:bold; color:black;">REGISTRATION FEE</td>
+   		<td id="result16U"> &nbsp;</td>
+    </tr>
+
+
+    </table>
+
+  <p align="left"><img src="http://www.carincaauto.club/blank.gif"></img>
+
+        <input type="button" value="CALCULATE" onclick="Upcalculate(this.form)">
+ 		<input type="button" value="  PRINT  " onclick="window.print()">
+ </form>
+
+</table>
+</div>
+
+
+</BODY>
+</HTML>

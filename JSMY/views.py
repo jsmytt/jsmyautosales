@@ -5,6 +5,8 @@ from django.views.generic import TemplateView
 from listing.models import Car
 from django.utils import timezone
 from banner.models import banner as bn
+from listing.models import Car
+from listing import views
 
 class banner(TemplateView):
     template_name = 'index.html'
@@ -38,7 +40,9 @@ from django.shortcuts import redirect
 from .forms import LoginForm
 
 
-import requests
+
+import re
+
 def email(request):
     form = LoginForm(request.POST)
     if form.is_valid():
@@ -52,10 +56,7 @@ def email(request):
         email_from = settings.EMAIL_HOST_USER
         recipient_list = ['jsmyautosales@gmail.com',]
         send_mail( subject, message, email_from, recipient_list )
-
-
-    return redirect('index')
-
+    redirect('index')
 
 def calculator(request):
     return render(request, 'listing/calculator.html',{})

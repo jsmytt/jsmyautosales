@@ -27,11 +27,15 @@
 
       <p><textarea name="username" rows="10" cols="100" value = "{{ car.price }}">The cat was playing in the garden.</textarea>
     <p>password:<input type="text" name="password" value="" /></p>
-<button type="submit"> submit </button>
+<button type="submit" value = 'SEND' onclick = "display();"> SEND </button>
 
 </form>
-
-
+<script>
+function display()
+{
+alert("Message Just Sent!");
+}
+</script>
 
 
 

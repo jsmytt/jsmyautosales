@@ -31,7 +31,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-
+CKEDITOR_IMAGE_BACKEND = "pillow"
 # Application definition
 
 INSTALLED_APPS = [

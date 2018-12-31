@@ -1,12 +1,13 @@
 from django.db import models
 from ckeditor.fields import RichTextField
 
+
 class EntryQuerySet(models.QuerySet):
     def published(self):
         return self.filter(publish=True)
 
 class Car(models.Model):
-    type = models.CharField(max_length=25, choices=[('New', 'New Vehicle'), ('Used', 'Used Vehicle'), ('Lease', 'Lease Vehicle')], default='New', verbose_name='Listing Type')
+    type = models.CharField(max_length=25, choices=[('New', 'New Vehicle'), ('Used', 'Used Vehicle'), ('Lease', 'Lease Vehicle'), ('FAQ','New Driver FAQ')], default='New', verbose_name='Listing Type')
     title = models.CharField(max_length=500, verbose_name='Title of Vehicle Listing')
     price = models.DecimalField(max_digits=8, decimal_places=2, verbose_name='Price of Vehicle in Dollar Amount')
     body = RichTextField(verbose_name='Description of Vehicle')

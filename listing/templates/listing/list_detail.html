@@ -8,24 +8,84 @@
 
     <meta charset="UTF-8">
     <title>{{ car.title }}</title>
+
 </head>
 
 
 {% block summary %}
-<div class = 'container'>
+
+<style>
+img.a {
+  opacity: 0.5;
+  filter: alpha(opacity=50); /* For IE8 and earlier */
+}
+
+img:hover.a {
+  opacity: 1.0;
+  filter: alpha(opacity=100); /* For IE8 and earlier */
+}
+* {
+  box-sizing: content-box;
+}
+nav {
+  float: left;
+  width: 30%;
+
+}
+nav.bodyA {
+  float: right;
+  width: 70%;
+
+}
+nav.bodyB {
+  float: left;
+  width: 20%;
+
+}
+nav p.a {
+    align-content: center;
+}
+
+</style>
+
+<div class="container">
+    <nav>
+        <p class="a">
+            <script type="text/javascript" language="javascript">
+                function changeImage(img){
+                   document.getElementById('bigImage').src=img;
+                }
+            </script>
+
+            <img src="{{ car.LImage.url }}" alt="" width="200" height="130" id="bigImage"/>
+            <p>&nbsp; </p>
+            <div>
+                <p><img class="a" src="{{ car.LImage.url }}" width="70" height="70" onmouseover="changeImage('{{ car.LImage.url }}')"></p>
+                <p><img class="a" src="{{ car.LImage2.url }}" width="70" height="70" onmouseover="changeImage('{{ car.LImage2.url }}')"></p>
+                <p>&nbsp;</p>
+            </div>
+        </p>
+    </nav>
 
         <body>
+
+        <div class="container-fluid">
+            <nav class="bodyA">
             <br>
             <h1><img src="{{ car.LImage.url }}" width="70" height="70" > {{ car.title }} - {{ car.type }} **${{ car.price|floatformat:0|intcomma }}**</h1>
                 <br>
                 <h3>Description of Vehicle:</h3>
                 <p> {{ car.body|safe }}</p>
                 <p>Posted: {{ car.created }}</p>
-        </body>
 
+
+
+
+</nav>
+
+            </div>
         <hr>
-
-        <body>
+<nav class="bodyB">
             <form action="{% url 'email' %}" method="post">{% csrf_token %}
                 <p>Your Email:<br><textarea name="custemail" rows="1" cols="30"></textarea></p>
                 <p>Your Phone Number:<br><textarea name="phone" rows="1" cols="30"></textarea></p>
@@ -33,6 +93,8 @@
                 <p>Message:<br><textarea name="body" rows="10" cols="100"></textarea></p>
                 <button type="submit" value="Send" onclick="display()"> SEND </button>
             </form>
+</nav>
+
 
 <script>
     function display()
@@ -40,6 +102,7 @@
         alert("Message Has Been Sent!");
     }
 </script>
+
 
         </body>
 

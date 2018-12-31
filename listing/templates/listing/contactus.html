@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <title>JSMY - New Car Listing</title>
+
+<style>
+a {
+    display: block;
+    text-decoration: none;
+}
+a img {
+    display: inline-block;
+    width: 80px;
+    height: 80px;
+}
+a span {
+    display: inline-block;
+    font-size: 20px;
+    font-weight: bold;
+}
+</style>
+</head>
+
+{% extends 'index.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block summary %}
+
+<body>
+<img src=" {% static 'mijunmo_banner_final.png' %} ">
+<p><span style="color:#000000">​​​Justin Lim​ 임준수​</span></p>
+
+<div><span style="color:#000000">President</span></div>
+
+<div><span style="color:#000000">JSMY Auto Sales, Inc</span></div>
+
+<div><span style="color:#000000">8 Corporate Park #300, Irvine, CA 92606</span></div>
+
+
+<div><span style="color:#000000">​Work: (714) 681 - 0161</span></div>
+
+<div><span style="color:#000000">Fax: (610) 884 - 5450</span></div>
+
+<div><span style="color:#000000">Email: ​justin@jsmyautosales.com</span></div>
+
+<div><span style="color:#000000">​Kakaotalk ID: nicejun0718​</span></div>
+
+<div><span style="color:#000000">​Website: www.jsmyautosales.com</span></div>
+
+<div><span style="color:#000000">​B.S ​Degree in Statistical science</span></div>
+
+<div><span style="color:#000000">​​Dept. of Statistics and Applied Probability​</span></div>
+
+
+
+
+<div><span style="color:#000000">University of California, Santa Barbara, Santa Barbara, CA 93106</span></div>
+</body>
+
+
+
+{% endblock %}
+</html>

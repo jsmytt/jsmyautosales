@@ -88,3 +88,18 @@ def car_detail(request,car_slug):
     car = get_object_or_404(Car, slug=car_slug)
     return render(request, 'listing/list_detail.html', {'car': car})
 
+class faq(TemplateView):
+    template_name = 'listing/faq.html'
+    def get(self, request,):
+        posts = Car.object.filter(type="FAQ", publish=True, created__lte=timezone.now()).order_by('-pk')
+        page = request.GET.get('page', 1)
+
+        paginator = Paginator(posts, 3)
+        try:
+            pag = paginator.page(page)
+        except PageNotAnInteger:
+            pag = paginator.page(1)
+        except EmptyPage:
+            pag = paginator.page(paginator.num_pages)
+
+        return render(request, self.template_name, {'posts': posts, 'pag':pag})

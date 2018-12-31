@@ -102,8 +102,18 @@
 							</div>
 						</li>
 						<li><a href="{% url 'listing:rentalListing' %}">Rental</a></li>
-						<li><a href="#">New Driver FAQ</a></li>
-						<li><a href="#">Contact Us</a></li>
+						<li><a href="{% url 'listing:faq' %}">New Driver FAQ</a></li>
+						<li class="has-dropdown"><a href="">About Us</a>
+                            <div class="dropdown">
+								<div class="dropdown-body">
+                                    <ul class="dropdown-list">
+                                        <li><a href="{% url 'listing:contactus' %}">Contact Us</a></li>
+                                        <li><a href="{% url 'listing:sold' %}">Sold</a></li>
+                                    </ul>
+								</div>
+							</div>
+                        </li>
+
 					</ul>
 					<!-- /nav -->
 				</div>

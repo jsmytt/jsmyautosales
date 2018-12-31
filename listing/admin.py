@@ -1,5 +1,9 @@
 from django.contrib import admin
-from .models import Car
+from .models import Car, limg
+
+class limgEntry(admin.StackedInline):
+    model = limg
+    extra = 3
 
 class EntryAdmin(admin.ModelAdmin):
 
@@ -16,4 +20,5 @@ class EntryAdmin(admin.ModelAdmin):
 
     ]'''
     list_filter = ['type']
+    inlines = [limgEntry]
 admin.site.register(Car, EntryAdmin)

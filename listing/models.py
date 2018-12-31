@@ -16,7 +16,7 @@ class Car(models.Model):
     sold = models.CharField(max_length=10,verbose_name='Sold Y/N',choices=[('Sale', 'For Sale'), ('Sold', 'Sold')],default='Sale')
     created = models.DateField(auto_now_add=True)
     modified = models.DateField(auto_now=True)
-    LImage = models.ImageField(null=True, blank=False, upload_to="listing")
+
 
 
     object = EntryQuerySet.as_manager()
@@ -30,5 +30,8 @@ class Car(models.Model):
         ordering = ["-created"]
 
 
-
-
+class limg(models.Model):
+    LImage = models.ImageField(null=True, blank=False, upload_to="listing")
+    car = models.ForeignKey(Car, on_delete=models.CASCADE)
+    def __str__(self):
+        return str(self.LImage)

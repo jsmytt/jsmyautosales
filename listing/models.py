@@ -9,7 +9,7 @@ class EntryQuerySet(models.QuerySet):
 
 
 class Car(models.Model):
-    type = models.CharField(max_length=25, choices=[('New', 'New Vehicle'), ('Used', 'Used Vehicle'), ('Lease', 'Lease Vehicle')], default='New', verbose_name='Listing Type')
+    type = models.CharField(max_length=25, choices=[('New', 'New Vehicle'), ('Used', 'Used Vehicle'), ('Lease', 'Lease Vehicle'),('faq', 'FAQ')], default='New', verbose_name='Listing Type')
     title = models.CharField(max_length=500, verbose_name='Title of Vehicle Listing')
     price = models.DecimalField(max_digits=8, decimal_places=2, verbose_name='Price of Vehicle in Dollar Amount')
     body = RichTextField(verbose_name='Description of Vehicle')

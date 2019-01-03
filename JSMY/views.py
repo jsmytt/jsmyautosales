@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import TemplateView
-from listing.models import Car
+from listing.models import Car, CarImg
 from django.utils import timezone
 from banner.models import banner as bn
 from django.core.mail import send_mail

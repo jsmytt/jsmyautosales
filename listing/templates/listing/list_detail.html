@@ -24,9 +24,6 @@ img:hover.a {
   opacity: 1.0;
   filter: alpha(opacity=100); /* For IE8 and earlier */
 }
-* {
-  box-sizing: content-box;
-}
 nav {
   float: left;
   width: 30%;
@@ -42,50 +39,45 @@ nav.bodyB {
   width: 20%;
 
 }
-nav p.a {
-    align-content: center;
-}
-
 </style>
 
-<div class="container">
-    <nav>
-        <p class="a">
+<div class="section">
+    <div class="container">
+        <nav>
             <script type="text/javascript" language="javascript">
                 function changeImage(img){
-                   document.getElementById('bigImage').src=img;
+                    document.getElementById('bigImage').src=img;
                 }
             </script>
 
-            <img src="{{ car.LImage.url }}" alt="" width="200" height="130" id="bigImage"/>
+            <img src="{{ car.LImage.url }}" alt="" width="325" height="235" id="bigImage"/>
             <p>&nbsp; </p>
+
             <div>
                 <p><img class="a" src="{{ car.LImage.url }}" width="70" height="70" onmouseover="changeImage('{{ car.LImage.url }}')"></p>
                 <p><img class="a" src="{{ car.LImage2.url }}" width="70" height="70" onmouseover="changeImage('{{ car.LImage2.url }}')"></p>
                 <p>&nbsp;</p>
             </div>
-        </p>
-    </nav>
-
-        <body>
+        </nav>
 
         <div class="container-fluid">
             <nav class="bodyA">
-            <br>
-            <h1><img src="{{ car.LImage.url }}" width="70" height="70" > {{ car.title }} - {{ car.type }} **${{ car.price|floatformat:0|intcomma }}**</h1>
-                <br>
-                <h3>Description of Vehicle:</h3>
-                <p> {{ car.body|safe }}</p>
-                <p>Posted: {{ car.created }}</p>
+                    <h1>{{ car.title }} - {{ car.type }} **${{ car.price|floatformat:0|intcomma }}**</h1>
+                        <br>
+                        <p> {{ car.body|safe }}</p>
+                        <p>Posted: {{ car.created }}</p>
+            </nav>
+        </div>
 
-
-
-
-</nav>
-
-            </div>
         <hr>
-<nav class="bodyB">
+
+        <script>
+            function display()
+            {
+                alert("Message Has Been Sent!");
+            }
+        </script>
+        <nav class="bodyB">
             <form action="{% url 'email' %}" method="post">{% csrf_token %}
                 <p>Your Email:<br><textarea name="custemail" rows="1" cols="30"></textarea></p>
                 <p>Your Phone Number:<br><textarea name="phone" rows="1" cols="30"></textarea></p>
@@ -93,19 +85,9 @@ nav p.a {
                 <p>Message:<br><textarea name="body" rows="10" cols="100"></textarea></p>
                 <button type="submit" value="Send" onclick="display()"> SEND </button>
             </form>
-</nav>
-
-
-<script>
-    function display()
-    {
-        alert("Message Has Been Sent!");
-    }
-</script>
-
-
-        </body>
-
+        </nav>
+    </div>
 </div>
+
 {% endblock %}
 </html>

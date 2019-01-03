@@ -3,7 +3,7 @@ from django.views.generic import TemplateView
 from .models import Car
 from django.utils import timezone
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-
+from .models import CarImg
 
 class new(TemplateView):
     template_name = 'listing/new.html'
@@ -19,7 +19,10 @@ class new(TemplateView):
         except EmptyPage:
             pag = paginator.page(paginator.num_pages)
 
-        return render(request, self.template_name, {'posts': posts, 'pag':pag})
+        ImgOnly=CarImg.objects.filter()
+
+
+        return render(request, self.template_name, {'posts': posts, 'pag':pag,'ImgOnly':ImgOnly})
 
 
 
@@ -88,18 +91,17 @@ def car_detail(request,car_slug):
     car = get_object_or_404(Car, slug=car_slug)
     return render(request, 'listing/list_detail.html', {'car': car})
 
-class faq(TemplateView):
-    template_name = 'listing/faq.html'
-    def get(self, request,):
-        posts = Car.object.filter(type="FAQ", publish=True, created__lte=timezone.now()).order_by('-pk')
-        page = request.GET.get('page', 1)
+    '''
+    Car._meta.get_fields()
+    [{'LImage':1}, {'LImage2':2}, {'LImage3':3}, {'LImage4':4}, {'LImage5':5}, {'LImage6':6}, {'LImage7':7}, {'LImage8':8}]
+    Car.object.values_list('LImage2')
+    Car.object.values_list('LImage2')[0] == (None,)
+    for i in range(0,len(Car.object.values_list('LImage2'))):
+        Car.object.values_list('LImage2')[i]
 
-        paginator = Paginator(posts, 3)
-        try:
-            pag = paginator.page(page)
-        except PageNotAnInteger:
-            pag = paginator.page(1)
-        except EmptyPage:
-            pag = paginator.page(paginator.num_pages)
-
-        return render(request, self.template_name, {'posts': posts, 'pag':pag})
+    
+a=[]
+a.append()
+for i in range(0,len(Car._meta.get_fields())):
+    a.append(re.sub('.*\.','',str(Car._meta.get_fields()[i])))
+    '''

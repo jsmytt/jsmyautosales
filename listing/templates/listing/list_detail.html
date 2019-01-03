@@ -49,15 +49,17 @@ nav.bodyB {
                     document.getElementById('bigImage').src=img;
                 }
             </script>
+{% for Imgs in ImgOnly %}
+    <p>
+            <img src="{{ Imgs.LImage.url }}" alt="" width="325" height="235" id="bigImage"/>
 
-            <img src="{{ car.LImage.url }}" alt="" width="325" height="235" id="bigImage"/>
-            <p>&nbsp; </p>
 
             <div>
-                <p><img class="a" src="{{ car.LImage.url }}" width="70" height="70" onmouseover="changeImage('{{ car.LImage.url }}')"></p>
-                <p><img class="a" src="{{ car.LImage2.url }}" width="70" height="70" onmouseover="changeImage('{{ car.LImage2.url }}')"></p>
+                <p><img class="a" src="{{ Imgs.LImage.url }}" width="70" height="70" onmouseover="changeImage('{{ ImgOnly.LImage.url }}')"></p>
                 <p>&nbsp;</p>
             </div>
+    </p>
+            {% endfor %}
         </nav>
 
         <div class="container-fluid">

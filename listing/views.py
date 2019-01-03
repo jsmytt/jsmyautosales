@@ -89,7 +89,8 @@ def usedsale(request):
 
 def car_detail(request,car_slug):
     car = get_object_or_404(Car, slug=car_slug)
-    return render(request, 'listing/list_detail.html', {'car': car})
+    ImgOnly = CarImg.objects.filter()
+    return render(request, 'listing/list_detail.html', {'car': car,'ImgOnly':ImgOnly})
 
     '''
     Car._meta.get_fields()
@@ -105,3 +106,15 @@ a.append()
 for i in range(0,len(Car._meta.get_fields())):
     a.append(re.sub('.*\.','',str(Car._meta.get_fields()[i])))
     '''
+def faq(request):
+    posts = Car.object.filter(type="faq", sold="Sale", publish=True, created__lte=timezone.now()).order_by('-pk')
+    page = request.GET.get('page', 1)
+
+    paginator = Paginator(posts, 3)
+    try:
+        pag = paginator.page(page)
+    except PageNotAnInteger:
+        pag = paginator.page(1)
+    except EmptyPage:
+        pag = paginator.page(paginator.num_pages)
+    return render(request, 'listing/faq.html', {'posts':posts, 'pag': pag})

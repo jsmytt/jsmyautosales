@@ -43,13 +43,13 @@ class banner(TemplateView):
         Blink5 = bn.objects.values()[0]['Blink5']
 
         cursor = connection.cursor()
-        cursor.execute(
-            'select listing_carimg.LImage, listing_car.price,listing_car.slug, listing_car.title from listing_car inner join listing_carimg on listing_car.id = listing_carimg.car_id where listing_carimg.mainimage = 1 and listing_car.type ="Used" and listing_car.publish = 1 ORDER BY listing_car.created desc ')
 
+        cursor.execute(
+            'select listing_carimg.LImage, listing_car.price,listing_car.slug, listing_car.title from listing_car inner join listing_carimg on listing_car.id = listing_carimg.car_id where listing_carimg.mainimage = 1 and listing_car.type ="Used" and listing_car.publish = 1 ORDER BY listing_car.id desc ')
         dfUsed = dictfetchall(cursor)
-        cursor.execute(
-            'select listing_carimg.LImage, listing_car.price,listing_car.slug, listing_car.title from listing_car inner join listing_carimg on listing_car.id = listing_carimg.car_id where listing_carimg.mainimage = 1 and listing_car.type ="Lease" and listing_car.publish = 1 ORDER BY listing_car.created desc ')
 
+        cursor.execute(
+            'select listing_carimg.LImage, listing_car.price,listing_car.slug, listing_car.title from listing_car inner join listing_carimg on listing_car.id = listing_carimg.car_id where listing_carimg.mainimage = 1 and listing_car.type ="Lease" and listing_car.publish = 1 ORDER BY listing_car.id desc ')
         dfLease = dictfetchall(cursor)
 
         context = {"new":new,"lease":lease,"lennew":lennew,"lenused":lenused,"lenlease":lenlease, 'dfUsed':dfUsed,'dfLease':dfLease,

@@ -192,7 +192,7 @@
 						<div class="col-md-3">
 
 
-								<a class="post-img" href="{% url 'listing:detailListing' useds.slug %}"><img src="{{ useds.LImage.url }}" height="135"> </a>
+								<a class="post-img" href="{% url 'listing:detailListing' useds.slug %}"><img src="/../media/{{ useds.LImage }}" height="135"> </a>
 								<div class="post-thumb">
 									<div>
 										<a style="color:#0600ff;" href="{% url 'listing:detailListing' useds.slug %}">${{ useds.price|floatformat:0|intcomma }}</a>

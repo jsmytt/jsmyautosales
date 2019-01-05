@@ -51,7 +51,6 @@
 
 					<!-- search & aside toggle -->
 					<div class="nav-btns">
-						<button class="aside-btn"><i class="fa fa-bars"></i></button>
 						<button class="search-btn"><i class="fa fa-search"></i></button>
 						<div id="nav-search">
 							<form name ='SearchForm' method = 'GET' action = "{% url 'search' %}">
@@ -65,24 +64,6 @@
 					<!-- /search & aside toggle -->
 			</div>
 
-  			<!-- Aside Nav -->
-			<div id="nav-aside">
-				<ul class="nav-aside-menu">
-					<li><a href="index.html">Home</a></li>
-					<li class="has-dropdown"><a>Categories</a>
-						<ul class="dropdown">
-							<li><a href="{% url 'listing:newListing' %}">New Vehicles</a></li>
-                            <li><a href="{% url 'listing:usedListing' %}">Consiged Used Vehicles</a></li>
-                            <li><a href="{% url 'listing:rentalListing' %}">Rental Vehicles</a></li>
-                            <li><a href="#">New Driver FAQ</a></li>
-						</ul>
-					</li>
-					<li><a href="{% url 'listing:contactus' %}">About Us</a></li>
-					<li><a href="contact.html">Contact Us</a></li>
-				</ul>
-				<button class="nav-close nav-aside-close"><span></span></button>
-			</div>
-			<!-- /Aside Nav -->
 
 			<!-- /Top Nav -->
 
@@ -265,7 +246,7 @@
                         <div class="clearfix visible-md visible-lg"></div>
                         <div class="col-md-10">
 							<div class="section-title">
-								<h2 class="title">Lease Vehicles</h2>
+								<h2 class="title">Rental Vehicles</h2>
 							</div>
 						</div>
 
@@ -279,7 +260,7 @@
 						<div class="col-md-2">
 							<div class="post">
 
-								<a class="post-img" href="{% url 'listing:detailListing' leases.slug %}"><img src="{{ leases.LImage.url }}" height="135"> </a>
+								<a class="post-img" href="{% url 'listing:detailListing' leases.slug %}"><img src="/../media/{{ leases.LImage }}" height="135"> </a>
 								<div class="post-thumb">
 									<div>
 										<a style="color:#0600ff;" href="{% url 'listing:detailListing' leases.slug %}">${{ leases.price|floatformat:0|intcomma }}</a>
@@ -293,13 +274,13 @@
                                     {% endfor %}
 
                             {% else %}
-                        {% for leases in dfLease|slice:":{{ lennew }}" %}
+                        {% for leases in dfLease|slice:":{{ lenlease }}" %}
 
 						<!-- new1 post -->
 						<div class="col-md-3">
 							<div class="post">
 
-								<a class="post-img" href="{% url 'listing:detailListing' leases.slug %}"><img src="{{ leases.LImage.url }}" height="135"> </a>
+								<a class="post-img" href="{% url 'listing:detailListing' leases.slug %}"><img src="/../media/{{ leases.LImage }}" height="135"> </a>
 								<div class="post-thumb">
 									<div>
 										<a style="color:#0600ff;" href="{% url 'listing:detailListing' leases.slug %}">${{ leases.price|floatformat:0|intcomma }}</a>

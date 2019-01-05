@@ -37,7 +37,7 @@ a span {
                 <a href="{% url 'listing:detailListing' Car.slug%}">
                     {% for Imgs in ImgOnly|slice:':1' %}
                     <img src="{{ Imgs.LImage.url }}" width="70" height="70" align="middle" hspace="20">
-                        {% endfor %}
+                    {% endfor %}
                     <span class="a">{{ Car.title }}<br>${{ Car.price|floatformat:0|intcomma }}</span>
                 </a>
                 <br>

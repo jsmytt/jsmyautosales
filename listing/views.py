@@ -4,6 +4,15 @@ from .models import Car
 from django.utils import timezone
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .models import CarImg
+from django.db import connection
+
+def dictfetchall(cursor):
+    "Returns all rows from a cursor as a dict"
+    desc = cursor.description
+    return [
+            dict(zip([col[0] for col in desc], row))
+            for row in cursor.fetchall()
+    ]
 
 class new(TemplateView):
     template_name = 'listing/new.html'
@@ -19,10 +28,13 @@ class new(TemplateView):
         except EmptyPage:
             pag = paginator.page(paginator.num_pages)
 
-        ImgOnly=CarImg.objects.filter()
+        cursor = connection.cursor()
+        cursor.execute(
+            'select * from listing_car inner join listing_carimg on listing_car.id = listing_carimg.car_id')
 
+        df = dictfetchall(cursor)
 
-        return render(request, self.template_name, {'posts': posts, 'pag':pag,'ImgOnly':ImgOnly})
+        return render(request, self.template_name, {'posts': posts, 'pag':pag,'df':df})
 
 
 
@@ -40,7 +52,13 @@ class used(TemplateView):
         except EmptyPage:
             pag = paginator.page(paginator.num_pages)
 
-        return render(request, self.template_name, {'posts': posts, 'pag':pag})
+        cursor = connection.cursor()
+        cursor.execute(
+            'select * from listing_car inner join listing_carimg on listing_car.id = listing_carimg.car_id')
+
+        df = dictfetchall(cursor)
+
+        return render(request, self.template_name, {'posts': posts, 'pag':pag,'df':df})
 
 
 class lease(TemplateView):
@@ -57,7 +75,14 @@ class lease(TemplateView):
         except EmptyPage:
             pag = paginator.page(paginator.num_pages)
 
-        return render(request, self.template_name, {'posts': posts, 'pag':pag})
+        cursor = connection.cursor()
+        cursor.execute(
+            'select * from listing_car inner join listing_carimg on listing_car.id = listing_carimg.car_id')
+
+        df = dictfetchall(cursor)
+
+        return render(request, self.template_name, {'posts': posts, 'pag':pag,'df':df})
+
 
 def usedsold(request):
     posts = Car.object.filter(type="Used", sold="Sold", publish=True, created__lte=timezone.now()).order_by('-pk')
@@ -92,20 +117,7 @@ def car_detail(request,car_slug):
     ImgOnly = CarImg.objects.filter()
     return render(request, 'listing/list_detail.html', {'car': car,'ImgOnly':ImgOnly})
 
-    '''
-    Car._meta.get_fields()
-    [{'LImage':1}, {'LImage2':2}, {'LImage3':3}, {'LImage4':4}, {'LImage5':5}, {'LImage6':6}, {'LImage7':7}, {'LImage8':8}]
-    Car.object.values_list('LImage2')
-    Car.object.values_list('LImage2')[0] == (None,)
-    for i in range(0,len(Car.object.values_list('LImage2'))):
-        Car.object.values_list('LImage2')[i]
 
-    
-a=[]
-a.append()
-for i in range(0,len(Car._meta.get_fields())):
-    a.append(re.sub('.*\.','',str(Car._meta.get_fields()[i])))
-    '''
 def faq(request):
     posts = Car.object.filter(type="faq", sold="Sale", publish=True, created__lte=timezone.now()).order_by('-pk')
     page = request.GET.get('page', 1)
@@ -118,3 +130,4 @@ def faq(request):
     except EmptyPage:
         pag = paginator.page(paginator.num_pages)
     return render(request, 'listing/faq.html', {'posts':posts, 'pag': pag})
+

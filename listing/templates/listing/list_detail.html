@@ -31,7 +31,7 @@ nav {
 }
 nav.bodyA {
   float: right;
-  width: 70%;
+  width: 61%;
 
 }
 nav.bodyB {
@@ -39,6 +39,11 @@ nav.bodyB {
   width: 20%;
 
 }
+.center-block {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+ }
 </style>
 
 <div class="section">
@@ -49,17 +54,16 @@ nav.bodyB {
                     document.getElementById('bigImage').src=img;
                 }
             </script>
-{% for Imgs in ImgOnly %}
-    <p>
-            <img src="{{ Imgs.LImage.url }}" alt="" width="325" height="235" id="bigImage"/>
-
-
-            <div>
-                <p><img class="a" src="{{ Imgs.LImage.url }}" width="70" height="70" onmouseover="changeImage('{{ ImgOnly.LImage.url }}')"></p>
-                <p>&nbsp;</p>
-            </div>
-    </p>
-            {% endfor %}
+    {% for Imgs in ImgOnly|slice:':1' %}
+        <p>
+            <img src="{{ Imgs.LImage.url }}" alt="" width="425" height="335" id="bigImage"/>
+        </p>
+    {% endfor %}
+    {% for Imgs in ImgOnly|slice:':3' %}
+        <div class="col-md-2">
+            <p><img class="a" src="{{ Imgs.LImage.url }}" width="50" height="50" onmouseover="changeImage('{{ Imgs.LImage.url }}')"></p>
+        </div>
+    {% endfor %}
         </nav>
 
         <div class="container-fluid">
@@ -70,6 +74,15 @@ nav.bodyB {
                         <p>Posted: {{ car.created }}</p>
             </nav>
         </div>
+
+        <hr>
+
+    {% for Imgs in ImgOnly %}
+        <p>
+            <img class="center-block" src="{{ Imgs.LImage.url }}" alt="" width="950" height="670" id="bigImage"/>
+        </p>
+    {% endfor %}
+
 
         <hr>
 

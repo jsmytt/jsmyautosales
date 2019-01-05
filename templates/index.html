@@ -50,10 +50,9 @@
 
 					<!-- search & aside toggle -->
 					<div class="nav-btns">
-						<button class="aside-btn"><i class="fa fa-bars"></i></button>
 						<button class="search-btn"><i class="fa fa-search"></i></button>
 						<div id="nav-search">
-							<form>
+							<form name="SearchForm" method="GET" action="{% url 'search' %}">
 								<input class="input" name="search" placeholder="Enter your search...">
 							</form>
 							<button class="nav-close search-close">
@@ -64,24 +63,6 @@
 					<!-- /search & aside toggle -->
 			</div>
 
-  			<!-- Aside Nav -->
-			<div id="nav-aside">
-				<ul class="nav-aside-menu">
-					<li><a href="index.html">Home</a></li>
-					<li class="has-dropdown"><a>Categories</a>
-						<ul class="dropdown">
-							<li><a href="{% url 'listing:newListing' %}">New Vehicles</a></li>
-                            <li><a href="{% url 'listing:usedListing' %}">Consiged Used Vehicles</a></li>
-                            <li><a href="{% url 'listing:rentalListing' %}">Rental Vehicles</a></li>
-                            <li><a href="#">New Driver FAQ</a></li>
-						</ul>
-					</li>
-					<li><a href="{% url 'listing:contactus' %}">About Us</a></li>
-					<li><a href="contact.html">Contact Us</a></li>
-				</ul>
-				<button class="nav-close nav-aside-close"><span></span></button>
-			</div>
-			<!-- /Aside Nav -->
 
 			<!-- /Top Nav -->
 

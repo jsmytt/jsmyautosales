@@ -30,3 +30,9 @@ urlpatterns = [
     path('calculator/',views.calculator,name='calculator'),
     path('search/', views.search, name='search'),
 ]
+
+
+
+
+
+

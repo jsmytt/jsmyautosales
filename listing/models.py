@@ -1,10 +1,12 @@
 from django.db import models
 from ckeditor.fields import RichTextField
-from django import forms
 
 class EntryQuerySet(models.QuerySet):
     def published(self):
         return self.filter(publish=True)
+
+
+
 
 class Car(models.Model):
     type = models.CharField(max_length=25, choices=[('New', 'New Vehicle'), ('Used', 'Used Vehicle'), ('Lease', 'Lease Vehicle'),('faq', 'FAQ')], default='New', verbose_name='Listing Type')
@@ -16,6 +18,8 @@ class Car(models.Model):
     sold = models.CharField(max_length=10,verbose_name='Sold Y/N',choices=[('Sale', 'For Sale'), ('Sold', 'Sold')], default='Sale')
     created = models.DateField(auto_now_add=True)
     modified = models.DateField(auto_now=True)
+
+
 
     object = EntryQuerySet.as_manager()
 
@@ -29,8 +33,8 @@ class Car(models.Model):
 
 class CarImg(models.Model):
     LImage = models.ImageField(null=True, blank=False, upload_to="listing")
-    car = models.ForeignKey(Car,default='car', on_delete=models.CASCADE)
-    mainimg = models.BooleanField(default=True)
+    car = models.ForeignKey(Car,default='car', on_delete=models.CASCADE , related_name = 'cari')
+    MainImage = models.BooleanField(default = False)
 
 
 

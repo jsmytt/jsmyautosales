@@ -7,7 +7,12 @@ from django.core.mail import send_mail
 from django.conf import settings
 from django.shortcuts import redirect
 from .forms import LoginForm
+
+
 from django.db import connection
+
+
+
 
 def dictfetchall(cursor):
     "Returns all rows from a cursor as a dict"
@@ -17,17 +22,35 @@ def dictfetchall(cursor):
             for row in cursor.fetchall()
     ]
 
+
+
+
+
 class banner(TemplateView):
     template_name = 'index.html'
     def get(self, request,):
         new = Car.object.filter(type="New", publish=True, created__lte=timezone.now()).order_by('-pk')
         lennew=len(Car.object.filter(type="New", publish=True, created__lte=timezone.now()).order_by('-pk'))
-        used = Car.object.filter(type="Used", publish=True, created__lte=timezone.now()).order_by('-pk')
+        #used = Car.object.filter(type="Used", publish=True, created__lte=timezone.now()).order_by('-pk').all()
         lenused=len(Car.object.filter(type="Used", publish=True, created__lte=timezone.now()).order_by('-pk'))
         lease = Car.object.filter(type="Lease", publish=True, created__lte=timezone.now()).order_by('-pk')
         lenlease=len(Car.object.filter(type="Lease", publish=True, created__lte=timezone.now()).order_by('-pk'))
+        cursor = connection.cursor()
+        cursor.execute(
+            'select listing_carimg.LImage, listing_car.price,listing_car.slug, listing_car.title from listing_car inner join listing_carimg on listing_car.id = listing_carimg.car_id where listing_carimg.mainimage = 1 and listing_car.type ="Used" and listing_car.publish = 1 ORDER BY listing_car.created desc ')
 
+        dfUsed = dictfetchall(cursor)
+        cursor.execute(
+            'select listing_carimg.LImage, listing_car.price,listing_car.slug, listing_car.title from listing_car inner join listing_carimg on listing_car.id = listing_carimg.car_id where listing_carimg.mainimage = 1 and listing_car.type ="Lease" and listing_car.publish = 1 ORDER BY listing_car.created desc ')
+
+        dfLease = dictfetchall(cursor)
+
+        context = {"new":new,"lease":lease,"lennew":lennew,"lenused":lenused,"lenlease":lenlease, 'dfUsed':dfUsed,'dfLease':dfLease
+
+
+                   }
         return render(request, self.template_name, context)
+
 
 
 def email(request):
@@ -51,6 +74,12 @@ def search(request):
     if request.method == 'GET':
         car_name = request.GET.get('search')
         try:
+            cursor = connection.cursor()
+            cursor.execute(
+                'select listing_carimg.LImage, listing_car.price,listing_car.slug, listing_car.title from listing_car inner join listing_carimg on listing_car.id = listing_carimg.car_id where listing_carimg.mainimage = 1 and listing_car.publish = 1 and listing_car.slug= \"' + car_name + '\" ORDER BY listing_car.created desc '
+            )
+
+            dfUsed = dictfetchall(cursor)
             ImgOnly = CarImg.objects.filter()
             status = Car.object.filter(title__icontains=car_name, publish=True,).order_by('-pk')
             return render(request,'listing/search.html',{"carsearch":status, 'ImgOnly':ImgOnly})

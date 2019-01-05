@@ -33,6 +33,7 @@ class EntryAdmin(admin.ModelAdmin):
     list_display = ("title", "type","created", "sold","publish")
     prepopulated_fields = {"slug": ("title","type")}
     inlines=[CarImgLine]
+    list_filter = ['type', 'sold', 'publish']
 
 
 

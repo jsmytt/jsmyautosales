@@ -9,3 +9,10 @@ class LoginForm(forms.Form):
     phone = forms.CharField(label="phone", max_length=12, required=True)
     topic = forms.CharField(label="topic",max_length=200,required=True)
     body = forms.CharField(label="body",max_length=2000, required=True)
+
+
+class SearchForm(forms.Form):
+    searchfield = forms.CharField(label="searchfield", max_length=75, required=True)
+
+
+

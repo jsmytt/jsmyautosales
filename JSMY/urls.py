@@ -28,4 +28,5 @@ urlpatterns = [
     path('', include('listing.urls')),
     path('email/',views.email,name='email'),
     path('calculator/',views.calculator,name='calculator'),
+    path('search/', views.search, name='search'),
 ]

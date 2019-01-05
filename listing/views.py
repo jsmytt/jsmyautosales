@@ -136,7 +136,7 @@ import re
 def car_detail(request,car_slug):
     cursor = connection.cursor()
 
-    car_name = re.sub(".*[\%3D]", "", str(request.build_absolute_uri()))
+    car_name = re.sub(".*[s]+[l]+[u]+[g]+[\%]+[3]+[D]", "", str(request.build_absolute_uri()))
     query1 = 'select listing_carimg.LImage,listing_car.body ,listing_car.sold, listing_car.price,listing_car.slug, listing_car.title from listing_car inner join listing_carimg on listing_car.id = listing_carimg.car_id where listing_carimg.mainimage = 1 and listing_car.slug = \"' \
              + str(car_name) + '\" ORDER BY listing_car.created desc '
     cursor.execute(query1)

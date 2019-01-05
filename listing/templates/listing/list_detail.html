@@ -49,13 +49,14 @@ nav.bodyB {
                     document.getElementById('bigImage').src=img;
                 }
             </script>
-{% for Imgs in ImgOnly %}
+
+           {% for Imgs in ImgOnly %}
     <p>
             <img src="{{ Imgs.LImage.url }}" alt="" width="325" height="235" id="bigImage"/>
 
 
             <div>
-                <p><img class="a" src="{{ Imgs.LImage.url }}" width="70" height="70" onmouseover="changeImage('{{ ImgOnly.LImage.url }}')"></p>
+                <p><img class="a" src="{{ Imgs.LImage.url }}" width="70" height="70" onmouseover="changeImage('{{ Imgs.LImage.url }}')"></p>
                 <p>&nbsp;</p>
             </div>
     </p>
@@ -64,7 +65,13 @@ nav.bodyB {
 
         <div class="container-fluid">
             <nav class="bodyA">
-                    <h1>{{ car.title }} - {{ car.type }} **${{ car.price|floatformat:0|intcomma }}**</h1>
+                <h1>{{ car.title }}
+                    {% if car.type != 'faq' %}
+                    <span>
+                        - {{ car.type }} **${{ car.price|floatformat:0|intcomma }}**
+                    </span>
+                    {% endif %}
+                </h1>
                         <br>
                         <p> {{ car.body|safe }}</p>
                         <p>Posted: {{ car.created }}</p>

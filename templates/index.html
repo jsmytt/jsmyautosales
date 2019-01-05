@@ -108,7 +108,7 @@
 								<div class="dropdown-body">
                                     <ul class="dropdown-list">
                                         <li><a href="{% url 'listing:contactus' %}">Contact Us</a></li>
-                                        <li><a href="{% url 'listing:sold' %}">Sold</a></li>
+                                        <li><a href="{% url 'listing:sold' %}">Quotation</a></li>
                                     </ul>
 								</div>
 							</div>
@@ -204,7 +204,8 @@
                         				<!-- used -->
                     {% if lenused > 4 %}
                         <div class="post">
-                        {% for useds in used|slice:":4" %}
+                        {% for useds in dfUsed|slice:":4" %}
+
 						<!-- new1 post -->
 						<div class="col-md-3">
 
@@ -218,15 +219,26 @@
 								</div>
 							</div>
 
+
                                     {% endfor %}
                         </div>
                             {% else %}
-                                                    {% for useds in used|slice:":{{ lennew }}" %}
+                                                    {% for useds in dfUsed %}
+
+
 						<!-- new1 post -->
 						<div class="col-md-3">
 							<div class="post">
 
-								<a class="post-img" href="{% url 'listing:detailListing' useds.slug %}"><img src="{{ useds.LImage.url }}" height="135"> </a>
+								<a class="post-img" href="{% url 'listing:detailListing' useds.slug %}">
+
+
+                                    <img src="media/{{ useds.LImage }}" height="135">
+
+
+
+
+                                </a>
 								<div class="post-thumb">
 									<div>
 										<a style="color:#0600ff;" href="{% url 'listing:detailListing' useds.slug %}">${{ useds.price|floatformat:0|intcomma }}</a>
@@ -235,7 +247,10 @@
 								</div>
 							</div>
 						</div>
-                                    {% endfor %}
+
+
+
+                        {% endfor %}
                     {% endif %}
 						<!-- /post -->
 
@@ -257,7 +272,8 @@
                                                 						                        						<!-- lease post -->
 
                     {% if lenlease > 4 %}
-                        {% for leases in lease|slice:":4" %}
+                        {% for leases in dfLease|slice:":4" %}
+
 						<!-- new1 post -->
 						<div class="col-md-2">
 							<div class="post">
@@ -271,9 +287,13 @@
 								</div>
 							</div>
 						</div>
+
+
                                     {% endfor %}
+
                             {% else %}
-                                                    {% for leases in lease|slice:":{{ lennew }}" %}
+                        {% for leases in dfLease|slice:":{{ lennew }}" %}
+
 						<!-- new1 post -->
 						<div class="col-md-3">
 							<div class="post">
@@ -287,7 +307,9 @@
 								</div>
 							</div>
 						</div>
-                                    {% endfor %}
+
+
+                        {% endfor %}
                     {% endif %}
 
 

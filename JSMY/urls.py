@@ -29,3 +29,9 @@ urlpatterns = [
     path('email/',views.email,name='email'),
     path('calculator/',views.calculator,name='calculator'),
 ]
+
+
+
+
+
+

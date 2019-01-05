@@ -20,6 +20,7 @@ class Car(models.Model):
     modified = models.DateField(auto_now=True)
 
 
+
     object = EntryQuerySet.as_manager()
 
     def __str__(self):
@@ -32,7 +33,8 @@ class Car(models.Model):
 
 class CarImg(models.Model):
     LImage = models.ImageField(null=True, blank=False, upload_to="listing")
-    car = models.ForeignKey(Car,default='car', on_delete=models.CASCADE)
+    car = models.ForeignKey(Car,default='car', on_delete=models.CASCADE , related_name = 'cari')
+    MainImage = models.BooleanField(default = False)
 
 
 

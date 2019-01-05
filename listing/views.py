@@ -1,17 +1,41 @@
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import TemplateView
-from .models import Car
+from .models import Car, CarImg
 from django.utils import timezone
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from .models import CarImg
+from django.db.models import Min, Max
+from django.db import connection
+
+
+
+def dictfetchall(cursor):
+    "Returns all rows from a cursor as a dict"
+    desc = cursor.description
+    return [
+            dict(zip([col[0] for col in desc], row))
+            for row in cursor.fetchall()
+    ]
+
+
+
+
+
 
 class new(TemplateView):
     template_name = 'listing/new.html'
     def get(self, request,):
+
+        cursor = connection.cursor()
+        cursor.execute(
+            'select listing_carimg.LImage, listing_car.price,listing_car.slug, listing_car.title from listing_car inner join listing_carimg on listing_car.id = listing_carimg.car_id where listing_carimg.mainimage = 1 and listing_car.type ="New" ORDER BY listing_car.created desc ')
+
+        df = dictfetchall(cursor)
+
         posts = Car.object.filter(type="New", publish=True, created__lte=timezone.now()).order_by('-pk')
         page = request.GET.get('page', 1)
+        car_img = CarImg.objects.filter(MainImage=True).order_by('-pk').select_related('car')
 
-        paginator = Paginator(posts, 3)
+        paginator = Paginator(df, 3)
         try:
             pag = paginator.page(page)
         except PageNotAnInteger:
@@ -19,20 +43,28 @@ class new(TemplateView):
         except EmptyPage:
             pag = paginator.page(paginator.num_pages)
 
-        ImgOnly=CarImg.objects.filter()
 
 
-        return render(request, self.template_name, {'posts': posts, 'pag':pag,'ImgOnly':ImgOnly})
+
+
+        return render(request, self.template_name, {'posts': posts, 'pag':pag})
 
 
 
 class used(TemplateView):
     template_name = 'listing/used.html'
     def get(self, request,):
+
+        cursor = connection.cursor()
+        cursor.execute(
+            'select listing_carimg.LImage, listing_car.price,listing_car.slug, listing_car.title from listing_car inner join listing_carimg on listing_car.id = listing_carimg.car_id where listing_carimg.mainimage = 1 and listing_car.type ="Used" ORDER BY listing_car.created desc ')
+
+        df = dictfetchall(cursor)
+
         posts = Car.object.filter(type="Used", publish=True, created__lte=timezone.now()).order_by('-pk')
         page = request.GET.get('page', 1)
 
-        paginator = Paginator(posts, 3)
+        paginator = Paginator(df, 3)
         try:
             pag = paginator.page(page)
         except PageNotAnInteger:
@@ -46,10 +78,15 @@ class used(TemplateView):
 class lease(TemplateView):
     template_name = 'listing/rental.html'
     def get(self, request,):
+        cursor = connection.cursor()
+        cursor.execute(
+            'select listing_carimg.LImage, listing_car.price,listing_car.slug, listing_car.title from listing_car inner join listing_carimg on listing_car.id = listing_carimg.car_id where listing_carimg.mainimage = 1 and listing_car.type ="Lease" ORDER BY listing_car.created desc ')
+
+        df = dictfetchall(cursor)
         posts = Car.object.filter(type="Lease", publish=True, created__lte=timezone.now()).order_by('-pk')
         page = request.GET.get('page', 1)
 
-        paginator = Paginator(posts, 3)
+        paginator = Paginator(df, 3)
         try:
             pag = paginator.page(page)
         except PageNotAnInteger:
@@ -60,10 +97,15 @@ class lease(TemplateView):
         return render(request, self.template_name, {'posts': posts, 'pag':pag})
 
 def usedsold(request):
+    cursor = connection.cursor()
+    cursor.execute(
+        'select listing_carimg.LImage,listing_car.sold, listing_car.price,listing_car.slug, listing_car.title from listing_car inner join listing_carimg on listing_car.id = listing_carimg.car_id where listing_carimg.mainimage = 1 and listing_car.type ="Used" and listing_car.sold ="Sold" ORDER BY listing_car.created desc ')
+
+    df = dictfetchall(cursor)
     posts = Car.object.filter(type="Used", sold="Sold", publish=True, created__lte=timezone.now()).order_by('-pk')
     page = request.GET.get('page', 1)
 
-    paginator = Paginator(posts, 3)
+    paginator = Paginator(df, 3)
     try:
         pag = paginator.page(page)
     except PageNotAnInteger:
@@ -74,10 +116,14 @@ def usedsold(request):
     return render(request, 'listing/used_sold.html', {'posts':posts, 'pag': pag})
 
 def usedsale(request):
+    cursor = connection.cursor()
+    cursor.execute(
+        'select listing_carimg.LImage,listing_car.sold, listing_car.price,listing_car.slug, listing_car.title from listing_car inner join listing_carimg on listing_car.id = listing_carimg.car_id where listing_carimg.mainimage = 1 and listing_car.type ="Used" and listing_car.sold ="Sale" ORDER BY listing_car.created desc ')
+    df = dictfetchall(cursor)
     posts = Car.object.filter(type="Used", sold="Sale", publish=True, created__lte=timezone.now()).order_by('-pk')
     page = request.GET.get('page', 1)
 
-    paginator = Paginator(posts, 3)
+    paginator = Paginator(df, 3)
     try:
         pag = paginator.page(page)
     except PageNotAnInteger:
@@ -118,3 +164,5 @@ def faq(request):
     except EmptyPage:
         pag = paginator.page(paginator.num_pages)
     return render(request, 'listing/faq.html', {'posts':posts, 'pag': pag})
+
+

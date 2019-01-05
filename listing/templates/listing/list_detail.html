@@ -49,32 +49,33 @@ nav.bodyB {
                     document.getElementById('bigImage').src=img;
                 }
             </script>
+{{ result }}
 
-           {% for Imgs in ImgOnly %}
+
     <p>
-            <img src="{{ Imgs.LImage.url }}" alt="" width="325" height="235" id="bigImage"/>
+            <img src="/../media/{{ dfs.LImage }}" alt="" width="325" height="235" id="bigImage"/>
 
 
             <div>
-                <p><img class="a" src="{{ Imgs.LImage.url }}" width="70" height="70" onmouseover="changeImage('{{ Imgs.LImage.url }}')"></p>
+                <p><img class="a" src="/../media/{{ dfs.LImage }}" width="70" height="70" onmouseover="changeImage('/../media/{{ dfs.LImage }}')"></p>
                 <p>&nbsp;</p>
             </div>
     </p>
-            {% endfor %}
+
         </nav>
 
         <div class="container-fluid">
             <nav class="bodyA">
-                <h1>{{ car.title }}
-                    {% if car.type != 'faq' %}
+                <h1>{{ dfs.title }}
+                    {% if dfs.type != 'faq' %}
                     <span>
-                        - {{ car.type }} **${{ car.price|floatformat:0|intcomma }}**
+                        - {{ dfs.type }} **${{ dfs.price|floatformat:0|intcomma }}**
                     </span>
                     {% endif %}
                 </h1>
                         <br>
-                        <p> {{ car.body|safe }}</p>
-                        <p>Posted: {{ car.created }}</p>
+                        <p> {{ dfs.body|safe }}</p>
+                        <p>Posted: {{ dfs.created }}</p>
             </nav>
         </div>
 
@@ -90,7 +91,7 @@ nav.bodyB {
             <form action="{% url 'email' %}" method="post">{% csrf_token %}
                 <p>Your Email:<br><textarea name="custemail" rows="1" cols="30"></textarea></p>
                 <p>Your Phone Number:<br><textarea name="phone" rows="1" cols="30"></textarea></p>
-                <p>Email Title:<br><textarea name="topic" rows="1" cols="100">{{ car.title }}</textarea></p>
+                <p>Email Title:<br><textarea name="topic" rows="1" cols="100">{{ dfs.title }}</textarea></p>
                 <p>Message:<br><textarea name="body" rows="10" cols="100"></textarea></p>
                 <button type="submit" value="Send" onclick="display()"> SEND </button>
             </form>

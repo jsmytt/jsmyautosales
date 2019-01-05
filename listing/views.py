@@ -27,7 +27,7 @@ class new(TemplateView):
 
         cursor = connection.cursor()
         cursor.execute(
-            'select listing_carimg.LImage, listing_car.price,listing_car.slug, listing_car.title from listing_car inner join listing_carimg on listing_car.id = listing_carimg.car_id where listing_carimg.mainimage = 1 and listing_car.type ="New" ORDER BY listing_car.created desc ')
+            'select listing_carimg.LImage, listing_car.price,listing_car.slug, listing_car.title from listing_car inner join listing_carimg on listing_car.id = listing_carimg.car_id where listing_carimg.mainimage = 1 and listing_car.type ="New" and listing_car.publish = 1 ORDER BY listing_car.created desc ')
 
         df = dictfetchall(cursor)
 
@@ -57,7 +57,7 @@ class used(TemplateView):
 
         cursor = connection.cursor()
         cursor.execute(
-            'select listing_carimg.LImage, listing_car.price,listing_car.slug, listing_car.title from listing_car inner join listing_carimg on listing_car.id = listing_carimg.car_id where listing_carimg.mainimage = 1 and listing_car.type ="Used" ORDER BY listing_car.created desc ')
+            'select listing_carimg.LImage, listing_car.price,listing_car.slug, listing_car.title from listing_car inner join listing_carimg on listing_car.id = listing_carimg.car_id where listing_carimg.mainimage = 1 and listing_car.type ="Used" and listing_car.publish = 1 ORDER BY listing_car.created desc ')
 
         df = dictfetchall(cursor)
 
@@ -80,7 +80,7 @@ class lease(TemplateView):
     def get(self, request,):
         cursor = connection.cursor()
         cursor.execute(
-            'select listing_carimg.LImage, listing_car.price,listing_car.slug, listing_car.title from listing_car inner join listing_carimg on listing_car.id = listing_carimg.car_id where listing_carimg.mainimage = 1 and listing_car.type ="Lease" ORDER BY listing_car.created desc ')
+            'select listing_carimg.LImage, listing_car.price,listing_car.slug, listing_car.title from listing_car inner join listing_carimg on listing_car.id = listing_carimg.car_id where listing_carimg.mainimage = 1 and listing_car.type ="Lease" and listing_car.publish = 1 ORDER BY listing_car.created desc ')
 
         df = dictfetchall(cursor)
         posts = Car.object.filter(type="Lease", publish=True, created__lte=timezone.now()).order_by('-pk')
@@ -99,7 +99,7 @@ class lease(TemplateView):
 def usedsold(request):
     cursor = connection.cursor()
     cursor.execute(
-        'select listing_carimg.LImage,listing_car.sold, listing_car.price,listing_car.slug, listing_car.title from listing_car inner join listing_carimg on listing_car.id = listing_carimg.car_id where listing_carimg.mainimage = 1 and listing_car.type ="Used" and listing_car.sold ="Sold" ORDER BY listing_car.created desc ')
+        'select listing_carimg.LImage,listing_car.sold, listing_car.price,listing_car.slug, listing_car.title from listing_car inner join listing_carimg on listing_car.id = listing_carimg.car_id where listing_carimg.mainimage = 1 and listing_car.type ="Used" and listing_car.sold ="Sold" and listing_car.publish = 1 ORDER BY listing_car.created desc ')
 
     df = dictfetchall(cursor)
     posts = Car.object.filter(type="Used", sold="Sold", publish=True, created__lte=timezone.now()).order_by('-pk')
@@ -118,7 +118,7 @@ def usedsold(request):
 def usedsale(request):
     cursor = connection.cursor()
     cursor.execute(
-        'select listing_carimg.LImage,listing_car.sold, listing_car.price,listing_car.slug, listing_car.title from listing_car inner join listing_carimg on listing_car.id = listing_carimg.car_id where listing_carimg.mainimage = 1 and listing_car.type ="Used" and listing_car.sold ="Sale" ORDER BY listing_car.created desc ')
+        'select listing_carimg.LImage,listing_car.sold, listing_car.price,listing_car.slug, listing_car.title from listing_car inner join listing_carimg on listing_car.id = listing_carimg.car_id where listing_carimg.mainimage = 1 and listing_car.type ="Used" and listing_car.sold ="Sale" and listing_car.publish = 1 ORDER BY listing_car.created desc ')
     df = dictfetchall(cursor)
     posts = Car.object.filter(type="Used", sold="Sale", publish=True, created__lte=timezone.now()).order_by('-pk')
     page = request.GET.get('page', 1)
@@ -132,11 +132,19 @@ def usedsale(request):
         pag = paginator.page(paginator.num_pages)
     return render(request, 'listing/used_for_sale.html', {'posts':posts, 'pag': pag})
 
-
+import re
 def car_detail(request,car_slug):
-    car = get_object_or_404(Car, slug=car_slug)
-    ImgOnly = CarImg.objects.filter()
-    return render(request, 'listing/list_detail.html', {'car': car,'ImgOnly':ImgOnly})
+    cursor = connection.cursor()
+
+    car_name = re.sub(".*[\%3D]", "", str(request.build_absolute_uri()))
+    query1 = 'select listing_carimg.LImage,listing_car.body ,listing_car.sold, listing_car.price,listing_car.slug, listing_car.title from listing_car inner join listing_carimg on listing_car.id = listing_carimg.car_id where listing_carimg.mainimage = 1 and listing_car.slug = \"' \
+             + str(car_name) + '\" ORDER BY listing_car.created desc '
+    cursor.execute(query1)
+    df = dictfetchall(cursor)
+
+
+
+    return render(request, 'listing/list_detail.html', {'dfs': df[0],  })
 
     '''
     Car._meta.get_fields()

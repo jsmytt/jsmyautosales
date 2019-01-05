@@ -32,6 +32,7 @@ a span {
 <body>
     <br>
     <br>
+
         {% for each_car in carsearch %}
             <div class="container">
                 <a href="{% url 'listing:detailListing' each_car.slug %}">

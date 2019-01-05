@@ -37,11 +37,11 @@ class banner(TemplateView):
         lenlease=len(Car.object.filter(type="Lease", publish=True, created__lte=timezone.now()).order_by('-pk'))
         cursor = connection.cursor()
         cursor.execute(
-            'select listing_carimg.LImage, listing_car.price,listing_car.slug, listing_car.title from listing_car inner join listing_carimg on listing_car.id = listing_carimg.car_id where listing_carimg.mainimage = 1 and listing_car.type ="Used" ORDER BY listing_car.created desc ')
+            'select listing_carimg.LImage, listing_car.price,listing_car.slug, listing_car.title from listing_car inner join listing_carimg on listing_car.id = listing_carimg.car_id where listing_carimg.mainimage = 1 and listing_car.type ="Used" and listing_car.publish = 1 ORDER BY listing_car.created desc ')
 
         dfUsed = dictfetchall(cursor)
         cursor.execute(
-            'select listing_carimg.LImage, listing_car.price,listing_car.slug, listing_car.title from listing_car inner join listing_carimg on listing_car.id = listing_carimg.car_id where listing_carimg.mainimage = 1 and listing_car.type ="Lease" ORDER BY listing_car.created desc ')
+            'select listing_carimg.LImage, listing_car.price,listing_car.slug, listing_car.title from listing_car inner join listing_carimg on listing_car.id = listing_carimg.car_id where listing_carimg.mainimage = 1 and listing_car.type ="Lease" and listing_car.publish = 1 ORDER BY listing_car.created desc ')
 
         dfLease = dictfetchall(cursor)
 
@@ -68,3 +68,22 @@ def email(request):
 
 def calculator(request):
     return render(request, 'listing/calculator.html',{})
+
+
+def search(request):
+    if request.method == 'GET':
+        car_name = request.GET.get('search')
+        try:
+            cursor = connection.cursor()
+            cursor.execute(
+                'select listing_carimg.LImage, listing_car.price,listing_car.slug, listing_car.title from listing_car inner join listing_carimg on listing_car.id = listing_carimg.car_id where listing_carimg.mainimage = 1 and listing_car.publish = 1 and listing_car.slug= \"' + car_name + '\" ORDER BY listing_car.created desc '
+            )
+
+            dfUsed = dictfetchall(cursor)
+            ImgOnly = CarImg.objects.filter()
+            status = Car.object.filter(title__icontains=car_name, publish=True,).order_by('-pk')
+            return render(request,'listing/search.html',{"carsearch":status, 'ImgOnly':ImgOnly})
+        except:
+            status=''
+    else:
+        return render(request,'listing/search.html',{})

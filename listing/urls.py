@@ -13,7 +13,7 @@ urlpatterns = [
     path('usedsold/', views.usedsold, name='sold'),
     path('usedsale/', views.usedsale, name='sale'),
     path('rental/', views.lease.as_view(), name='rentalListing'),
-    path('new/<str:car_slug>', views.car_detail, name='detailListing'),
+    path('detail/car_slug=<str:car_slug>', views.car_detail, name='detailListing'),
     path('faq/', views.faq, name='faq'),
     path('contactus/', views.TemplateView.as_view(template_name='listing/contactus.html'), name='contactus')
 ]

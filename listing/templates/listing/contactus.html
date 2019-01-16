@@ -1,67 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
+
 {% extends 'index.html' %}
 {% load static %}
+{% load humanize %}
 <head>
     <meta charset="UTF-8">
-    <title>JSMY - New Car Listing</title>
-
-<style>
-a {
-    display: block;
-    text-decoration: none;
-}
-a img {
-    display: inline-block;
-    width: 80px;
-    height: 80px;
-}
-a span {
-    display: inline-block;
-    font-size: 20px;
-    font-weight: bold;
-}
-</style>
+    <title>JSMY - Contact Us</title>
 </head>
-
-
-{% load static %}
-{% load humanize %}
 
 {% block summary %}
 
-<body>
-<img src=" {% static 'mijunmo_banner_final.png' %} ">
-<p><span style="color:#000000">​​​Justin Lim​ 임준수​</span></p>
+<div class="section">
+    <div class="container">
+        <body>
+            <div style="align-items:center">
+                <div class="container">
+                    <div>
+                        <br>
+                        <img src=" {% static 'mijunmo_banner_final.png' %} ">
+                        <p>​​​
+                        Justin Lim​ 임준수​<br>President<br>JSMY Auto Sales, Inc<br>8 Corporate Park #300, Irvine, CA 92606<br>
+                        ​Work: (714) 681 - 0161<br>Fax: (610) 884 - 5450<br>Email: ​justin@jsmyautosales.com<br>
+                        ​Kakaotalk ID: nicejun0718​<br>​Website: www.jsmyautosales.com<br>​B.S ​Degree in Statistical science<br>
+                        ​​Dept. of Statistics and Applied Probability​<br>University of California, Santa Barbara, Santa Barbara, CA 93106
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </body>
 
-<div><span style="color:#000000">President</span></div>
+        <div class="clearfix visible-xs visible-sm visible-md visible-lg"></div>
 
-<div><span style="color:#000000">JSMY Auto Sales, Inc</span></div>
+        <hr>
 
-<div><span style="color:#000000">8 Corporate Park #300, Irvine, CA 92606</span></div>
-
-
-<div><span style="color:#000000">​Work: (714) 681 - 0161</span></div>
-
-<div><span style="color:#000000">Fax: (610) 884 - 5450</span></div>
-
-<div><span style="color:#000000">Email: ​justin@jsmyautosales.com</span></div>
-
-<div><span style="color:#000000">​Kakaotalk ID: nicejun0718​</span></div>
-
-<div><span style="color:#000000">​Website: www.jsmyautosales.com</span></div>
-
-<div><span style="color:#000000">​B.S ​Degree in Statistical science</span></div>
-
-<div><span style="color:#000000">​​Dept. of Statistics and Applied Probability​</span></div>
-
-
-
-
-<div><span style="color:#000000">University of California, Santa Barbara, Santa Barbara, CA 93106</span></div>
-</body>
-
-
+        <div class="container" style = "float:right; width:100% ">
+            <script>
+                function display()
+                {
+                    alert("Message Has Been Sent!");
+                }
+            </script>
+            <span>
+                <form action="{% url 'email' %}" method="post">{% csrf_token %}
+                    <p>Your Email:<br><textarea name="custemail" rows="1" cols="30"></textarea></p>
+                    <p>Your Phone Number:<br><textarea name="phone" rows="1" cols="30"></textarea></p>
+                    <p>Email Title:<br><textarea name="topic" rows="1" cols="100">{{ dfs.title }}</textarea></p>
+                    <p>Message:<br><textarea name="body" rows="10" cols="100"></textarea></p>
+                    <button type="submit" value="Send" onclick="display()"> SEND </button>
+                </form>
+            </span>
+        </div>
+    </div>
+</div>
 
 {% endblock %}
 </html>

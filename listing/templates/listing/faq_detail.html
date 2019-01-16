@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% extends 'index.html' %}
+{% load static %}
+{% load humanize %}
+<head>
+    <meta charset="UTF-8">
+    <title>JSMY - FAQ Detail</title>
+</head>
+
+{% block summary %}
+
+    <div class="section">
+        <div class="container">
+            <h1>{{ dfs.title }}</h1>
+            <br>
+            <p> {{ dfs.body|safe }}</p>
+            <p>Posted: {{ dfs.created }}</p>
+        </div>
+    </div>
+
+{% endblock %}
+</html>

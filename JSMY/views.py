@@ -7,12 +7,7 @@ from django.core.mail import send_mail
 from django.conf import settings
 from django.shortcuts import redirect
 from .forms import LoginForm
-
-
 from django.db import connection
-
-
-
 
 def dictfetchall(cursor):
     "Returns all rows from a cursor as a dict"
@@ -58,8 +53,6 @@ class banner(TemplateView):
                    }
         return render(request, self.template_name, context)
 
-
-
 def email(request):
     form = LoginForm(request.POST)
     if form.is_valid():
@@ -71,7 +64,6 @@ def email(request):
         recipient_list = ['jsmyautosales@gmail.com',]
         send_mail( subject, message, email_from, recipient_list )
     return redirect('index')
-
 
 def calculator(request):
     return render(request, 'listing/calculator.html',{})

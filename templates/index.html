@@ -39,17 +39,11 @@
 			<!-- Top Nav -->
 			<div id="nav-top">
 				<div class="container">
-
-
 					<!-- logo -->
 					<div class="nav-logo">
 						<p><a href="{% url 'index' %}" class="logo"><img src="{% static 'logo.png' %}" alt=""></a></p><br>
 					</div>
 					<!-- /logo -->
-
-
-
-					<!-- search & aside toggle -->
 					<div class="nav-btns">
 						<button class="search-btn"><i class="fa fa-search"></i></button>
 						<div id="nav-search">
@@ -62,10 +56,7 @@
 						</div>
 					</div>
 					<!-- /search & aside toggle -->
-			</div>
-
-
-			<!-- /Top Nav -->
+			    </div>
 
 			<!-- Main Nav -->
 				<div class="container">
@@ -95,283 +86,213 @@
 								</div>
 							</div>
                         </li>
-
 					</ul>
-					<!-- /nav -->
 				</div>
-			<!-- /Main Nav -->
-
-
-		</div>
+		    </div>
 		<!-- /NAV -->
 	</header>
 	<!-- /HEADER -->
     {% endblock %}
-{% block summary %}
-<!-- SECTION -->
-	<div class="section">
-		<!-- container -->
-		<div class="container" >
-			<!-- row -->
-			<div class="row">
-				<div class="col-md-9">
-					<!-- row -->
-					<div class="row">
-                        <div class="col-md-12">
-                            <div class="col-md-9">
-                                <div class="post">
-                                    <div class="post hidden-xs">
-                                    <a href="{{ Blink1 }}"><img src="media/{{ BImage1 }}" width="815" height="250"> </a>
+
+
+    {% block summary %}
+    <!-- SECTION -->
+<style>
+div.a{
+    padding-left: 5px;
+}
+</style>
+        <div class="section">
+            <!-- container -->
+            <div class="container" >
+                <!-- row -->
+                <div class="row">
+                    <div class="col-md-9">
+                        <!-- row -->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-9">
+                                    <div class="post">
+                                        <div class="post hidden-xs">
+                                        <a href="{{ Blink1 }}"><img src="media/{{ BImage1 }}" width="815" height="250"> </a>
+                                        </div>
                                     </div>
                                 </div>
-						    </div>
 
-<div class="clearfix visible-md visible-lg"></div>
+                                <div class="clearfix visible-md visible-lg"></div>
 
-
-							<div class="section-title">
-								<h2 class="title">New Vehicles</h2>
-							</div>
-						</div>
-
-
-                    <div class="clearfix visible-md visible-lg"></div>
-
-
-
-                    {% if lennew > 4 %}
-                        <div class = 'container'>
-                        {% for news in new|slice:":4" %}
-						<!-- new1 post -->
-							<div class="post-title">
-                                <p><a href="{% url 'listing:detailListing' news.slug %}">{{ news.title }}</a><br>
-                                <a style="color:#0600ff;" href="{% url 'listing:detailListing' news.slug %}">${{ news.price|floatformat:0|intcomma }}</a>
-                                </p>
+                                <!-- New listing posts -->
+                                <div class="section-title">
+                                    <h2 class="title">New Vehicles</h2>
+                                </div>
                             </div>
 
-                        {% endfor %}
+
+                                <div class="clearfix visible-md visible-lg"></div>
+
+                            {% if lennew > 4 %}
+                            <div class="container">
+                                <div class="post-title a">
+                                    {% for news in new|slice:":4" %}
+                                        <div class="post-title a">
+                                            <p><a href="{% url 'listing:detailListing' news.slug %}">{{ news.title }}</a><br>
+                                            <a style="color:#0600ff;" href="{% url 'listing:detailListing' news.slug %}">${{ news.price|floatformat:0|intcomma }}</a>
+                                            </p>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                                {% else %}
+                                    {% for news in new|slice:":{{ lennew }}" %}
+                                        <div class="post-title a">
+                                            <p>
+                                                <a href="{% url 'listing:detailListing' news.slug %}">{{ news.title }}</a><br>
+                                                <a style="color:#0600ff;" href="{% url 'listing:detailListing' news.slug %}">${{ news.price|floatformat:0|intcomma }}</a>
+                                            </p>
+                                        </div>
+                                    {% endfor %}
+                                {% endif %}
+                                <!-- End New listing posts -->
+                                <br>
+
+                                <div class="clearfix visible-md visible-lg"></div>
+
+
+                                <!-- Used listing posts -->
+                                <div class="col-md-12">
+                                    <div class="section-title">
+                                        <h2 class="title">Used Vehicles</h2>
+                                    </div>
+                                </div>
+
+                                <div class="clearfix visible-md visible-lg"></div>
+
+
+                                {% if lenused > 4 %}
+                                    <div class="post">
+                                    {% for useds in dfUsed|slice:":4" %}
+                                        <div class="col-md-3">
+                                            <a class="post-img" href="{% url 'listing:detailListing' useds.slug %}"><img src="/../media/{{ useds.LImage }}" height="135"></a>
+                                            <div class="post-thumb">
+                                                <div>
+                                                    <a style="color:#0600ff;" href="{% url 'listing:detailListing' useds.slug %}">${{ useds.price|floatformat:0|intcomma }}</a>
+                                                </div>
+                                                <p><a href="{% url 'listing:detailListing' useds.slug %}">{{ useds.title }}</a></p>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {% for useds in dfUsed %}
+                                        <div class="col-md-3">
+                                            <a class="post-img" href="{% url 'listing:detailListing' useds.slug %}"><img src="/../media/{{ useds.LImage }}" height="135"></a>
+                                            <div class="post-thumb">
+                                                <div>
+                                                     <a style="color:#0600ff;" href="{% url 'listing:detailListing' useds.slug %}">${{ useds.price|floatformat:0|intcomma }}</a>
+                                                </div>
+                                                <p><a href="{% url 'listing:detailListing' useds.slug %}">{{ useds.title }}</a></p>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                {% endif %}
+                                <!-- End Used listing posts -->
+
+
+                                <div class="clearfix visible-md visible-lg"></div>
+
+
+                                <!-- Rental listing posts -->
+                                <div class="col-md-12">
+                                    <div class="section-title">
+                                        <h2 class="title">Rental Vehicles</h2>
+                                    </div>
+                                </div>
+
+                                <div class="clearfix visible-md visible-lg"></div>
+
+                                {% if lenlease > 4 %}
+                                    {% for leases in dfLease|slice:":4" %}
+                                        <div class="col-md-2">
+                                            <div class="post">
+                                            <a class="post-img" href="{% url 'listing:detailListing' leases.slug %}"><img src="/../media/{{ leases.LImage }}" height="135"> </a>
+                                                <div class="post-thumb">
+                                                    <div>
+                                                        <a style="color:#0600ff;" href="{% url 'listing:detailListing' leases.slug %}">${{ leases.price|floatformat:0|intcomma }}</a>
+                                                    </div>
+                                                    <p><a href="{% url 'listing:detailListing' leases.slug %}">{{ leases.title }}</a></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                {% else %}
+                                    {% for leases in dfLease|slice:":{{ lenlease }}" %}
+                                        <div class="col-md-3">
+                                            <div class="post">
+                                                <a class="post-img" href="{% url 'listing:detailListing' leases.slug %}"><img src="/../media/{{ leases.LImage }}" height="135"> </a>
+                                                <div class="post-thumb">
+                                                    <div>
+                                                        <a style="color:#0600ff;" href="{% url 'listing:detailListing' leases.slug %}">${{ leases.price|floatformat:0|intcomma }}</a>
+                                                    </div>
+                                                    <p><a href="{% url 'listing:detailListing' leases.slug %}">{{ leases.title }}</a></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                {% endif %}
+                            <!-- End Rental listing posts -->
+                                <div class="clearfix visible-md visible-lg"></div>
                         </div>
-                            {% else %}
-
-                            {% for news in new|slice:":{{ lennew }}" %}
-						<!-- new1 post -->
-							<div class="post-title">
-                                <p><a href="{% url 'listing:detailListing' news.slug %}">{{ news.title }}</a><br>
-										<a style="color:#0600ff;" href="{% url 'listing:detailListing' news.slug %}">${{ news.price|floatformat:0|intcomma }}</a>
-							</p>
-                            </div>
-
-                            {% endfor %}
-                    {% endif %}
-                    <br>
-
-						<!-- /post -->
+                    </div>
 
 
-
-
-
-
-
-                        <div class="clearfix visible-md visible-lg"></div>
-                        <div class="col-md-12">
-							<div class="section-title">
-								<h2 class="title">Used Vehicles</h2>
-							</div>
-						</div>
-
-<div class="clearfix visible-md visible-lg"></div>
-
-
-                        				<!-- used -->
-                    {% if lenused > 4 %}
+                    <div class="col-md-3 hidden-xs">
                         <div class="post">
-                        {% for useds in dfUsed|slice:":4" %}
-
-						<!-- new1 post -->
-						<div class="col-md-3">
-
-
-								<a class="post-img" href="{% url 'listing:detailListing' useds.slug %}"><img src="/../media/{{ useds.LImage }}" height="135"> </a>
-								<div class="post-thumb">
-									<div>
-										<a style="color:#0600ff;" href="{% url 'listing:detailListing' useds.slug %}">${{ useds.price|floatformat:0|intcomma }}</a>
-									</div>
-									<p><a href="{% url 'listing:detailListing' useds.slug %}">{{ useds.title }}</a></p>
-								</div>
-							</div>
-
-
-                                    {% endfor %}
+                            <a href="{{ Blink2 }}"><img src="media/{{BImage2}}" width="300" height="250" alt=""></a>
                         </div>
-                            {% else %}
-                                                    {% for useds in dfUsed %}
-
-
-						<!-- new1 post -->
-						<div class="col-md-3">
-							<div class="post">
-
-								<a class="post-img" href="{% url 'listing:detailListing' useds.slug %}">
-
-
-                                    <img src="media/{{ useds.LImage }}" height="135">
-
-
-
-
-                                </a>
-								<div class="post-thumb">
-									<div>
-										<a style="color:#0600ff;" href="{% url 'listing:detailListing' useds.slug %}">${{ useds.price|floatformat:0|intcomma }}</a>
-									</div>
-									<p><a href="{% url 'listing:detailListing' useds.slug %}">{{ useds.title }}</a></p>
-								</div>
-							</div>
-						</div>
-
-
-
-                        {% endfor %}
-                    {% endif %}
-						<!-- /post -->
-
-
-
-
-
-
-
-
-                        <div class="clearfix visible-md visible-lg"></div>
-                        <div class="col-md-10">
-							<div class="section-title">
-								<h2 class="title">Rental Vehicles</h2>
-							</div>
-						</div>
-
-<div class="clearfix visible-md visible-lg"></div>
-                                                						                        						<!-- lease post -->
-
-                    {% if lenlease > 4 %}
-                        {% for leases in dfLease|slice:":4" %}
-
-						<!-- new1 post -->
-						<div class="col-md-2">
-							<div class="post">
-
-								<a class="post-img" href="{% url 'listing:detailListing' leases.slug %}"><img src="/../media/{{ leases.LImage }}" height="135"> </a>
-								<div class="post-thumb">
-									<div>
-										<a style="color:#0600ff;" href="{% url 'listing:detailListing' leases.slug %}">${{ leases.price|floatformat:0|intcomma }}</a>
-									</div>
-									<p><a href="{% url 'listing:detailListing' leases.slug %}">{{ leases.title }}</a></p>
-								</div>
-							</div>
-						</div>
-
-
-                                    {% endfor %}
-
-                            {% else %}
-                        {% for leases in dfLease|slice:":{{ lenlease }}" %}
-
-						<!-- new1 post -->
-						<div class="col-md-3">
-							<div class="post">
-
-								<a class="post-img" href="{% url 'listing:detailListing' leases.slug %}"><img src="/../media/{{ leases.LImage }}" height="135"> </a>
-								<div class="post-thumb">
-									<div>
-										<a style="color:#0600ff;" href="{% url 'listing:detailListing' leases.slug %}">${{ leases.price|floatformat:0|intcomma }}</a>
-									</div>
-									<p><a href="{% url 'listing:detailListing' leases.slug %}">{{ leases.title }}</a></p>
-								</div>
-							</div>
-						</div>
-
-
-                        {% endfor %}
-                    {% endif %}
-
-
-						<!-- /post -->
-
-
-<div class="clearfix visible-md visible-lg"></div>
-
-
-					</div>
-					<!-- /row -->
-				</div>
-
-                <div class="col-md-3 hidden-xs">
-                    <div class="post">
-                        <a href="{{ Blink2 }}"><img src="media/{{BImage2}}" width="300" height="250" alt=""></a>
-                    </div>
-                    <div class="post">
-                        <a href="{{ Blink3 }}"><img src="media/{{BImage3}}" width="300" height="250" alt=""></a>
-                    </div>
-                    <div class="post">
-                        <a href="{{ Blink4 }}"><img src="media/{{BImage4}}" width="300" height="250" alt=""></a>
-                    </div>
-                    <div class="post">
-                        <a href="{{ Blink5 }}"><img src="media/{{BImage5}}" width="300" height="250" alt=""></a>
+                        <div class="post">
+                            <a href="{{ Blink3 }}"><img src="media/{{BImage3}}" width="300" height="250" alt=""></a>
+                        </div>
+                        <div class="post">
+                            <a href="{{ Blink4 }}"><img src="media/{{BImage4}}" width="300" height="250" alt=""></a>
+                        </div>
+                        <div class="post">
+                            <a href="{{ Blink5 }}"><img src="media/{{BImage5}}" width="300" height="250" alt=""></a>
+                        </div>
                     </div>
                 </div>
-
-
-						<!-- /post -->
             </div>
-					<!-- /post widget -->
         </div>
-    </div>
-			<!-- /row -->
-    </div>
-		<!-- /container -->
-	</div>
-	<!-- /SECTION -->
 
 
+    {% endblock %}
 
-    <a href="{% url 'email' %}">email</a><br>
-    <a href="{% url 'calculator' %}">calculator</a>
+    {% block footer %}
+        <!-- FOOTER -->
+        <footer>
+            <!-- container -->
+            <div class="container">
+                <div class="footer-bottom row">
+                    <div class="col-md-6 col-md-push-6">
+                        <ul class="footer-nav">
+                            <li><a href="{% url 'index' %}">Home</a></li>
+                            <li><a href="{% url 'listing:contactus' %}">Contacts Us</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6 col-md-pull-6">
+                        <div class="footer-copyright">
+                            <p>JSMY Inc. <script>document.write(new Date().getFullYear());</script></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
 
-
-{% endblock %}
-{% block footer %}
-	<!-- FOOTER -->
-	<footer id="footer">
-		<!-- container -->
-		<div class="container">
-			<div class="footer-bottom row">
-				<div class="col-md-6 col-md-push-6">
-					<ul class="footer-nav">
-						<li><a href="index.html">Home</a></li>
-						<li><a href="about.html">About Us</a></li>
-						<li><a href="contact.html">Contacts</a></li>
-					</ul>
-				</div>
-				<div class="col-md-6 col-md-pull-6">
-					<div class="footer-copyright">
-						<!— Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. —>
-Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-<!— Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. —>
-					</div>
-				</div>
-			</div>
-			<!— /row —>
-		</div>
-		<!— /container —>
-	</footer>
-	<!— /FOOTER —>
-
-	<!— jQuery Plugins —>
-	<script src='{% static "jquery.min.js" %}'></script>
-	<script src='{% static "bootstrap.min.js" %}'></script>
-	<script src='{% static "jquery.stellar.min.js" %}'></script>
-	<script src='{% static "main.js" %}'></script>
-{% endblock %}
+        <!— jQuery Plugins —>
+        <script src='{% static "jquery.min.js" %}'></script>
+        <script src='{% static "bootstrap.min.js" %}'></script>
+        <script src='{% static "jquery.stellar.min.js" %}'></script>
+        <script src='{% static "main.js" %}'></script>
+    {% endblock %}
 </body>
 
 </html>

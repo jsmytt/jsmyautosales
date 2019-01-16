@@ -5,9 +5,6 @@ class EntryQuerySet(models.QuerySet):
     def published(self):
         return self.filter(publish=True)
 
-
-
-
 class Car(models.Model):
     type = models.CharField(max_length=25, choices=[('New', 'New Vehicle'), ('Used', 'Used Vehicle'), ('Lease', 'Rental Vehicle'),('faq', 'FAQ')], default='New', verbose_name='Listing Type')
     title = models.CharField(max_length=500, verbose_name='Title of Vehicle Listing')
@@ -18,8 +15,6 @@ class Car(models.Model):
     sold = models.CharField(max_length=10,verbose_name='Sold Y/N',choices=[('Sale', 'For Sale'), ('Sold', 'Sold')], default='Sale')
     created = models.DateField(auto_now_add=True)
     modified = models.DateField(auto_now=True)
-
-
 
     object = EntryQuerySet.as_manager()
 

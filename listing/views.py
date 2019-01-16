@@ -5,7 +5,7 @@ from django.utils import timezone
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Min, Max
 from django.db import connection
-
+import re
 
 
 def dictfetchall(cursor):
@@ -15,11 +15,6 @@ def dictfetchall(cursor):
             dict(zip([col[0] for col in desc], row))
             for row in cursor.fetchall()
     ]
-
-
-
-
-
 
 class new(TemplateView):
     template_name = 'listing/new.html'
@@ -42,10 +37,6 @@ class new(TemplateView):
             pag = paginator.page(1)
         except EmptyPage:
             pag = paginator.page(paginator.num_pages)
-
-
-
-
 
         return render(request, self.template_name, {'posts': posts, 'pag':pag})
 
@@ -96,6 +87,7 @@ class lease(TemplateView):
 
         return render(request, self.template_name, {'posts': posts, 'pag':pag})
 
+
 def usedsold(request):
     cursor = connection.cursor()
     cursor.execute(
@@ -132,34 +124,34 @@ def usedsale(request):
         pag = paginator.page(paginator.num_pages)
     return render(request, 'listing/used_for_sale.html', {'posts':posts, 'pag': pag})
 
-import re
+
+#Requires importing 're'
 def car_detail(request,car_slug):
     cursor = connection.cursor()
 
     car_name = re.sub(".*[s]+[l]+[u]+[g]+[\%]+[3]+[D]", "", str(request.build_absolute_uri()))
-    query1 = 'select listing_carimg.LImage,listing_car.created,listing_car.body ,listing_car.sold, listing_car.price,listing_car.slug, listing_car.title from listing_car inner join listing_carimg on listing_car.id = listing_carimg.car_id where listing_carimg.mainimage = 1 and listing_car.slug = \"' \
-             + str(car_name) + '\" ORDER BY listing_car.id desc '
+    query1 = 'select listing_car.created,listing_car.body ,listing_car.sold, listing_car.price,listing_car.slug, listing_car.title from listing_car inner join listing_carimg on listing_car.id = listing_carimg.car_id where listing_carimg.mainimage = 1 and listing_car.slug = \"' \
+             + str(car_name) + '\" ORDER BY listing_car.id desc'
     cursor.execute(query1)
     df = dictfetchall(cursor)
 
+    cursor2 = connection.cursor()
 
+    query2 = 'select listing_carimg.LImage,listing_car.slug from listing_car inner join listing_carimg on listing_car.id = listing_carimg.car_id where listing_car.slug = \"' \
+              + str(car_name) + '\" ORDER BY listing_car.id desc'
+    cursor2.execute(query2)
+    df2 = dictfetchall(cursor2)
 
-    return render(request, 'listing/list_detail.html', {'dfs': df[0],  })
+    return render(request, 'listing/list_detail.html', {'dfs': df[0], 'df2':df2})
 
-    '''
-    Car._meta.get_fields()
-    [{'LImage':1}, {'LImage2':2}, {'LImage3':3}, {'LImage4':4}, {'LImage5':5}, {'LImage6':6}, {'LImage7':7}, {'LImage8':8}]
-    Car.object.values_list('LImage2')
-    Car.object.values_list('LImage2')[0] == (None,)
-    for i in range(0,len(Car.object.values_list('LImage2'))):
-        Car.object.values_list('LImage2')[i]
+# def car_images(request, car_slug):
+#     cursor = connection.cursor()
+#     car_name = re.sub(".*[s]+[l]+[u]+[g]+[\%]+[3]+[D]", "", str(request.build_absolute_uri()))
+#     cursor.execute('select listing_carimg.LImage,listing_car.slug, from listing_car inner join listing_carimg on listing_car.id = listing_carimg.car_id where listing_car.slug = \"' \
+#              + str(car_name) + '\" ORDER BY listing_car.id desc')
+#     dfimage = dictfetchall(cursor)
+#     return render(request, 'listing/list_detail.html', {'dfimage': dfimage})
 
-    
-a=[]
-a.append()
-for i in range(0,len(Car._meta.get_fields())):
-    a.append(re.sub('.*\.','',str(Car._meta.get_fields()[i])))
-    '''
 def faq(request):
     posts = Car.object.filter(type="faq", sold="Sale", publish=True, created__lte=timezone.now()).order_by('-pk')
     page = request.GET.get('page', 1)
@@ -173,4 +165,13 @@ def faq(request):
         pag = paginator.page(paginator.num_pages)
     return render(request, 'listing/faq.html', {'posts':posts, 'pag': pag})
 
+def faq_detail(request,car_slug):
+    cursor = connection.cursor()
 
+    car_name = re.sub(".*[s]+[l]+[u]+[g]+[\%]+[3]+[D]", "", str(request.build_absolute_uri()))
+    query1 = 'select listing_car.created,listing_car.body ,listing_car.sold, listing_car.price,listing_car.slug, listing_car.title from listing_car where listing_car.slug = \"' \
+             + str(car_name) + '\" ORDER BY listing_car.id desc'
+    cursor.execute(query1)
+    df = dictfetchall(cursor)
+
+    return render(request, 'listing/faq_detail.html', {'dfs': df[0]})

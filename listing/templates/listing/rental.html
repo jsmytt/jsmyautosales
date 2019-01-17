@@ -32,6 +32,13 @@ a span {
 <body>
         <br>
         <br>
+        <div class="container">
+            <h2>
+                Vehicles 'For Rent'
+            </h2>
+        </div>
+        <br>
+        <br>
         {% for Car in pag %}
             <div class="container">
                 <a href="{% url 'listing:detailListing' Car.slug%}">

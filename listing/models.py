@@ -12,7 +12,7 @@ class Car(models.Model):
     body = RichTextField(verbose_name='Description of Vehicle')
     slug = models.SlugField(max_length=200, unique=True, verbose_name='SLUG: Your URL will have this in the address')
     publish = models.BooleanField(default=True)
-    sold = models.CharField(max_length=10,verbose_name='Sold Y/N',choices=[('Sale', 'For Sale'), ('Sold', 'Sold')], default='Sale')
+    sold = models.CharField(max_length=10,verbose_name='Sold Y/N',choices=[('Sale', 'For Sale'), ('Solded', 'Sold')], default='Sale')
     created = models.DateField(auto_now_add=True)
     modified = models.DateField(auto_now=True)
 

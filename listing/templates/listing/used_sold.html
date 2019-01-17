@@ -32,13 +32,18 @@ a span {
 <body>
         <br>
         <br>
+        <div class="container">
+            <h2>
+                The vehicles listed below have been sold and are no longer available
+            </h2>
+        </div>
+        <br>
+        <br>
         {% for Car in pag %}
             <div class="container">
                 <a href="{% url 'listing:detailListing' Car.slug%}">
-
                     <img src="/../media/{{ Car.LImage }}" width="70" height="70" align="middle" hspace="20">
-
-                    <span class="a">{{ Car.title }}<br>${{ Car.price|floatformat:0|intcomma }}</span>
+                    <span class="a" style="text-decoration: line-through">{{ Car.title }}<br>${{ Car.price|floatformat:0|intcomma }}</span>
                 </a>
                 <br>
             </div>

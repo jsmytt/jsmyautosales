@@ -63,6 +63,7 @@ def email(request):
         email_from = settings.EMAIL_HOST_USER
         recipient_list = ['jsmyautosales@gmail.com',]
         send_mail( subject, message, email_from, recipient_list )
+        # absurl=dkslagjd
     return redirect('index')
 
 def calculator(request):

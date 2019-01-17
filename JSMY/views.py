@@ -40,7 +40,7 @@ class banner(TemplateView):
         cursor = connection.cursor()
 
         cursor.execute(
-            'select listing_carimg.LImage, listing_car.price,listing_car.slug, listing_car.title from listing_car inner join listing_carimg on listing_car.id = listing_carimg.car_id where listing_carimg.mainimage = 1 and listing_car.type ="Used" and listing_car.publish = 1 ORDER BY listing_car.id desc ')
+            'select listing_carimg.LImage, listing_car.sold, listing_car.price,listing_car.slug, listing_car.title from listing_car inner join listing_carimg on listing_car.id = listing_carimg.car_id where listing_carimg.mainimage = 1 and listing_car.type ="Used" and listing_car.sold ="Sale" and listing_car.publish = 1 ORDER BY listing_car.id desc ')
         dfUsed = dictfetchall(cursor)
 
         cursor.execute(

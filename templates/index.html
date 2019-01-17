@@ -172,7 +172,7 @@ div.a{
                                     <div class="post">
                                     {% for useds in dfUsed|slice:":4" %}
                                         <div class="col-md-3">
-                                            <a class="post-img" href="{% url 'listing:detailListing' useds.slug %}"><img src="/../media/{{ useds.LImage }}" height="135"></a>
+                                            <a class="post" href="{% url 'listing:detailListing' useds.slug %}"><img src="/../media/{{ useds.LImage }}" height="135" width="185"></a>
                                             <div class="post-thumb">
                                                 <div>
                                                     <a style="color:#0600ff;" href="{% url 'listing:detailListing' useds.slug %}">${{ useds.price|floatformat:0|intcomma }}</a>
@@ -185,7 +185,7 @@ div.a{
                                 {% else %}
                                     {% for useds in dfUsed %}
                                         <div class="col-md-3">
-                                            <a class="post-img" href="{% url 'listing:detailListing' useds.slug %}"><img src="/../media/{{ useds.LImage }}" height="135"></a>
+                                            <a class="post" href="{% url 'listing:detailListing' useds.slug %}"><img src="/../media/{{ useds.LImage }}" height="135" width="185"></a>
                                             <div class="post-thumb">
                                                 <div>
                                                      <a style="color:#0600ff;" href="{% url 'listing:detailListing' useds.slug %}">${{ useds.price|floatformat:0|intcomma }}</a>
@@ -214,7 +214,7 @@ div.a{
                                     {% for leases in dfLease|slice:":4" %}
                                         <div class="col-md-2">
                                             <div class="post">
-                                            <a class="post-img" href="{% url 'listing:detailListing' leases.slug %}"><img src="/../media/{{ leases.LImage }}" height="135"> </a>
+                                            <a class="post" href="{% url 'listing:detailListing' leases.slug %}"><img src="/../media/{{ leases.LImage }}" height="135" width="185"> </a>
                                                 <div class="post-thumb">
                                                     <div>
                                                         <a style="color:#0600ff;" href="{% url 'listing:detailListing' leases.slug %}">${{ leases.price|floatformat:0|intcomma }}</a>
@@ -228,7 +228,7 @@ div.a{
                                     {% for leases in dfLease|slice:":{{ lenlease }}" %}
                                         <div class="col-md-3">
                                             <div class="post">
-                                                <a class="post-img" href="{% url 'listing:detailListing' leases.slug %}"><img src="/../media/{{ leases.LImage }}" height="135"> </a>
+                                                <a class="post" href="{% url 'listing:detailListing' leases.slug %}"><img src="/../media/{{ leases.LImage }}" height="135" width="185"> </a>
                                                 <div class="post-thumb">
                                                     <div>
                                                         <a style="color:#0600ff;" href="{% url 'listing:detailListing' leases.slug %}">${{ leases.price|floatformat:0|intcomma }}</a>

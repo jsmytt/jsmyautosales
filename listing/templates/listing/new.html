@@ -3,7 +3,6 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>JSMY - New Car Listing</title>
 
 <style>
 a {
@@ -44,7 +43,7 @@ a span {
             <div class="container">
                 <a href="{% url 'listing:detailListing' Car.slug%}">
                     <img src="/../media/{{ Car.LImage }}" width="70" height="70" align="middle" hspace="20">
-                    <span class="a">{{ Car.title }}<br>${{ Car.price|floatformat:0|intcomma }}</span>
+                    <span class="a">{{ Car.title }}</span>
                 </a>
                 <br>
             </div>

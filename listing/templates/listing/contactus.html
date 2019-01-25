@@ -6,7 +6,6 @@
 {% load humanize %}
 <head>
     <meta charset="UTF-8">
-    <title>JSMY - Contact Us</title>
 </head>
 
 {% block summary %}
@@ -45,7 +44,7 @@
                 <form action="{% url 'email' %}" method="post">{% csrf_token %}
                     <p>Your Email:<br><textarea name="custemail" rows="1" cols="30"></textarea></p>
                     <p>Your Phone Number:<br><textarea name="phone" rows="1" cols="30"></textarea></p>
-                    <p>Email Title:<br><textarea name="topic" rows="1" cols="100">{{ dfs.title }}</textarea></p>
+                    <p>Email Subject:<br><textarea name="topic" rows="1" cols="100">{{ dfs.title }}</textarea></p>
                     <p>Message:<br><textarea name="body" rows="10" cols="100"></textarea></p>
                     <button type="submit" value="Send" onclick="display()"> SEND </button>
                 </form>

@@ -8,6 +8,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 	<title>JSMY Auto Sales</title>
+    <link rel="icon" type="image/png" href="{% static 'JSMY_favicon.png' %}">
+
 {% block head %}
 	<!-- Google font -->
 	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700%7CMuli:400,700" rel="stylesheet">
@@ -39,6 +41,10 @@
 			<!-- Top Nav -->
 			<div id="nav-top">
 				<div class="container">
+                    <ul class="nav-social">
+                        <li><a href="https://www.facebook.com/jsmyautosalesinc/"><i class="fa fa-facebook"></i></a></li>
+                        <li><a href="https://www.instagram.com/jsmyautosalesinc/"><i class="fa fa-instagram"></i></a></li>
+                    </ul>
 					<!-- logo -->
 					<div class="nav-logo">
 						<p><a href="{% url 'index' %}" class="logo"><img src="{% static 'logo.png' %}" alt=""></a></p><br>
@@ -61,10 +67,10 @@
 			<!-- Main Nav -->
 				<div class="container">
 					<!-- nav -->
-					<ul class="nav-menu">
-						<li><a href="{% url 'listing:newListing' %}">New Vehicles - Buy/Lease</a></li>
+					<ul class="nav-menu" style="font-size: 18px">
+						<li><a href="{% url 'listing:newListing' %}">New Vehicles<br>[새차]</a></li>
 						<li class="has-dropdown">
-							<a>Consigned Used Vehicles</a>
+							<a>Consigned Used Vehicles<br>[직거래 중고차]</a>
 							<div class="dropdown">
 								<div class="dropdown-body">
                                     <ul class="dropdown-list">
@@ -74,14 +80,15 @@
 								</div>
 							</div>
 						</li>
-						<li><a href="{% url 'listing:rentalListing' %}">Rental</a></li>
-						<li><a href="{% url 'listing:faq' %}">New Driver FAQ</a></li>
-						<li class="has-dropdown"><a href="">About Us</a>
+						<li><a href="{% url 'listing:rentalListing' %}">Rental Vehicles<br>[렌트카]</a></li>
+						<li><a href="{% url 'listing:faq' %}">New Driver FAQ<br>[정보게시판]</a></li>
+						<li class="has-dropdown">
+                            <a>About Us<br>[오시는길]</a>
                             <div class="dropdown">
 								<div class="dropdown-body">
                                     <ul class="dropdown-list">
                                         <li><a href="{% url 'listing:contactus' %}">Contact Us</a></li>
-                                        <li><a href="{% url 'listing:sold' %}">Quotation</a></li>
+                                        <li><a href="{% url 'listing:quotation' %}">Quotation</a></li>
                                     </ul>
 								</div>
 							</div>
@@ -98,8 +105,8 @@
     {% block summary %}
     <!-- SECTION -->
 <style>
-div.a{
-    padding-left: 5px;
+ul.a{
+    padding-left: 40px;
 }
 </style>
         <div class="section">
@@ -123,7 +130,7 @@ div.a{
 
                                 <!-- New listing posts -->
                                 <div class="section-title">
-                                    <h2 class="title">New Vehicles</h2>
+                                    <h2 class="title">New Vehicles - [새차]</h2>
                                 </div>
                             </div>
 
@@ -132,26 +139,19 @@ div.a{
 
                             {% if lennew > 4 %}
                             <div class="container">
-                                <div class="post-title a">
-                                    {% for news in new|slice:":4" %}
-                                        <div class="post-title a">
-                                            <p><a href="{% url 'listing:detailListing' news.slug %}">{{ news.title }}</a><br>
-                                            <a style="color:#0600ff;" href="{% url 'listing:detailListing' news.slug %}">${{ news.price|floatformat:0|intcomma }}</a>
-                                            </p>
-                                        </div>
-                                    {% endfor %}
-                                </div>
+                                {% for news in new|slice:":4" %}
+                                    <ul style="list-style-type:disc" class="a">
+                                        <li><a href="{% url 'listing:detailListing' news.slug %}">{{ news.title }}</a></li>
+                                    </ul>
+                                {% endfor %}
                             </div>
-                                {% else %}
-                                    {% for news in new|slice:":{{ lennew }}" %}
-                                        <div class="post-title a">
-                                            <p>
-                                                <a href="{% url 'listing:detailListing' news.slug %}">{{ news.title }}</a><br>
-                                                <a style="color:#0600ff;" href="{% url 'listing:detailListing' news.slug %}">${{ news.price|floatformat:0|intcomma }}</a>
-                                            </p>
-                                        </div>
-                                    {% endfor %}
-                                {% endif %}
+                            {% else %}
+                                {% for news in new|slice:":{{ lennew }}" %}
+                                    <ul style="list-style-type:disc" class="a">
+                                        <li><a href="{% url 'listing:detailListing' news.slug %}">{{ news.title }}</a></li>
+                                    </ul>
+                                {% endfor %}
+                            {% endif %}
                                 <!-- End New listing posts -->
                                 <br>
 
@@ -161,7 +161,7 @@ div.a{
                                 <!-- Used listing posts -->
                                 <div class="col-md-12">
                                     <div class="section-title">
-                                        <h2 class="title">Used Vehicles</h2>
+                                        <h2 class="title">Used Vehicles - [직거래 중고차]</h2>
                                     </div>
                                 </div>
 
@@ -204,7 +204,7 @@ div.a{
                                 <!-- Rental listing posts -->
                                 <div class="col-md-12">
                                     <div class="section-title">
-                                        <h2 class="title">Rental Vehicles</h2>
+                                        <h2 class="title">Rental Vehicles - [렌트카]</h2>
                                     </div>
                                 </div>
 
@@ -276,11 +276,12 @@ div.a{
                         <ul class="footer-nav">
                             <li><a href="{% url 'index' %}">Home</a></li>
                             <li><a href="{% url 'listing:contactus' %}">Contacts Us</a></li>
+                            <li><a href="{% url 'listing:manufacturer' %}">Manufacturers</a></li>
                         </ul>
                     </div>
                     <div class="col-md-6 col-md-pull-6">
                         <div class="footer-copyright">
-                            <p>JSMY Inc. <script>document.write(new Date().getFullYear());</script></p>
+                            <p>JSMY Auto Sales, Inc. All Right Reserved @ <script>document.write(new Date().getFullYear());</script></p>
                         </div>
                     </div>
                 </div>

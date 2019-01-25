@@ -6,7 +6,6 @@
 {% load humanize %}
 <head>
     <meta charset="UTF-8">
-    <title>{{ car.title }}</title>
 </head>
 
 {% block summary %}
@@ -22,89 +21,89 @@ img:hover.a {
 }
 </style>
 
-    <div class="section">
-        <div class="container">
-            <script type="text/javascript" language="javascript">
-                function changeImage(img){
-                    document.getElementById('bigImage').src=img;
-                }
-            </script>
-            <div class = "container" style="float:left; width:30%;">
-                {% for df2s in df2|slice:':1' %}
-                <img src="/../media/{{ df2s.LImage }}" alt="" width="325" height="235" id="bigImage"/>
+<div class="section">
+    <div class="container" align="center">
+        <h1>
+            {{ dfs.title }} - {{ dfs.type }}
+            {% if dfs.type != 'New' %}
+            **${{ dfs.price|floatformat:0|intcomma }}**
+            {% endif %}
+        </h1>
+    </div>
+
+    <div class="container">
+        <script type="text/javascript" language="javascript">
+            function changeImage(img){
+                document.getElementById('bigImage').src=img;
+            }
+        </script>
+        <div class = "container" style="float:left; width:30%;" align="center">
+            {% for df2s in df2|slice:':1' %}
+            <img src="/../media/{{ df2s.LImage }}" alt="" width="325" height="235" id="bigImage"/>
+            {% endfor %}
+            <div>
+                {% for df2s in df2|slice:':3' %}
+                    <img class="a" style="padding-top: 10px" src="/../media/{{ df2s.LImage }}" width="90" height="70" onmouseover="changeImage('/../media/{{ df2s.LImage }}')">
                 {% endfor %}
-                <div>
-                    {% for df2s in df2|slice:':3' %}
-                    <p><img class="a" style="padding-top: 10px" src="/../media/{{ df2s.LImage }}" width="80" height="70" onmouseover="changeImage('/../media/{{ df2s.LImage }}')"></p>
-                    {% endfor %}
-                    <p>&nbsp;</p>
-                </div>
-            </div>
-
-            <div class="clearfix visible-xs visible-sm"></div>
-
-            <div class="visible-xs visible-sm">
-                <div class="container" style="float:left; width:100%;">
-                    <h1>{{ dfs.title }}
-                        {% if dfs.type != 'faq' %}
-                            - {{ dfs.type }} **${{ dfs.price|floatformat:0|intcomma }}**
-                        {% endif %}
-                    </h1>
-                    <br>
-                    <p> {{ dfs.body|safe }}</p>
-                    <p>Posted: {{ dfs.created }}</p>
-                </div>
-            </div>
-
-            <div class="visible-lg visible-md">
-                <div class="container" style="float:right; width:65%;">
-                    <h1>{{ dfs.title }}
-                        {% if dfs.type != 'faq' %}
-                        <span>
-                            - {{ dfs.type }} **${{ dfs.price|floatformat:0|intcomma }}**
-                        </span>
-                        {% endif %}
-                    </h1>
-                    <br>
-                    <p> {{ dfs.body|safe }}</p>
-                    <p>Posted: {{ dfs.created }}</p>
-                </div>
-            </div>
-
-            <div class="clearfix visible-xs visible-sm visible-md visible-lg"></div>
-
-            <hr>
-
-            <div class="container">
-                {% for df2s in df2 %}
-                <p><img style="padding-top: 10px" src="/../media/{{ df2s.LImage }}" class="img-responsive center-block" width="850" height="650"></p>
-                {% endfor %}
-                <p>&nbsp;</p>
-            </div>
-
-
-            <div class="clearfix visible-xs visible-sm visible-md visible-lg"></div>
-
-            <hr>
-
-            <div class="container" style = "float:right; width:100% ">
-                <script>
-                    function display()
-                    {
-                        alert("Message Has Been Sent!");
-                    }
-                </script>
-                <span>
-                    <form action="{% url 'email' %}" method="post">{% csrf_token %}
-                        <p>Your Email:<br><textarea name="custemail" rows="1" cols="30"></textarea></p>
-                        <p>Your Phone Number:<br><textarea name="phone" rows="1" cols="30"></textarea></p>
-                        <p>Email Title:<br><textarea readonly name="topic" rows="1" cols="100" style="background-color: #dadbde">{{ dfs.title }}</textarea></p>
-                        <p>Message:<br><textarea name="body" rows="10" cols="100"></textarea></p>
-                        <button type="submit" value="Send" onclick="display()"> SEND </button>
-                    </form>
-                </span>
+                    <img style="padding-top: 30px" src="{% static 'ad-1.jpg' %}">
             </div>
         </div>
+
+        <div class="clearfix visible-xs visible-sm"></div>
+
+        <div class="visible-xs visible-sm">
+            <div class="container" style="float:left; width:100%;">
+                {% if dfs.sold == 'Solded' %}
+                    <img src="{% static 'sold_jsmy.jpeg' %}">
+                {% endif %}
+                <p> {{ dfs.body|safe }}</p>
+                <p>Posted: {{ dfs.created }}</p>
+            </div>
+        </div>
+
+        <div class="visible-lg visible-md">
+            <div class="container" style="float:right; width:65%;">
+                {% if dfs.sold == 'Solded' %}
+                    <img src="{% static 'sold_jsmy.jpeg' %}" width="" height="70">
+                {% endif %}
+                <p> {{ dfs.body|safe }}</p>
+                <p>Posted: {{ dfs.created }}</p>
+            </div>
+        </div>
+
+        <div class="clearfix visible-xs visible-sm visible-md visible-lg"></div>
+
+        <hr>
+
+        <div class="container">
+            {% for df2s in df2 %}
+            <p><img style="padding-top: 10px" src="/../media/{{ df2s.LImage }}" class="img-responsive center-block" width="850" height="650"></p>
+            {% endfor %}
+            <p>&nbsp;</p>
+        </div>
+
+
+        <div class="clearfix visible-xs visible-sm visible-md visible-lg"></div>
+
+        <hr>
+
+        <div class="container">
+            <script>
+                function display()
+                {
+                    alert("Message Has Been Sent!");
+                }
+            </script>
+            <form action="{% url 'email' %}" method="post">{% csrf_token %}
+                <p>Your Email:<br><textarea name="custemail" rows="1" cols="30"></textarea></p>
+                <p>Your Phone Number:<br><textarea name="phone" rows="1" cols="30"></textarea></p>
+                <p>Email Title:<br><textarea readonly name="topic" rows="1" cols="100" style="background-color: #dadbde">{{ dfs.title }}</textarea></p>
+                <p>Message:<br><textarea name="body" rows="10" cols="100"></textarea></p>
+                <button type="submit" value="Send" onclick="display()"> SEND </button>
+            </form>
+        </div>
     </div>
+</div>
+
 {% endblock %}
 </html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+<style>
+a {
+    display: block;
+    text-decoration: none;
+}
+a img {
+    display: inline-block;
+    width: 80px;
+    height: 80px;
+}
+a span {
+    display: inline-block;
+    font-size: 20px;
+    font-weight: bold;
+}
+</style>
+</head>
+
+{% extends 'index.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block summary %}
+
+
+<body>
+<br>
+<br>
+    <div class="container">
+        <ul>
+            <li><a href="https://www.toyota.com/">Toyota</a></li>
+            <li><a href="https://www.lexus.com/">Lexus</a></li>
+            <li><a href="https://www.honda.com/">Honda</a></li>
+            <li><a href="https://www.acura.com/">Acura</a></li>
+            <li><a href="https://www.hyundai.com/">Hyundai</a></li>
+            <li><a href="https://www.kia.com/">Kia</a></li>
+            <li><a href="https://www.bmw.com/">BMW</a></li>
+            <li><a href="https://www.mbusa.com/">Mercedes</a></li>
+            <li><a href="https://www.mazda.com/">Mazda</a></li>
+        </ul>
+    </div>
+
+</body>
+{% endblock %}
+</html>

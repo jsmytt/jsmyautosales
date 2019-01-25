@@ -1,42 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
+
 {% extends 'index.html' %}
 {% load static %}
+{% load humanize %}
 <head>
     <meta charset="UTF-8">
-    <title>JSMY - New Car Listing</title>
-
-<style>
-a {
-    display: block;
-    text-decoration: none;
-}
-a img {
-    display: inline-block;
-    width: 80px;
-    height: 80px;
-}
-a span {
-    display: inline-block;
-    font-size: 20px;
-    font-weight: bold;
-}
-</style>
 </head>
-
-
-{% load static %}
-{% load humanize %}
 
 {% block summary %}
 
-<body>
+<div class="section">
+    <div class="container">
+        <body>
+            <div style="align-items:center">
+                <div class="container">
+                    <div>
+                        <p>​​​
+                            <h2>Please send us your quotation inquiry using the messaging function below:</h2>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </body>
 
+        <div class="clearfix visible-xs visible-sm visible-md visible-lg"></div>
 
+        <hr>
 
-</body>
-
-
+        <div class="container" style = "float:right; width:100% ">
+            <script>
+                function display()
+                {
+                    alert("Message Has Been Sent!");
+                }
+            </script>
+            <span>
+                <form action="{% url 'email' %}" method="post">{% csrf_token %}
+                    <p>Your Email:<br><textarea name="custemail" rows="1" cols="30"></textarea></p>
+                    <p>Your Phone Number:<br><textarea name="phone" rows="1" cols="30"></textarea></p>
+                    <p>Email Subject:<br><textarea name="topic" rows="1" cols="100">{{ dfs.title }}</textarea></p>
+                    <p>Message:<br><textarea name="body" rows="10" cols="100"></textarea></p>
+                    <button type="submit" value="Send" onclick="display()"> SEND </button>
+                </form>
+            </span>
+        </div>
+    </div>
+</div>
 
 {% endblock %}
 </html>

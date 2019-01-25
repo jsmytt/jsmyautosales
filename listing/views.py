@@ -132,7 +132,7 @@ def car_detail(request,car_slug):
     cursor = connection.cursor()
 
     car_name = re.sub(".*[s]+[l]+[u]+[g]+[\%]+[3]+[D]", "", str(request.build_absolute_uri()))
-    query1 = 'select listing_car.created,listing_car.body ,listing_car.sold, listing_car.price,listing_car.slug, listing_car.title from listing_car inner join listing_carimg on listing_car.id = listing_carimg.car_id where listing_carimg.mainimage = 1 and listing_car.slug = \"' \
+    query1 = 'select listing_car.created,listing_car.body ,listing_car.sold, listing_car.price,listing_car.slug, listing_car.title, listing_car.type from listing_car inner join listing_carimg on listing_car.id = listing_carimg.car_id where listing_carimg.mainimage = 1 and listing_car.slug = \"' \
              + str(car_name) + '\" ORDER BY listing_car.id desc'
     cursor.execute(query1)
     df = dictfetchall(cursor)
@@ -177,3 +177,7 @@ def faq_detail(request,car_slug):
     df = dictfetchall(cursor)
 
     return render(request, 'listing/faq_detail.html', {'dfs': df[0]})
+
+
+def manufacturer(request):
+    return render(request, 'listing/manufacturer.html', {})

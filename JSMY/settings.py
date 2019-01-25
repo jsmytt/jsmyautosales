@@ -13,7 +13,27 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+
+
 STATIC_URL = '/static/'
+STATIC_ROOT = '/home/ubuntu/JSMY/static/'
+
+STATIC_DIR = '/home/ubuntu/JSMY/'
+
+
+STATICFILES_DIRS = [
+    '/home/ubuntu/JSMY/listing/static/',
+    '/home/ubuntu/venv/lib/python3.6/site-packages/django/contrib/admin/static/',
+
+]
+
+
+
+
+
+
+
+
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 

@@ -179,5 +179,8 @@ def faq_detail(request,car_slug):
     return render(request, 'listing/faq_detail.html', {'dfs': df[0]})
 
 
+def quotation(request):
+    return render(request, 'listing/quotation.html',{})
+
 def manufacturer(request):
-    return render(request, 'listing/manufacturer.html', {})
+    return render(request, 'listing/manufacturer.html',{})

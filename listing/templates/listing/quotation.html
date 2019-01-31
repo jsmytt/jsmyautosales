@@ -37,10 +37,21 @@
             </script>
             <span>
                 <form action="{% url 'email' %}" method="post">{% csrf_token %}
-                    <p>Your Email:<br><textarea name="custemail" rows="1" cols="30"></textarea></p>
-                    <p>Your Phone Number:<br><textarea name="phone" rows="1" cols="30"></textarea></p>
+                    <p>Your Name [성함]:<br><textarea name="name" rows="1" cols="30"></textarea></p>
+                    <p>Your Email [이메일]:<br><textarea name="custemail" rows="1" cols="30"></textarea></p>
+                    <p>Your Phone Number [전화번호]:<br><textarea name="phone" rows="1" cols="30"></textarea></p>
+                    <p>What would you like to inquire about? [항목]<br>
+                        <select name="service">
+                            <option value="New Vehicles">New Vehicles [새차 리스 및 구입]</option>
+                            <option value="Used Vehicles">Consigned Used Vehicles [직거래 중고차]</option>
+                            <option value="Rental Vehicles">Rental Vehicles [장.단기 렌트카]</option>
+                            <option value="Insurance">Insurance [차량 보험]</option>
+                            <option value="Special Services">Special Establishment Service [정착 서비스]</option>
+                            <option value="Other/Etc">Other [기타 사항]</option>
+                        </select>
+                    </p>
                     <p>Email Subject:<br><textarea name="topic" rows="1" cols="100">{{ dfs.title }}</textarea></p>
-                    <p>Message:<br><textarea name="body" rows="10" cols="100"></textarea></p>
+                    <p>Message [내용]:<br><textarea name="body" rows="10" cols="100"></textarea></p>
                     <button type="submit" value="Send" onclick="display()"> SEND </button>
                 </form>
             </span>

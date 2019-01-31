@@ -16,6 +16,15 @@
             <br>
             <p> {{ dfs.body|safe }}</p>
             <p>Posted: {{ dfs.created }}</p>
+            <br>
+            <h4>Download links below</h4>
+            {% for files in df3 %}
+                <a href="/../media/{{ files.attachment }}" download id="fname{{ files.id }}"></a><br>
+                <script type="text/javascript" language="javascript">
+                    var j = '{{ files.attachment }}';
+                    document.getElementById('fname{{ files.id }}').innerHTML = j.replace('listing/ath/','');
+                </script>
+            {% endfor %}
         </div>
     </div>
 

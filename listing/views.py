@@ -146,13 +146,6 @@ def car_detail(request,car_slug):
 
     return render(request, 'listing/list_detail.html', {'dfs': df[0], 'df2':df2})
 
-# def car_images(request, car_slug):
-#     cursor = connection.cursor()
-#     car_name = re.sub(".*[s]+[l]+[u]+[g]+[\%]+[3]+[D]", "", str(request.build_absolute_uri()))
-#     cursor.execute('select listing_carimg.LImage,listing_car.slug, from listing_car inner join listing_carimg on listing_car.id = listing_carimg.car_id where listing_car.slug = \"' \
-#              + str(car_name) + '\" ORDER BY listing_car.id desc')
-#     dfimage = dictfetchall(cursor)
-#     return render(request, 'listing/list_detail.html', {'dfimage': dfimage})
 
 def faq(request):
     posts = Car.object.filter(type="faq", sold="Sale", publish=True, created__lte=timezone.now()).order_by('-pk')
@@ -176,7 +169,22 @@ def faq_detail(request,car_slug):
     cursor.execute(query1)
     df = dictfetchall(cursor)
 
-    return render(request, 'listing/faq_detail.html', {'dfs': df[0]})
+    cursor2 = connection.cursor()
+
+    query2 = 'select listing_carimg.LImage,listing_car.slug from listing_car inner join listing_carimg on listing_car.id = listing_carimg.car_id where listing_car.slug = \"' \
+              + str(car_name) + '\" ORDER BY listing_car.id desc'
+    cursor2.execute(query2)
+    df2 = dictfetchall(cursor2)
+
+    cursor3 = connection.cursor()
+
+    query3 = 'select listing_faqath.attachment, listing_faqath.id ,listing_car.slug from listing_car inner join listing_faqath on listing_car.id = listing_faqath.car_id where listing_car.slug = \"' \
+              + str(car_name) + '\" ORDER BY listing_car.id desc'
+    cursor3.execute(query3)
+    df3 = dictfetchall(cursor3)
+
+    filename = re.sub(".*\/","",df3[0]['attachment'])
+    return render(request, 'listing/faq_detail.html', {'dfs': df[0],'df2':df2, "df3":df3})
 
 
 def quotation(request):
@@ -184,3 +192,4 @@ def quotation(request):
 
 def manufacturer(request):
     return render(request, 'listing/manufacturer.html',{})
+

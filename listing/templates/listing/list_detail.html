@@ -22,7 +22,7 @@ img:hover.a {
 </style>
 
 <div class="section">
-    <div class="container" align="center">
+    <div class="container" align="left">
         <h1>
             {{ dfs.title }} - {{ dfs.type }}
             {% if dfs.type != 'New' %}
@@ -31,7 +31,7 @@ img:hover.a {
         </h1>
     </div>
 
-    <div class="container">
+    <div class="container hid">
         <script type="text/javascript" language="javascript">
             function changeImage(img){
                 document.getElementById('bigImage').src=img;
@@ -41,11 +41,11 @@ img:hover.a {
             {% for df2s in df2|slice:':1' %}
             <img src="/../media/{{ df2s.LImage }}" alt="" width="325" height="235" id="bigImage"/>
             {% endfor %}
-            <div>
+            <div class="hidden-xs hidden-sm">
                 {% for df2s in df2|slice:':3' %}
                     <img class="a" style="padding-top: 10px" src="/../media/{{ df2s.LImage }}" width="90" height="70" onmouseover="changeImage('/../media/{{ df2s.LImage }}')">
                 {% endfor %}
-                    <img style="padding-top: 30px" src="{% static 'ad-1.jpg' %}">
+                    <img style="padding-top: 40px" src="{% static 'JSMY_Namecard.png' %}" width="325">
             </div>
         </div>
 

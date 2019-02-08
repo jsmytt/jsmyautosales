@@ -28,12 +28,6 @@ STATICFILES_DIRS = [
 ]
 
 
-
-
-
-
-
-
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
@@ -82,9 +76,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'jsmyinfo@gmail.com'
-EMAIL_HOST_PASSWORD = 'Jmyy040110'
-
+EMAIL_HOST_USER = 'jsmyautosales@gmail.com'
+EMAIL_HOST_PASSWORD = 'JsmyautoSales1'
 
 
 ROOT_URLCONF = 'JSMY.urls'
@@ -101,7 +94,6 @@ TEMPLATES = [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
-
                 'django.contrib.messages.context_processors.messages',
             ],
         },
@@ -162,13 +154,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_USE_TLS = True
-EMAIL_PORT = 587
-EMAIL_HOST_USER = 'jsmyautosales@gmail.com'
-EMAIL_HOST_PASSWORD = 'JsmyautoSales'
 
 
 # Static files (CSS, JavaScript, Images)

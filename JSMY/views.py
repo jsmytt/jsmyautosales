@@ -46,12 +46,10 @@ class banner(TemplateView):
         cursor.execute(
             'select listing_carimg.LImage, listing_car.price,listing_car.slug, listing_car.title from listing_car inner join listing_carimg on listing_car.id = listing_carimg.car_id where listing_carimg.mainimage = 1 and listing_car.type ="Lease" and listing_car.publish = 1 ORDER BY listing_car.id desc ')
         dfLease = dictfetchall(cursor)
-        em = settings.EMAIL_HOST_PASSWORD
-        emi = settings.EMAIL_HOST_USER
 
         context = {"new":new, "lease":lease, "lennew":lennew, "lenused":lenused, "lenlease":lenlease, 'dfUsed':dfUsed,'dfLease':dfLease,
                    "BImage1": BImage1, "BImage2": BImage2, "BImage3": BImage3, "BImage4": BImage4, "BImage5": BImage5,
-                   "Blink1": Blink1, "Blink2": Blink2, "Blink3": Blink3, "Blink4": Blink4, "Blink5": Blink5, 'em':em, 'emi':emi
+                   "Blink1": Blink1, "Blink2": Blink2, "Blink3": Blink3, "Blink4": Blink4, "Blink5": Blink5,
                    }
         return render(request, self.template_name, context)
 
@@ -65,14 +63,12 @@ def email(request):
         service = form.cleaned_data.get('service')
         message = name+"\n"+"\n"+"Customer Email:" +"  "+ custemail +"\n"+"\n"+ "Customer Phone Number:" +"  "+ phone_number +"\n"+"\n"+"Service Type:" +"  "+ service +"\n"+"\n"+ " " +"\n"+"\n"+form.cleaned_data.get('body')
         email_from = settings.EMAIL_HOST_USER
-        recipient_list = ['jsmyinfo@gmail.com']
+        recipient_list = ['jsmyautosales@gmail.com']
         send_mail( subject, message, email_from, recipient_list )
-    send_mail('hi','hi',settings.EMAIL_HOST_USER,['jsmyinfo@gmail.com'])
     return redirect('index')
 
 def calculator(request):
     return render(request, 'listing/calculator.html',{})
-
 
 def search(request):
     if request.method == 'GET':

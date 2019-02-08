@@ -29,8 +29,8 @@ a span {
 {% block summary %}
 
 <body>
-<br>
-<br>
+    <br>
+    <br>
     {% for Car in pag %}
         <div class="container">
             <a href="{% url 'listing:faqdetail' Car.slug%}">

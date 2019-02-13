@@ -64,7 +64,7 @@ def email(request):
         service = form.cleaned_data.get('service')
         message = name+"\n"+"\n"+"Customer Email:" +"  "+ custemail +"\n"+"\n"+ "Customer Phone Number:" +"  "+ phone_number +"\n"+"\n"+"Service Type:" +"  "+ service +"\n"+"\n"+ " " +"\n"+"\n"+form.cleaned_data.get('body')
         email_from = settings.EMAIL_HOST_USER
-        recipient_list = ['jsmyautosales@gmail.com']
+        recipient_list = ['justin@jsmyautosales.com']
         send_mail( subject, message, email_from, recipient_list )
     return redirect('index')
 

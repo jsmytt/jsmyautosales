@@ -29,6 +29,11 @@ urlpatterns = [
     path('email/',views.email,name='email'),
     path('jsmycalculator/',views.calculator,name='calculator'),
     path('search/', views.search, name='search'),
+    path('hanin/', views.hanin, name='hanin'),
+path('program/', views.programImg, name='program'),
+path('migration/', views.migrationImg, name='migration'),
+path('rental/', views.rentalImg, name='rental'),
+path('lease/', views.leasedealImg1, name='lease'),
 ]
 
 

@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
 
 <style>
-a {
+a.ad2 {
     display: block;
     text-decoration: none;
 }
@@ -34,7 +34,7 @@ a span {
         {% for Car in pag %}
 
             <div class="container">
-                <a href="{% url 'listing:detailListing' Car.slug%}">
+                <a href="{% url 'listing:detailListing' Car.slug%}" class="ad2">
                     <img src="/../media/{{ Car.LImage }}" width="70" height="70" align="middle" hspace="20">
                     <span class="a">{{ Car.title }}<br>${{ Car.price|floatformat:0|intcomma }}</span>
                 </a>
@@ -47,7 +47,7 @@ a span {
             {% if pag.has_other_pages %}
                 <ul class="pagination">
                     {% if pag.has_previous %}
-                        <li><a href="?page={{ pag.previous_page_number }}">&laquo;</a></li>
+                        <li><a href="?page={{ pag.previous_page_number }}" class="ad2">&laquo;</a></li>
                     {% else %}
                         <li class="disabled"><span>&laquo;</span></li>
                     {% endif %}

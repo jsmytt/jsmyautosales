@@ -41,8 +41,10 @@
 			<div id="nav-top">
 				<div class="container">
                     <ul class="nav-social">
-                        <li><a href="https://www.facebook.com/jsmyautosalesinc/"><i class="fa fa-facebook"></i></a></li>
-                        <li><a href="https://www.instagram.com/jsmyautosalesinc/"><i class="fa fa-instagram"></i></a></li>
+                        <li><a href="https://cafe.naver.com/jsmyautosales/"><img src="{% static 'navericon.png' %}" width="16"></a></li>
+                        <li><a href="https://www.facebook.com/jsmyautosales/"><i class="fa fa-facebook"></i></a></li>
+                        <li><a href="https://www.instagram.com/jsmyautosales/"><i class="fa fa-instagram"></i></a></li>
+
                     </ul>
 					<!-- logo -->
 					<div class="nav-logo">
@@ -78,18 +80,8 @@
 						</li>
 						<li><a href="{% url 'listing:rentalListing' %}">Rental Vehicles<br>[렌트카]</a></li>
 						<li><a href="{% url 'listing:faq' %}">New Driver FAQ<br>[정보게시판]</a></li>
-						<li class="has-dropdown">
-                            <a>About Us<br>[오시는길]</a>
-                            <div class="dropdown">
-								<div class="dropdown-body">
-                                    <ul class="dropdown-list">
-                                        <li><a href="{% url 'listing:contactus' %}">Contact Us</a></li>
-                                        <li><a href="{% url 'listing:quotation' %}">Quotation</a></li>
 
-                                    </ul>
-								</div>
-							</div>
-                        </li>
+						<li><a href="{% url 'listing:contactus' %}">CONTACT US<br>[오시는길]</a></li>
 					</ul>
 				</div>
 		    </div>

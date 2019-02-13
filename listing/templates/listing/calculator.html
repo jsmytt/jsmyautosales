@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <HTML>
 <HEAD>
-
+{% load static %}
 <link rel="stylesheet" href="style1.css" type="text/css"/>
 
 
@@ -534,9 +534,9 @@ function fncChecked(num)
 
 	<TABLE width='700' border='0' bordercolor='#dbd7a2'>
 		<tr>
- 			<td align="left"><a href = "http://www.jsmyautosales.com" target="_blank"><img src="http://www.carincaauto.club/mw_logo.gif"></a></img> </td>
+ 			<td align="left"><a href = "http://www.jsmyautosales.com" target="_blank"><img src="{% static 'logo.png' %}" width="60"></a></img> </td>
  	                        <td align="left"><a href = "https://www.cdtfa.ca.gov/taxes-and-fees/rates.aspx" target="_blank">TAX RATE</a></td>
-	                        <td align="left"><a href="http://www.carincaauto.club/haninfcu.jpg" target="_blank">HANIN</a> </td>
+	                        <td align="left"><a href="{% url 'hanin' %}">HANIN</a> </td>
 									<td align="left" ><a href="http://www.karpower.com/Marketing/index.aspx" target="_blank">KARPOWER</a> </td>
 									<td align="left" ><a href="https://www.autocheck.com/members/login.do" target="_blank">AUTOCHECK</a> </td>
 									<td align="left" ><a href="http://www.carincaauto.club/jsmy.php" target="_blank">NEW TAB</a> </td>
@@ -771,7 +771,7 @@ function fncChecked(num)
 		<tr>
  			<td align="left"><a href = "http://www.jsmyautosales.com" target="_blank"><img src="http://www.carincaauto.club/mw_logo.gif"></a></img> </td>
  	                        <td align="left"><a href = "https://www.cdtfa.ca.gov/taxes-and-fees/rates.aspx" target="_blank">TAX RATE</a></td>
-	                        <td align="left"><a href="http://www.carincaauto.club/haninfcu.jpg" target="_blank">HANIN</a> </td>
+	                        	                        <td align="left"><a href="{% url 'hanin' %}">HANIN</a> </td>
 									<td align="left" ><a href="http://www.karpower.com/Marketing/index.aspx" target="_blank">KARPOWER</a> </td>
 									<td align="left" ><a href="https://www.autocheck.com/members/login.do" target="_blank">AUTOCHECK</a> </td>
 									<td align="left" ><a href="http://www.carincaauto.club/jsmy.php" target="_blank">NEW TAB</a> </td>
@@ -981,7 +981,7 @@ function fncChecked(num)
  <tr>
  	<td align="left"><a href = "http://www.jsmyautosales.com" target="_blank"><img src="http://www.carincaauto.club/mw_logo.gif"></a></img> </td>
     <td align="left"><a href = "https://www.cdtfa.ca.gov/taxes-and-fees/rates.aspx" target="_blank">TAX RATE</a></td>
-    <td align="left"><a href="http://www.carincaauto.club/haninfcu.jpg" target="_blank">HANIN</a> </td>
+    	                        <td align="left"><a href="{% url 'hanin' %}">HANIN</a> </td>
 		<td align="left" ><a href="http://www.karpower.com/Marketing/index.aspx" target="_blank">KARPOWER</a> </td>
 		<td align="left" ><a href="https://www.autocheck.com/members/login.do" target="_blank">AUTOCHECK</a> </td>
 		<td align="left" ><a href="http://www.carincaauto.club/jsmy.php" target="_blank">NEW TAB</a> </td>

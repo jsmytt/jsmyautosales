@@ -12,8 +12,14 @@ class banner(models.Model):
     Blink4 = models.URLField(max_length=100, null=True, blank=True, verbose_name="Banner Link 4")
     BImage5 = models.ImageField(null=True, blank=False, upload_to="banner", verbose_name="Banner Image 5")
     Blink5 = models.URLField(max_length=100, null=True, blank=True, verbose_name="Banner Link 5")
-
+    hanin = models.ImageField(null=True, blank=False, upload_to="banner", verbose_name="Hanin")
+    Program = models.ImageField(null=True, blank=False, upload_to="banner", verbose_name="Program")
+    leasedeal = models.ImageField(null=True, blank=False, upload_to="banner", verbose_name="leasedeal")
+    rental = models.ImageField(null=True, blank=False, upload_to="banner", verbose_name="rental")
+    migration = models.ImageField(null=True, blank=False, upload_to="banner", verbose_name="migration")
 
     class Meta:
         verbose_name = "Banner"
         verbose_name_plural = "Banners"
+
+

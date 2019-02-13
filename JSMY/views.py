@@ -37,6 +37,7 @@ class banner(TemplateView):
         Blink4 = bn.objects.values()[0]['Blink4']
         Blink5 = bn.objects.values()[0]['Blink5']
 
+
         cursor = connection.cursor()
 
         cursor.execute(
@@ -68,7 +69,31 @@ def email(request):
     return redirect('index')
 
 def calculator(request):
-    return render(request, 'listing/calculator.html',{})
+    CalImg1 = bn.objects.values()[0]['hanin']
+    return render(request, 'listing/calculator.html',{'CalImg1':CalImg1})
+
+def hanin(request):
+    CalImg1 = bn.objects.values()[0]['hanin']
+    return render(request, 'listing/hanin.html',{'CalImg1':CalImg1})
+
+def programImg(request):
+    proImg = bn.objects.values()[0]['Program']
+    return render(request, 'listing/programimg.html',{'proImg':proImg})
+def leasedealImg1(request):
+    leaseImg = bn.objects.values()[0]['leasedeal']
+    return render(request, 'listing/leaseimg.html',{'leaseImg':leaseImg})
+def rentalImg(request):
+    rentalImg1 = bn.objects.values()[0]['rental']
+    return render(request, 'listing/rentalimg.html',{'rentalImg1':rentalImg1})
+def migrationImg(request):
+    migrationImg1 = bn.objects.values()[0]['migration']
+    return render(request, 'listing/migimg.html',{'migrationImg1':migrationImg1})
+
+
+
+
+
+
 
 def search(request):
     if request.method == 'GET':

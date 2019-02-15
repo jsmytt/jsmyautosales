@@ -30,6 +30,7 @@
 		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
 {% endblock %}
+
 </head>
 
 <body>
@@ -41,10 +42,9 @@
 			<div id="nav-top">
 				<div class="container">
                     <ul class="nav-social">
-                        <li><a href="https://cafe.naver.com/jsmyautosales/"><img src="{% static 'navericon.png' %}" width="16"></a></li>
                         <li><a href="https://www.facebook.com/jsmyautosales/"><i class="fa fa-facebook"></i></a></li>
                         <li><a href="https://www.instagram.com/jsmyautosales/"><i class="fa fa-instagram"></i></a></li>
-
+                        <li><a href="https://cafe.naver.com/jsmyautosales/"><img src="{% static 'navericon.png' %}" width="16"></a></li>
                     </ul>
 					<!-- logo -->
 					<div class="nav-logo">
@@ -292,7 +292,20 @@ ul.a{
                         <ul class="footer-nav">
                             <li><a href="{% url 'index' %}">Home</a></li>
                             <li><a href="{% url 'listing:contactus' %}">Contact Us</a></li>
-                            <li><a href="{% url 'listing:manufacturer' %}">Manufacturer</a></li>
+                            <li><select name="Manufacturer" onchange="location = this.value;">
+                                <option value="#">Manufacturer</option>
+                                <option value="https://www.Toyota.com">Toyota</option>
+                                <option value="https://www.Lexus.com">Lexus</option>
+                                <option value="https://www.Honda.com">Honda</option>
+                                <option value="https://www.Acura.com">Acura</option>
+                                <option value="https://www.Hyundai.com">Hyundai</option>
+                                <option value="https://www.Kia.com">Kia</option>
+                                <option value="https://www.BMW.com">BMW</option>
+                                <option value="https://www.mbusa.com">Mercedes</option>
+                                <option value="https://www.Mazda.com">Mazda</option>
+                                <option value="https://www.Ford.com">Ford</option>
+                                </select>
+                            </li>
                         </ul>
                     </div>
                     <div class="col-md-6 col-md-pull-6">

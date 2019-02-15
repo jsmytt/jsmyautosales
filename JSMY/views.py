@@ -79,20 +79,18 @@ def hanin(request):
 def programImg(request):
     proImg = bn.objects.values()[0]['Program']
     return render(request, 'listing/programimg.html',{'proImg':proImg})
+
 def leasedealImg1(request):
     leaseImg = bn.objects.values()[0]['leasedeal']
     return render(request, 'listing/leaseimg.html',{'leaseImg':leaseImg})
+
 def rentalImg(request):
     rentalImg1 = bn.objects.values()[0]['rental']
     return render(request, 'listing/rentalimg.html',{'rentalImg1':rentalImg1})
+
 def migrationImg(request):
     migrationImg1 = bn.objects.values()[0]['migration']
     return render(request, 'listing/migimg.html',{'migrationImg1':migrationImg1})
-
-
-
-
-
 
 
 def search(request):

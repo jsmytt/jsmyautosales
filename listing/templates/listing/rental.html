@@ -11,8 +11,6 @@ a {
 }
 a img {
     display: inline-block;
-    width: 80px;
-    height: 80px;
 }
 a span {
     display: inline-block;
@@ -41,7 +39,7 @@ a span {
     {% for Car in pag %}
         <div class="container">
             <a href="{% url 'listing:detailListing' Car.slug%}">
-                <img src="/../media/{{ Car.LImage }}" width="70" height="70" align="middle" hspace="20">
+                <img src="/../media/{{ Car.LImage }}" width="100" height="80" align="middle" hspace="20">
                 <span class="a">{{ Car.title }}<br>${{ Car.price|floatformat:0|intcomma }}</span>
             </a>
             <br>

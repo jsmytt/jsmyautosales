@@ -40,7 +40,7 @@ class banner(TemplateView):
 
         cursor = connection.cursor()
 
-        cursor.execute("select listing_car.sold, listing_car.price, listing_car.slug, listing_car.title, listing_carimg.mainimage from listing_car inner join listing_carimg on listing_car.id = listing_carimg.car_id where listing_carimg.mainimage = True and listing_car.type = 'Used' and listing_car.sold = 'Sale' and listing_car.publish = True ORDER BY listing_car.id desc")
+        cursor.execute("select listing_carimg.limage ,listing_car.sold, listing_car.price, listing_car.slug, listing_car.title, listing_carimg.mainimage from listing_car inner join listing_carimg on listing_car.id = listing_carimg.car_id where listing_carimg.mainimage = True and listing_car.type = 'Used' and listing_car.sold = 'Sale' and listing_car.publish = True ORDER BY listing_car.id desc")
         dfUsed = dictfetchall(cursor)
 
         cursor.execute(
@@ -76,7 +76,7 @@ def hanin(request):
     return render(request, 'listing/hanin.html',{'CalImg1':CalImg1})
 
 def programImg(request):
-    proImg = bn.objects.values()[0]['Program']
+    proImg = bn.objects.values()[0]['program']
     return render(request, 'listing/programimg.html',{'proImg':proImg})
 def leasedealImg1(request):
     leaseImg = bn.objects.values()[0]['leasedeal']
@@ -111,3 +111,12 @@ def search(request):
             status=''
     else:
         return render(request,'listing/search.html',{})
+
+
+
+
+
+
+
+
+

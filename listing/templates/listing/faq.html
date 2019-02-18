@@ -9,7 +9,7 @@ a {
     display: block;
     text-decoration: none;
 }
-a img {
+a.conblock img {
     display: inline-block;
     width: 80px;
     height: 80px;
@@ -33,7 +33,7 @@ a span {
     <br>
     {% for Car in pag %}
         <div class="container">
-            <a href="{% url 'listing:faqdetail' Car.slug%}">
+            <a href="{% url 'listing:faqdetail' Car.slug%}" class="conblock">
                 <li>
                     <span class="a">{{ Car.title }}</span>
                 </li>

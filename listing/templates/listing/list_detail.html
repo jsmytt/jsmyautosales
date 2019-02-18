@@ -36,11 +36,11 @@ img:hover.a {
         </script>
         <div class = "container" style="float:left; width:30%;" align="center">
             {% for df2s in df2|slice:':1' %}
-            <img src="/../media/{{ df2s.LImage }}" alt="" width="325" height="235" id="bigImage"/>
+            <img src="/../media/{{ df2s.limage }}" alt="" width="325" height="235" id="bigImage"/>
             {% endfor %}
             <div class="hidden-xs hidden-sm">
                 {% for df2s in df2|slice:':3' %}
-                    <img class="a" style="padding-top: 10px" src="/../media/{{ df2s.LImage }}" width="90" height="70" onmouseover="changeImage('/../media/{{ df2s.LImage }}')">
+                    <img class="a" style="padding-top: 10px" src="/../media/{{ df2s.limage }}" width="90" height="70" onmouseover="changeImage('/../media/{{ df2s.limage }}')">
                 {% endfor %}
                     <img style="padding-top: 40px" src="{% static 'JSMY_Namecard.png' %}" width="325">
             </div>
@@ -74,7 +74,7 @@ img:hover.a {
 
         <div class="container">
             {% for df2s in df2 %}
-            <p><img style="padding-top: 10px" src="/../media/{{ df2s.LImage }}" class="img-responsive center-block" width="850" height="650"></p>
+            <p><img style="padding-top: 10px" src="/../media/{{ df2s.limage }}" class="img-responsive center-block" width="850" height="650"></p>
             {% endfor %}
             <p>&nbsp;</p>
         </div>

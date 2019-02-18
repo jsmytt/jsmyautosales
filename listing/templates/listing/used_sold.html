@@ -9,7 +9,7 @@ a {
     display: block;
     text-decoration: none;
 }
-a img {
+a.conblock img {
     display: inline-block;
     width: 100px;
     height: 80px;
@@ -40,8 +40,8 @@ a span {
     <br>
     {% for Car in pag %}
         <div class="container">
-            <a href="{% url 'listing:detailListing' Car.slug%}">
-                <img src="/../media/{{ Car.LImage }}" align="middle" hspace="20"><img src="{% static 'sold_jsmy.jpeg' %}" width="70" height="70">
+            <a href="{% url 'listing:detailListing' Car.slug%}" class = "conblock">
+                <img src="/../media/{{ Car.limage }}" align="middle" hspace="20"><img src="{% static 'sold_jsmy.jpeg' %}" width="70" height="70">
                 <span class="a">{{ Car.title }}<br>${{ Car.price|floatformat:0|intcomma }}</span>
             </a>
             <br>

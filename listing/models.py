@@ -27,9 +27,9 @@ class Car(models.Model):
         ordering = ["-created"]
 
 class CarImg(models.Model):
-    LImage = models.ImageField(null=True, blank=False, upload_to="listing")
+    limage = models.ImageField(null=True, blank=False, upload_to="listing")
     car = models.ForeignKey(Car,default='car', on_delete=models.CASCADE , related_name = 'cari')
-    MainImage = models.BooleanField(default = False)
+    mainimage = models.BooleanField(default = False)
 
 
 class faqath(models.Model):

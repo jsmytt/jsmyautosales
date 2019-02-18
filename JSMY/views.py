@@ -26,26 +26,25 @@ class banner(TemplateView):
         lenused=len(Car.object.filter(type="Used", publish=True, created__lte=timezone.now()).order_by('-pk'))
         lease = Car.object.filter(type="Lease", publish=True, created__lte=timezone.now()).order_by('-pk')
         lenlease=len(Car.object.filter(type="Lease", publish=True, created__lte=timezone.now()).order_by('-pk'))
-        BImage1 = bn.objects.values()[0]['BImage1']
-        BImage2 = bn.objects.values()[0]['BImage2']
-        BImage3 = bn.objects.values()[0]['BImage3']
-        BImage4 = bn.objects.values()[0]['BImage4']
-        BImage5 = bn.objects.values()[0]['BImage5']
-        Blink1 = bn.objects.values()[0]['Blink1']
-        Blink2 = bn.objects.values()[0]['Blink2']
-        Blink3 = bn.objects.values()[0]['Blink3']
-        Blink4 = bn.objects.values()[0]['Blink4']
-        Blink5 = bn.objects.values()[0]['Blink5']
+        BImage1 = bn.objects.values()[0]['bimage1']
+        BImage2 = bn.objects.values()[0]['bimage2']
+        BImage3 = bn.objects.values()[0]['bimage3']
+        BImage4 = bn.objects.values()[0]['bimage4']
+        BImage5 = bn.objects.values()[0]['bimage5']
+        Blink1 = bn.objects.values()[0]['blink1']
+        Blink2 = bn.objects.values()[0]['blink2']
+        Blink3 = bn.objects.values()[0]['blink3']
+        Blink4 = bn.objects.values()[0]['blink4']
+        Blink5 = bn.objects.values()[0]['blink5']
 
 
         cursor = connection.cursor()
 
-        cursor.execute(
-            'select listing_carimg.LImage, listing_car.sold, listing_car.price,listing_car.slug, listing_car.title from listing_car inner join listing_carimg on listing_car.id = listing_carimg.car_id where listing_carimg.mainimage = 1 and listing_car.type ="Used" and listing_car.sold ="Sale" and listing_car.publish = 1 ORDER BY listing_car.id desc ')
+        cursor.execute("select listing_car.sold, listing_car.price, listing_car.slug, listing_car.title, listing_carimg.mainimage from listing_car inner join listing_carimg on listing_car.id = listing_carimg.car_id where listing_carimg.mainimage = True and listing_car.type = 'Used' and listing_car.sold = 'Sale' and listing_car.publish = True ORDER BY listing_car.id desc")
         dfUsed = dictfetchall(cursor)
 
         cursor.execute(
-            'select listing_carimg.LImage, listing_car.price,listing_car.slug, listing_car.title from listing_car inner join listing_carimg on listing_car.id = listing_carimg.car_id where listing_carimg.mainimage = 1 and listing_car.type ="Lease" and listing_car.publish = 1 ORDER BY listing_car.id desc ')
+            "select listing_carimg.limage, listing_car.price, listing_car.slug, listing_car.title from listing_car inner join listing_carimg on listing_car.id = listing_carimg.car_id where listing_carimg.mainimage = True and listing_car.type ='Lease' and listing_car.publish = True ORDER BY listing_car.id desc")
         dfLease = dictfetchall(cursor)
 
         context = {"new":new, "lease":lease, "lennew":lennew, "lenused":lenused, "lenlease":lenlease, 'dfUsed':dfUsed,'dfLease':dfLease,
@@ -101,7 +100,7 @@ def search(request):
         try:
             cursor = connection.cursor()
             cursor.execute(
-                'select listing_carimg.LImage, listing_car.price,listing_car.slug, listing_car.title from listing_car inner join listing_carimg on listing_car.id = listing_carimg.car_id where listing_carimg.mainimage = 1 and listing_car.publish = 1 and listing_car.slug= \"' + car_name + '\" ORDER BY listing_car.created desc '
+                'select listing_carimg.limage, listing_car.price,listing_car.slug, listing_car.title from listing_car inner join listing_carimg on listing_car.id = listing_carimg.car_id where listing_carimg.mainimage = True and listing_car.publish = 1 and listing_car.slug= \"' + car_name + '\" ORDER BY listing_car.created desc '
             )
 
             dfUsed = dictfetchall(cursor)

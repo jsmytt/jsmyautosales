@@ -124,19 +124,28 @@ WSGI_APPLICATION = 'JSMY.wsgi.application'
 
 
 
+#DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'JSMYDB',
+#         'USER':'JSMYroot',
+#         'PASSWORD': 'ChipFanjsmy',
+#         'HOST':'jsmy.ckpvvet77kto.us-west-1.rds.amazonaws.com',
+#         'PORT': '3306'
+#     }
+# }
+
+
 DATABASES = {
      'default': {
-         'ENGINE': 'django.db.backends.mysql',
-         'NAME': 'JSMYDB',
-         'USER':'JSMYroot',
+         'ENGINE': 'django.db.backends.postgresql',
+         'NAME': 'jsmypostgres',
+         'USER':'jsmyroot',
          'PASSWORD': 'ChipFanjsmy',
-         'HOST':'jsmy.ckpvvet77kto.us-west-1.rds.amazonaws.com',
-         'PORT': '3306'
+         'HOST':'jsmypostgresdb.ckpvvet77kto.us-west-1.rds.amazonaws.com',
+         'PORT': '5432'
      }
- }
-
-
-
+}
 
 
 
@@ -163,6 +172,19 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
+LANGUAGES = (
+('en', 'English'),
+('ko', 'Korean'),
+
+)
+locale = (
+#English
+('en', u'English'),
+#korean
+('ko', u'Korean'),
+
+)
+
 
 TIME_ZONE = 'UTC'
 

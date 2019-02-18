@@ -22,13 +22,13 @@ class new(TemplateView):
 
         cursor = connection.cursor()
         cursor.execute(
-            'select listing_carimg.LImage, listing_car.price,listing_car.slug, listing_car.title from listing_car inner join listing_carimg on listing_car.id = listing_carimg.car_id where listing_carimg.mainimage = 1 and listing_car.type ="New" and listing_car.publish = 1 ORDER BY listing_car.id desc ')
+            "select listing_carimg.limage, listing_car.price, listing_car.slug, listing_car.title from listing_car inner join listing_carimg on listing_car.id = listing_carimg.car_id where listing_carimg.mainimage = True and listing_car.type = 'New' and listing_car.publish = True ORDER BY listing_car.id desc ")
 
         df = dictfetchall(cursor)
 
         posts = Car.object.filter(type="New", publish=True, created__lte=timezone.now()).order_by('-pk')
         page = request.GET.get('page', 1)
-        car_img = CarImg.objects.filter(MainImage=True).order_by('-pk').select_related('car')
+        car_img = CarImg.objects.filter(mainimage=True).order_by('-pk').select_related('car')
 
         paginator = Paginator(df, 20)
         try:
@@ -48,7 +48,7 @@ class used(TemplateView):
 
         cursor = connection.cursor()
         cursor.execute(
-            'select listing_carimg.LImage, listing_car.price,listing_car.slug, listing_car.title from listing_car inner join listing_carimg on listing_car.id = listing_carimg.car_id where listing_carimg.mainimage = 1 and listing_car.type ="Used" and listing_car.publish = 1 ORDER BY listing_car.id desc ')
+            "select listing_carimg.limage as limage, listing_car.price, listing_car.slug, listing_car.title from listing_car inner join listing_carimg on listing_car.id = listing_carimg.car_id where listing_carimg.mainimage = True and listing_car.type = 'Used' and listing_car.publish = True ORDER BY listing_car.id desc ")
 
         df = dictfetchall(cursor)
 
@@ -71,7 +71,7 @@ class lease(TemplateView):
     def get(self, request,):
         cursor = connection.cursor()
         cursor.execute(
-            'select listing_carimg.LImage, listing_car.price,listing_car.slug, listing_car.title from listing_car inner join listing_carimg on listing_car.id = listing_carimg.car_id where listing_carimg.mainimage = 1 and listing_car.type ="Lease" and listing_car.publish = 1 ORDER BY listing_car.id desc ')
+            "select listing_carimg.limage, listing_car.price, listing_car.slug, listing_car.title from listing_car inner join listing_carimg on listing_car.id = listing_carimg.car_id where listing_carimg.mainimage = True and listing_car.type = 'Lease' and listing_car.publish = True ORDER BY listing_car.id desc ")
 
         df = dictfetchall(cursor)
         posts = Car.object.filter(type="Lease", publish=True, created__lte=timezone.now()).order_by('-pk')
@@ -91,7 +91,7 @@ class lease(TemplateView):
 def usedsold(request):
     cursor = connection.cursor()
     cursor.execute(
-        'select listing_carimg.LImage,listing_car.sold, listing_car.price,listing_car.slug, listing_car.title from listing_car inner join listing_carimg on listing_car.id = listing_carimg.car_id where listing_carimg.mainimage = 1 and listing_car.type ="Used" and listing_car.sold ="Solded" and listing_car.publish = 1 ORDER BY listing_car.id desc ')
+        "select listing_carimg.limage, listing_car.sold, listing_car.price,listing_car.slug, listing_car.title from listing_car inner join listing_carimg on listing_car.id = listing_carimg.car_id where listing_carimg.mainimage = True and listing_car.type = 'Used' and listing_car.sold = 'Solded' and listing_car.publish = True ORDER BY listing_car.id desc ")
 
     df = dictfetchall(cursor)
     posts = Car.object.filter(type="Used", sold="Sold", publish=True, created__lte=timezone.now()).order_by('-pk')
@@ -110,7 +110,7 @@ def usedsold(request):
 def usedsale(request):
     cursor = connection.cursor()
     cursor.execute(
-        'select listing_carimg.LImage,listing_car.sold, listing_car.price,listing_car.slug, listing_car.title from listing_car inner join listing_carimg on listing_car.id = listing_carimg.car_id where listing_carimg.mainimage = 1 and listing_car.type ="Used" and listing_car.sold ="Sale" and listing_car.publish = 1 ORDER BY listing_car.id desc ')
+        "select listing_carimg.limage, listing_car.sold, listing_car.price,listing_car.slug, listing_car.title from listing_car inner join listing_carimg on listing_car.id = listing_carimg.car_id where listing_carimg.mainimage = True and listing_car.type = 'Used' and listing_car.sold = 'Sale' and listing_car.publish = True ORDER BY listing_car.id desc ")
 
     df = dictfetchall(cursor)
     posts = Car.object.filter(type="Used", sold="Sale", publish=True, created__lte=timezone.now()).order_by('-pk')
@@ -132,15 +132,13 @@ def car_detail(request,car_slug):
     cursor = connection.cursor()
 
     car_name = re.sub(".*[s]+[l]+[u]+[g]+[\%]+[3]+[D]", "", str(request.build_absolute_uri()))
-    query1 = 'select listing_car.created,listing_car.body ,listing_car.sold, listing_car.price,listing_car.slug, listing_car.title, listing_car.type from listing_car inner join listing_carimg on listing_car.id = listing_carimg.car_id where listing_carimg.mainimage = 1 and listing_car.slug = \"' \
-             + str(car_name) + '\" ORDER BY listing_car.id desc'
+    query1 = "select listing_car.created, listing_car.body ,listing_car.sold, listing_car.price, listing_car.slug, listing_car.title, listing_car.type from listing_car inner join listing_carimg on listing_car.id = listing_carimg.car_id where listing_carimg.mainimage = True and listing_car.slug = \'" + str(car_name) + "\' ORDER BY listing_car.id desc"
     cursor.execute(query1)
     df = dictfetchall(cursor)
 
     cursor2 = connection.cursor()
 
-    query2 = 'select listing_carimg.LImage,listing_car.slug from listing_car inner join listing_carimg on listing_car.id = listing_carimg.car_id where listing_car.slug = \"' \
-              + str(car_name) + '\" ORDER BY listing_car.id desc'
+    query2 = "select listing_carimg.limage,listing_car.slug from listing_car inner join listing_carimg on listing_car.id = listing_carimg.car_id where listing_car.slug = \'" + str(car_name) + "\' ORDER BY listing_car.id desc"
     cursor2.execute(query2)
     df2 = dictfetchall(cursor2)
 
@@ -164,22 +162,19 @@ def faq_detail(request,car_slug):
     cursor = connection.cursor()
 
     car_name = re.sub(".*[s]+[l]+[u]+[g]+[\%]+[3]+[D]", "", str(request.build_absolute_uri()))
-    query1 = 'select listing_car.created,listing_car.body ,listing_car.sold, listing_car.price,listing_car.slug, listing_car.title from listing_car where listing_car.slug = \"' \
-             + str(car_name) + '\" ORDER BY listing_car.id desc'
+    query1 = "select listing_car.created,listing_car.body ,listing_car.sold, listing_car.price,listing_car.slug, listing_car.title from listing_car where listing_car.slug = \'" + str(car_name) + "\' ORDER BY listing_car.id desc"
     cursor.execute(query1)
     df = dictfetchall(cursor)
 
     cursor2 = connection.cursor()
 
-    query2 = 'select listing_carimg.LImage,listing_car.slug from listing_car inner join listing_carimg on listing_car.id = listing_carimg.car_id where listing_car.slug = \"' \
-              + str(car_name) + '\" ORDER BY listing_car.id desc'
+    query2 = "select listing_carimg.limage,listing_car.slug from listing_car inner join listing_carimg on listing_car.id = listing_carimg.car_id where listing_car.slug = \'" + str(car_name) + "\' ORDER BY listing_car.id desc"
     cursor2.execute(query2)
     df2 = dictfetchall(cursor2)
 
     cursor3 = connection.cursor()
 
-    query3 = 'select listing_faqath.attachment, listing_faqath.id ,listing_car.slug from listing_car inner join listing_faqath on listing_car.id = listing_faqath.car_id where listing_car.slug = \"' \
-              + str(car_name) + '\" ORDER BY listing_car.id desc'
+    query3 = "select listing_faqath.attachment, listing_faqath.id ,listing_car.slug from listing_car inner join listing_faqath on listing_car.id = listing_faqath.car_id where listing_car.slug = \'" + str(car_name) + "\' ORDER BY listing_car.id desc"
     cursor3.execute(query3)
     df3 = dictfetchall(cursor3)
 

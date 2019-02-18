@@ -40,11 +40,11 @@ class banner(TemplateView):
 
         cursor = connection.cursor()
 
-        cursor.execute("select listing_carimg.limage ,listing_car.sold, listing_car.price, listing_car.slug, listing_car.title, listing_carimg.mainimage from listing_car inner join listing_carimg on listing_car.id = listing_carimg.car_id where listing_carimg.mainimage = True and listing_car.type = 'Used' and listing_car.sold = 'Sale' and listing_car.publish = True ORDER BY listing_car.id desc")
+        cursor.execute("select listing_carimg.limage ,listing_car.sold, listing_car.price, listing_car.slug, listing_car.title, listing_carimg.mainimage from listing_car inner join listing_carimg on listing_car.id = listing_carimg.car_id where listing_carimg.mainimage = TRUE and listing_car.type = 'Used' and listing_car.sold = 'Sale' and listing_car.publish = TRUE ORDER BY listing_car.id desc, listing_carimg.id desc")
         dfUsed = dictfetchall(cursor)
 
         cursor.execute(
-            "select listing_carimg.limage, listing_car.price, listing_car.slug, listing_car.title from listing_car inner join listing_carimg on listing_car.id = listing_carimg.car_id where listing_carimg.mainimage = True and listing_car.type ='Lease' and listing_car.publish = True ORDER BY listing_car.id desc")
+            "select listing_carimg.limage, listing_car.price, listing_car.slug, listing_car.title from listing_car inner join listing_carimg on listing_car.id = listing_carimg.car_id where listing_carimg.mainimage = True and listing_car.type ='Lease' and listing_car.publish = True ORDER BY listing_car.id desc, listing_carimg.id desc")
         dfLease = dictfetchall(cursor)
 
         context = {"new":new, "lease":lease, "lennew":lennew, "lenused":lenused, "lenlease":lenlease, 'dfUsed':dfUsed,'dfLease':dfLease,
@@ -100,7 +100,7 @@ def search(request):
         try:
             cursor = connection.cursor()
             cursor.execute(
-                'select listing_carimg.limage, listing_car.price,listing_car.slug, listing_car.title from listing_car inner join listing_carimg on listing_car.id = listing_carimg.car_id where listing_carimg.mainimage = True and listing_car.publish = 1 and listing_car.slug= \"' + car_name + '\" ORDER BY listing_car.created desc '
+                'select listing_carimg.limage, listing_car.price,listing_car.slug, listing_car.title from listing_car inner join listing_carimg on listing_car.id = listing_carimg.car_id where listing_carimg.mainimage = True and listing_car.publish = 1 and listing_car.slug= \"' + car_name + '\" ORDER BY listing_car.created desc ,listing_carimg.id desc'
             )
 
             dfUsed = dictfetchall(cursor)

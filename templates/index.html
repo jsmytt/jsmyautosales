@@ -72,8 +72,8 @@
 							<div class="dropdown">
 								<div class="dropdown-body">
                                     <ul class="dropdown-list">
-                                        <li><a href="{% url 'listing:sale' %}">For Sale</a></li>
-                                        <li><a href="{% url 'listing:sold' %}">Sold</a></li>
+                                        <li><a href="{% url 'listing:sale' %}">For Sale [판매중]</a></li>
+                                        <li><a href="{% url 'listing:sold' %}">Sold [판매 완료]</a></li>
                                     </ul>
 								</div>
 							</div>
@@ -81,7 +81,7 @@
 						<li><a href="{% url 'listing:rentalListing' %}">Rental Vehicles<br>[렌트카]</a></li>
 						<li><a href="{% url 'listing:faq' %}">New Driver FAQ<br>[정보게시판]</a></li>
 
-						<li><a href="{% url 'listing:contactus' %}">CONTACT US<br>[오시는길]</a></li>
+						<li><a href="{% url 'listing:contactus' %}">ABOUT US<br>[오시는길]</a></li>
 					</ul>
 				</div>
 		    </div>
@@ -108,9 +108,20 @@ ul.a{
                         <div class="col-md-12">
                             <div class="col-md-9">
                                 <div class="post">
-                                    <div class="post hidden-xs">
+                                    <div class="post visible-lg">
                                     <a href="{{ Blink1 }}"><img src="media/{{ BImage1 }}" width="815" height="250"> </a>
                                     </div>
+                                    <div class="post visible-md">
+                                    <a href="{{ Blink1 }}"><img src="media/{{ BImage1 }}" width="815" height="250"> </a>
+                                    </div>
+
+                                    <div class="post visible-sm">
+                                    <a href="{{ Blink1 }}"><img src="media/{{ BImage1 }}" width="815" height="250"> </a>
+                                    </div>
+                                    <div class="post visible-xs">
+                                    <a href="{{ Blink1 }}"><img src="media/{{ BImage1 }}" width="100%"> </a>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
@@ -277,6 +288,33 @@ ul.a{
                         <a href="{{ Blink5 }}"><img src="media/{{BImage5}}" width="300" height="250" alt=""></a>
                     </div>
                 </div>
+
+                <div class="col-md-3 visible-xs visible-sm">
+                    <div class="post">
+                        <a href="{{ Blink2 }}"><img src="media/{{BImage2}}" width="90" height="120" alt=""></a>
+                        <a href="{{ Blink3 }}"><img src="media/{{BImage3}}" width="90" height="120" alt=""></a>
+                        <a href="{{ Blink4 }}"><img src="media/{{BImage4}}" width="90" height="120" alt=""></a>
+                        <a href="{{ Blink5 }}"><img src="media/{{BImage5}}" width="90" height="120" alt=""></a>
+                    </div>
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             </div>
         </div>
     </div>

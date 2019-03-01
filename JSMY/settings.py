@@ -41,9 +41,15 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 SECRET_KEY = 'v4*+%*9t-*q)2+hu5k85@m0l0_3-nsk#l901tyrhpb@zaj^g8i'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SECURE_SSL_REDIRECT = True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+
+
+ALLOWED_HOSTS = ['*','www.jsmyautosales.com','jsmyautosales.com','52.53.87.82']
 
 CKEDITOR_IMAGE_BACKEND = "pillow"
 # Application definition
@@ -194,7 +200,7 @@ USE_L10N = True
 
 USE_TZ = True
 
-
+FILE_UPLOAD_MAX_MEMORY_SIZE = 200000000
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/

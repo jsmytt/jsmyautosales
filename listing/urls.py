@@ -16,7 +16,7 @@ urlpatterns = [
     path('detail/car_slug=<str:car_slug>', views.car_detail, name='detailListing'),
     path('faq/', views.faq, name='faq'),
     path('faqdetail/car_slug=<str:car_slug>', views.faq_detail, name='faqdetail'),
-    path('contactus/', views.TemplateView.as_view(template_name='listing/contactus.html'), name='contactus'),
+    path('aboutus/', views.TemplateView.as_view(template_name='listing/contactus.html'), name='contactus'),
     path('quotation/', views.TemplateView.as_view(template_name='listing/quotation.html'), name='quotation'),
     path('manufacturer/', views.TemplateView.as_view(template_name='listing/manufacturer.html'), name='manufacturer'),
 ]
